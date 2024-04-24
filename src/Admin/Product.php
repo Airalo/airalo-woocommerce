@@ -4,6 +4,7 @@ namespace Airalo\Admin;
 class Product {
 
     private const STATUS_DRAFT = 'draft';
+    private const SKU_PREFIX = 'airalo-';
 
     private ?\WC_Product $product;
 
@@ -19,7 +20,7 @@ class Product {
 
     public function update_or_create( $package, $operator, $item ): void
     {
-        $sku = 'airalo-' . $package['id'];
+        $sku = self::SKU_PREFIX . $package['id'];
         $product = $this->get_product_by_sku( $sku );
         $product = $product ?? new \WC_Product();
         $status = $product->get_status();
