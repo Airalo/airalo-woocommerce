@@ -58,13 +58,4 @@ class Term {
             add_term_meta( $term['term_id'], $termMetadataKey, $imageId );
         }
     }
-
-    private function delete_all_terms($taxonomyName, $termName) {
-        $term = get_term_by('slug', $termName, $taxonomyName);
-        if (is_wp_error($term)) {
-            return;
-        }
-
-        wp_delete_term($term->term_id, $taxonomyName);
-    }
 }
