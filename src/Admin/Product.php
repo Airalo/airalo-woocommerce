@@ -24,6 +24,7 @@ class Product {
         $product = $this->get_product_by_sku( $sku );
         $product = $product ?? new \WC_Product();
         $status = $product->get_status();
+        $this->add_operator_image( $operator, $product );
         if (! $product->get_sku()) {
             $product->set_sku( $sku );
             $status = self::STATUS_DRAFT;
@@ -61,6 +62,14 @@ class Product {
         $this->add_operator_attributes( $operator, $product );
 
         $product->save();
+    }
+
+    private function add_operator_image( array $operator, \WC_Product $product ) {
+        // fetch term using operator name
+        $term = new Term();
+        $term = $term->fetch_or_create_image_term( $operator );
+        $imageId = get_term_meta( $term->term_id, Term::IMAGE_METADATA_KEY, true );
+        $product->set_image_id( $imageId );
     }
 
     private function add_operator_attributes( array $operator, \WC_Product $product ): void {
