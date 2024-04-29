@@ -90,15 +90,7 @@ class Product {
             'network_coverage' => $networkCoverage,
         ];
 
-        $attributes = [];
-        foreach ( $operatorAttributes as $key => $value ) {
-            $attribute = new \WC_Product_Attribute();
-            $attribute->set_id( $key );
-            $attribute->set_name( $key );
-            $attribute->set_options( [$value] );
-
-            $attributes[] = $attribute;
-        }
+        $attributes = ( new Attribute() )->create_attributes( $operatorAttributes );
 
         $product->set_attributes( $attributes );
     }
