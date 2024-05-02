@@ -59,7 +59,7 @@ class Product {
         $product->set_stock_quantity( $package['amount'] );
         $product->set_virtual( true );
 
-        $this->add_operator_attributes( $operator, $product );
+        $this->add_operator_attributes( $operator, $product, $package );
 
         $product->save();
     }
@@ -72,7 +72,7 @@ class Product {
         $product->set_image_id( $imageId );
     }
 
-    private function add_operator_attributes( array $operator, \WC_Product $product ): void {
+    private function add_operator_attributes( array $operator, \WC_Product $product, array $package ): void {
         $operatorCoverage = $operator['coverages'] ?? [];
         $networkCoverage = '';
         foreach ( $operatorCoverage as $coverage ) {
@@ -88,6 +88,8 @@ class Product {
             'apn_value' => $operator['apn_value'] ?? null,
             'is_roaming' => $operator['is_roaming'] ?? null,
             'network_coverage' => $networkCoverage,
+            'net_price' => $package['net_price'] ?? null,
+            'price' => $package['price'] ?? null,
         ];
 
         $attributes = ( new Attribute() )->create_attributes( $operatorAttributes );

@@ -4,7 +4,7 @@ namespace Airalo\Admin;
 
 class Attribute
 {
-    private const HIDDEN_ATTRIBUTES = [];
+    private const HIDDEN_ATTRIBUTES = [ 'net_price', 'price' ];
 
     public function create_attributes( array $attributeData ) {
         $attributes = [];
