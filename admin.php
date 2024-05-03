@@ -32,9 +32,9 @@ function airalo_settings_page () {
     $sandboxClientId = $credentials->get_credential( \Airalo\Admin\Settings\Credentials::CLIENT_ID_SANDBOX );
 
     $options = new \Airalo\Admin\Settings\Options();
-    $autoPublish = $options->fetch_option( \Airalo\Admin\Settings\Options::AUTO_PUBLISH ) == 'on' ? 'checked' : '';
-    $autoPublishAfterUpdate = $options->fetch_option( \Airalo\Admin\Settings\Options::AUTO_PUBLISH_AFTER_UPDATE ) == 'on' ? 'checked' : '';
-    $useSandbox = $options->fetch_option(\Airalo\Admin\Settings\Options::USE_SANDBOX) == 'on' ? 'checked' : '';
+    $autoPublish = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Options::AUTO_PUBLISH );
+    $autoPublishAfterUpdate = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Options::AUTO_PUBLISH_AFTER_UPDATE );
+    $useSandbox = $options->fetch_option_for_settings_page(\Airalo\Admin\Settings\Options::USE_SANDBOX);
 
     ?>
 

@@ -12,7 +12,11 @@ class Options {
         update_option( $name, $value );
     }
 
-    public function fetch_option(string $name) {
+    public function fetch_option( string $name ) {
         return get_option($name);
+    }
+
+    public function fetch_option_for_settings_page( string $name ): string {
+        return $this->fetch_option($name)  == 'on' ? 'checked' : '';
     }
 }
