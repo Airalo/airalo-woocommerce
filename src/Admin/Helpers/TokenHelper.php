@@ -19,8 +19,8 @@ class TokenHelper
         if ($renewal_success === false) {
             // Token renewal failed, send email notification to admin
             $admin_email = get_option('admin_email');
-            $subject = 'Token Renewal Failed';
-            $message = 'Token renewal failed. Please investigate and take appropriate action.';
+            $subject = 'Airalo Token Renewal Failed';
+            $message = 'Airalo Token renewal failed. Please investigate and take appropriate action.';
             wp_mail($admin_email, $subject, $message);
         }
     }
