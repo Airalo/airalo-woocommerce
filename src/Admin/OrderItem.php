@@ -13,11 +13,10 @@ class OrderItem
     /**
      * @var WC_Order_Item[]
      */
-    private $allOrderItems;
-
+    private array $allOrderItems;
     public function __construct(array $orderItems)
     {
-        $this->allOrderItem = $orderItems;
+        $this->allOrderItems = $orderItems;
     }
 
     public function getAiraloOrderItems(): array

@@ -223,7 +223,7 @@ function sync_products_function() {
     $productSyncer->handle();
 }
 
-add_action('woocommerce_new_order', 'identify_airalo_products', 10, 1);
+add_action('woocommerce_thankyou', 'identify_airalo_products', 10, 1);
 
 function identify_airalo_products($order_id) {
     $order = wc_get_order($order_id);
