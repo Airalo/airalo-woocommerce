@@ -232,3 +232,12 @@ function identify_airalo_products($order_id) {
     $orderItem = new \Airalo\Admin\OrderItem($items);
     $airaloOrderItems = $orderItem->getAiraloOrderItems();
 }
+
+add_action('woocommerce_init', 'check_token_expiry');
+
+function check_token_expiry() {
+    $tokenHelper = new \Airalo\Admin\Helpers\TokenHelper();
+    if ( $tokenHelper->isTokenExpired() ) {
+        $tokenHelper->renewToken();
+    }
+}
