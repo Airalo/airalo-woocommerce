@@ -222,3 +222,13 @@ function sync_products_function() {
     $productSyncer = new \Airalo\Admin\Syncers\ProductSyncer($json);
     $productSyncer->handle();
 }
+
+add_action('woocommerce_thankyou', 'identify_airalo_products', 10, 1);
+
+function identify_airalo_products($order_id) {
+    $order = wc_get_order($order_id);
+    $items = $order->get_items();
+
+    $orderItem = new \Airalo\Admin\OrderItem($items);
+    $airaloOrderItems = $orderItem->getAiraloOrderItems();
+}
