@@ -3,6 +3,7 @@
 namespace Airalo\Admin\Syncers;
 
 use Airalo\Admin\Product;
+use Airalo\Admin\Settings\Options;
 
 class ProductSyncer {
 
@@ -12,6 +13,8 @@ class ProductSyncer {
     public function handle() {
         $productArray = json_decode( $this->products, true );
         $data = $productArray['data'];
+        $options = new Options();
+        $options->insert_option(Options::LAST_SYNC, date('Y-m-d H:i:s'));
 
         foreach ( $data as $item ) {
 
@@ -27,5 +30,6 @@ class ProductSyncer {
             }
 
         }
+        $options->insert_option(Options::LAST_SUCCESSFUL_SYNC, date('Y-m-d H:i:s'));
     }
 }
