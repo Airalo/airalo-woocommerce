@@ -8,6 +8,10 @@ class Options {
     const AUTO_PUBLISH_AFTER_UPDATE = 'airalo_auto_publish_after_update';
     const USE_SANDBOX = 'airalo_use_sandbox';
 
+    const LAST_SYNC = 'airalo_last_sync';
+    const LAST_SUCCESSFUL_SYNC = 'airalo_last_successful_sync';
+    const SYNC_ERROR = 'airalo_sync_error';
+
     const ENABLED = 'on';
     const DISABLED = 'off';
 
