@@ -2,7 +2,7 @@
 
 namespace Airalo\Admin\Settings;
 
-class Credentials {
+class Credential {
 
     const CLIENT_ID = 'airalo_client_id';
     const CLIENT_SECRET = 'airalo_client_secret';
@@ -18,26 +18,26 @@ class Credentials {
         $key =  AUTH_KEY;
         $salt = SECURE_AUTH_SALT;
 
-        $encryptedValue = openssl_encrypt( $value . $salt, $method, $key, 0, $iv );
-        $encodedValue = base64_encode( $iv . $encryptedValue );
+        $encrypted_value = openssl_encrypt( $value . $salt, $method, $key, 0, $iv );
+        $encoded_value = base64_encode( $iv . $encrypted_value );
 
-        update_option( $name, $encodedValue);
+        update_option( $name, $encoded_value);
     }
 
     public function get_credential( string $name): string {
         $credential = get_option($name);
-        $decodedValue = base64_decode( $credential, true );
+        $decoded_value = base64_decode( $credential, true );
 
         $method = 'aes-256-ctr';
         $ivlen  = openssl_cipher_iv_length( $method );
-        $iv     = substr( $decodedValue, 0, $ivlen );
+        $iv     = substr( $decoded_value, 0, $ivlen );
 
-        $encryptedValue = substr( $decodedValue, $ivlen );
+        $encrypted_value = substr( $decoded_value, $ivlen );
 
         $key =  AUTH_KEY;
         $salt = SECURE_AUTH_SALT;
 
-        $value = openssl_decrypt( $encryptedValue, $method, $key, 0, $iv );
+        $value = openssl_decrypt( $encrypted_value, $method, $key, 0, $iv );
         if ( ! $value || substr( $value, - strlen( $salt ) ) !== $salt ) {
             return false;
         }
