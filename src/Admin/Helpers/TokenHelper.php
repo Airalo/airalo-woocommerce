@@ -4,14 +4,14 @@ namespace Airalo\Admin\Helpers;
 
 class TokenHelper
 {
-    public function isTokenExpired() {
+    public function is_token_expired() {
         // Logic to determine if token is expired or about to expire
         // Use SDK method here to check token expiry
 
         return false;
     }
 
-    public function renewToken() {
+    public function renew_token() {
         // Logic to renew token
         // Use SDK method here to renew token
         $renewal_success = false;

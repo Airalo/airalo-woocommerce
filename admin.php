@@ -28,13 +28,13 @@ function airalo_menu () {
 
 function airalo_settings_page () {
     $credentials = new \Airalo\Admin\Settings\Credentials();
-    $clientId = $credentials->get_credential( \Airalo\Admin\Settings\Credentials::CLIENT_ID );
-    $sandboxClientId = $credentials->get_credential( \Airalo\Admin\Settings\Credentials::CLIENT_ID_SANDBOX );
+    $client_id = $credentials->get_credential( \Airalo\Admin\Settings\Credentials::CLIENT_ID );
+    $sandbox_client_id = $credentials->get_credential( \Airalo\Admin\Settings\Credentials::CLIENT_ID_SANDBOX );
 
     $options = new \Airalo\Admin\Settings\Options();
-    $autoPublish = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Options::AUTO_PUBLISH );
-    $autoPublishAfterUpdate = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Options::AUTO_PUBLISH_AFTER_UPDATE );
-    $useSandbox = $options->fetch_option_for_settings_page(\Airalo\Admin\Settings\Options::USE_SANDBOX);
+    $auto_publish = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Options::AUTO_PUBLISH );
+    $auto_publish_after_update = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Options::AUTO_PUBLISH_AFTER_UPDATE );
+    $use_sandbox = $options->fetch_option_for_settings_page(\Airalo\Admin\Settings\Options::USE_SANDBOX);
 
     $last_sync = $options->fetch_option(\Airalo\Admin\Settings\Options::LAST_SYNC);
     $last_successful_sync = $options->fetch_option(\Airalo\Admin\Settings\Options::LAST_SUCCESSFUL_SYNC);
@@ -67,7 +67,7 @@ function airalo_settings_page () {
                     <th scope="row">Client Id</th>
                     <td>
                         <label>
-                            <input type="text" name="airalo_client_id" value="<?php echo htmlspecialchars($clientId, ENT_QUOTES, 'UTF-8') ?>"/>
+                            <input type="text" name="airalo_client_id" value="<?php echo htmlspecialchars($client_id, ENT_QUOTES, 'UTF-8') ?>"/>
                         </label>
                     </td>
                 </tr>
@@ -89,7 +89,7 @@ function airalo_settings_page () {
                     <th scope="row">Client Id</th>
                     <td>
                         <label>
-                            <input type="text" name="airalo_client_id_sandbox" value="<?php echo htmlspecialchars($sandboxClientId, ENT_QUOTES, 'UTF-8') ?>"/>
+                            <input type="text" name="airalo_client_id_sandbox" value="<?php echo htmlspecialchars($sandbox_client_id, ENT_QUOTES, 'UTF-8') ?>"/>
                         </label>
                     </td>
                 </tr>
@@ -111,7 +111,7 @@ function airalo_settings_page () {
                     <th scope="row">Use Sandbox</th>
                     <td>
                         <label>
-                            <input type="checkbox" name="airalo_use_sandbox" <?php echo $useSandbox ?>/>
+                            <input type="checkbox" name="airalo_use_sandbox" <?php echo $use_sandbox ?>/>
                         </label>
                     </td>
                 </tr>
@@ -119,7 +119,7 @@ function airalo_settings_page () {
                     <th scope="row">Auto Publish Product</th>
                     <td>
                         <label>
-                            <input type="checkbox" name="airalo_auto_publish" <?php echo $autoPublish ?>/>
+                            <input type="checkbox" name="airalo_auto_publish" <?php echo $auto_publish ?>/>
                         </label>
                     </td>
                 </tr>
@@ -127,7 +127,7 @@ function airalo_settings_page () {
                     <th scope="row">Auto Publish After Price Update</th>
                     <td>
                         <label>
-                            <input type="checkbox" name="airalo_auto_publish_update" <?php echo $autoPublishAfterUpdate ?>/>
+                            <input type="checkbox" name="airalo_auto_publish_update" <?php echo $auto_publish_after_update ?>/>
                         </label>
                     </td>
                 </tr>
@@ -182,15 +182,15 @@ function airalo_register_settings () {
 }
 
 function save_airalo_settings(): void {
-    $autoPublish = $_POST['airalo_auto_publish'] ?? 'off';
-    $autoPublishAfterUpdate = $_POST['airalo_auto_publish_update'] ?? 'off';
-    $useSandbox = $_POST['airalo_use_sandbox'] ?? 'off';
+    $auto_publish = $_POST['airalo_auto_publish'] ?? 'off';
+    $auto_publish_after_update = $_POST['airalo_auto_publish_update'] ?? 'off';
+    $use_sandbox = $_POST['airalo_use_sandbox'] ?? 'off';
 
     $options = new \Airalo\Admin\Settings\Options();
 
-    $options->insert_option( \Airalo\Admin\Settings\Options::AUTO_PUBLISH, $autoPublish );
-    $options->insert_option( \Airalo\Admin\Settings\Options::AUTO_PUBLISH_AFTER_UPDATE, $autoPublishAfterUpdate );
-    $options->insert_option( \Airalo\Admin\Settings\Options::USE_SANDBOX, $useSandbox );
+    $options->insert_option( \Airalo\Admin\Settings\Options::AUTO_PUBLISH, $auto_publish );
+    $options->insert_option( \Airalo\Admin\Settings\Options::AUTO_PUBLISH_AFTER_UPDATE, $auto_publish_after_update );
+    $options->insert_option( \Airalo\Admin\Settings\Options::USE_SANDBOX, $use_sandbox );
 }
 
 function save_airalo_credentials($clientId, $clientSecret, $isSandbox = false): void {
@@ -218,18 +218,18 @@ function airalo_main_section_db() {
 }
 
 function airalo_settings_field_cb() {
-    $options = get_options('airalo-options');
+    $options = get_options( 'airalo-options' );
     echo '<p>Settings</p>';
 }
 
-add_action('sync_products', 'sync_products_function', 10, 2);
+add_action( 'sync_products', 'sync_products_function', 10, 2 );
 
 function sync_products_function() {
     // @TODO call api
     $json = '';
 
-    $productSyncer = new \Airalo\Admin\Syncers\ProductSyncer($json);
-    $productSyncer->handle();
+    $product_syncer = new \Airalo\Admin\Syncers\ProductSyncer( $json );
+    $product_syncer->handle();
 }
 
 add_action('woocommerce_thankyou', 'identify_airalo_products', 10, 1);
@@ -238,15 +238,15 @@ function identify_airalo_products($order_id) {
     $order = wc_get_order($order_id);
     $items = $order->get_items();
 
-    $orderItem = new \Airalo\Admin\OrderItem($items);
-    $airaloOrderItems = $orderItem->getAiraloOrderItems();
+    $order_item = new \Airalo\Admin\OrderItem( $items );
+    $airalo_order_items = $order_item->get_airalo_order_items();
 }
 
 add_action('woocommerce_init', 'check_token_expiry');
 
 function check_token_expiry() {
     $tokenHelper = new \Airalo\Admin\Helpers\TokenHelper();
-    if ( $tokenHelper->isTokenExpired() ) {
-        $tokenHelper->renewToken();
+    if ( $tokenHelper->is_token_expired() ) {
+        $tokenHelper->renew_token();
     }
 }

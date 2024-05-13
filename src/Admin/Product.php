@@ -12,12 +12,12 @@ class Product {
     private ?\WC_Product $product;
 
     public function get_product_by_sku( string $sku ): ?\WC_Product {
-        $productId = wc_get_product_id_by_sku( $sku );
-        if ( ! $productId) {
+        $product_id = wc_get_product_id_by_sku( $sku );
+        if ( ! $product_id) {
             return null;
         }
 
-        $this->product = wc_get_product( $productId );
+        $this->product = wc_get_product( $product_id );
         return $this->product;
     }
 
@@ -56,12 +56,12 @@ class Product {
 
         $this->set_product_status( $product, $status, $is_create, $is_update );
 
-        $stockStatus = 'instock';
+        $stock_status = 'instock';
         if ( $package['amount'] <= 0 ) {
-            $stockStatus = 'outofstock';
+            $stock_status = 'outofstock';
         }
 
-        $product->set_stock_status( $stockStatus );
+        $product->set_stock_status( $stock_status );
 
         $product->set_stock_quantity( $package['amount'] );
         $product->set_virtual( true );
@@ -80,26 +80,26 @@ class Product {
     }
 
     private function add_operator_attributes( array $operator, \WC_Product $product, array $package ): void {
-        $operatorCoverage = $operator['coverages'] ?? [];
-        $networkCoverage = '';
-        foreach ( $operatorCoverage as $coverage ) {
+        $operator_coverage = $operator['coverages'] ?? [];
+        $network_coverage = '';
+        foreach ( $operator_coverage as $coverage ) {
             foreach ( $coverage['networks'] as $network ) {
-                $networkCoverage .= $network['name'] . ':' . implode( ', ', $network['types'] ) ."\n\n";
+                $network_coverage .= $network['name'] . ':' . implode( ', ', $network['types'] ) ."\n\n";
             }
         }
 
-        $operatorAttributes = [
+        $operator_attributes = [
             'operator_gradient_start' => $operator['gradient_start'] ?? null,
             'operator_gradient_end' => $operator['gradient_end'] ?? null,
             'apn_type' => $operator['apn_type'] ?? null,
             'apn_value' => $operator['apn_value'] ?? null,
             'is_roaming' => $operator['is_roaming'] ?? null,
-            'network_coverage' => $networkCoverage,
+            'network_coverage' => $network_coverage,
             'net_price' => $package['net_price'] ?? null,
             'price' => $package['price'] ?? null,
         ];
 
-        $attributes = ( new Attribute() )->create_attributes( $operatorAttributes );
+        $attributes = ( new Attribute() )->create_attributes( $operator_attributes );
 
         $product->set_attributes( $attributes );
     }

@@ -11,8 +11,8 @@ class ProductSyncer {
     }
 
     public function handle() {
-        $productArray = json_decode( $this->products, true );
-        $data = $productArray['data'];
+        $product_array = json_decode( $this->products, true );
+        $data = $product_array['data'];
         $options = new Options();
         $options->insert_option(Options::LAST_SYNC, date('Y-m-d H:i:s'));
         $error = '';
