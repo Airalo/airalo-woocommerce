@@ -40,7 +40,7 @@ function airalo_settings_page () {
 
     <div>
         <h2> Airalo Plugin</h2>
-        <form method="post" action="options.php">
+        <form method="post" action="options.php" style="margin-left: 40px">
             <?php settings_fields('airalo-settings-group'); ?>
             <?php do_settings_sections('airalo-settings-group'); ?>
             <table class="form-table">
@@ -68,10 +68,9 @@ function airalo_settings_page () {
                         </label>
                     </td>
                 </tr>
-                <tr>
-                    <td><input type="submit" name="save_airalo_credentials" value="Save Credentials" class="button button-primary"/></td>
-                </tr>
             </table>
+            <input type="submit" name="save_airalo_credentials" value="Save Credentials" class="button button-primary" style="margin-top: 10px;margin-left: 125px;"/>
+            <br>
             <br>
             <table>
                 <caption><h2>Sandbox Credentials</h2></caption>
@@ -91,10 +90,9 @@ function airalo_settings_page () {
                         </label>
                     </td>
                 </tr>
-                <tr>
-                    <td><input type="submit" name="save_airalo_sandbox_credentials" value="Save Sandbox Credentials" class="button button-primary"/></td>
-                </tr>
             </table>
+            <input type="submit" name="save_airalo_sandbox_credentials" value="Save Sandbox Credentials" class="button button-primary" style="margin-top: 10px;margin-left: 100px;"/>
+            <br>
             <br>
             <table>
                 <caption><h2>Settings</h2></caption>
@@ -123,7 +121,7 @@ function airalo_settings_page () {
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="submit" name="save_airalo_settings" value="Save Settings" class="button button-primary"/></td>
+                    <td><input type="submit" name="save_airalo_settings" value="Save Settings" class="button button-primary" style="margin-top: 10px;margin-left: 50px;"/></td>
                 </tr>
             </table>
         </form>

@@ -8,6 +8,9 @@ class Options {
     const AUTO_PUBLISH_AFTER_UPDATE = 'airalo_auto_publish_after_update';
     const USE_SANDBOX = 'airalo_use_sandbox';
 
+    const ENABLED = 'on';
+    const DISABLED = 'off';
+
     public function insert_option( string $name, $value ): void {
         update_option( $name, $value );
     }
