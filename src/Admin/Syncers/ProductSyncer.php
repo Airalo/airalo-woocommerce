@@ -35,6 +35,7 @@ class ProductSyncer {
             $options->insert_option(Options::LAST_SUCCESSFUL_SYNC, date('Y-m-d H:i:s'));
         } catch (\Exception $ex) {
             $error = $ex->getMessage();
+            error_log($error);
         }
 
         $options->insert_option(Options::SYNC_ERROR, $error);
