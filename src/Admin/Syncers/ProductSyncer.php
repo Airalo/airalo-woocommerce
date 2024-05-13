@@ -3,7 +3,7 @@
 namespace Airalo\Admin\Syncers;
 
 use Airalo\Admin\Product;
-use Airalo\Admin\Settings\Options;
+use Airalo\Admin\Settings\Option;
 
 class ProductSyncer {
 
@@ -13,8 +13,8 @@ class ProductSyncer {
     public function handle() {
         $product_array = json_decode( $this->products, true );
         $data = $product_array['data'];
-        $options = new Options();
-        $options->insert_option(Options::LAST_SYNC, date('Y-m-d H:i:s'));
+        $options = new Option();
+        $options->insert_option( Option::LAST_SYNC, date( 'Y-m-d H:i:s' ) );
         $error = '';
 
         try {
@@ -25,19 +25,19 @@ class ProductSyncer {
                     foreach ( $operator['packages'] as $package ) {
 
                         $product = new Product();
-                        $product->update_or_create($package, $operator, $item);
+                        $product->update_or_create( $package, $operator, $item );
 
                     }
 
                 }
 
             }
-            $options->insert_option(Options::LAST_SUCCESSFUL_SYNC, date('Y-m-d H:i:s'));
+            $options->insert_option( Option::LAST_SUCCESSFUL_SYNC, date( 'Y-m-d H:i:s' ) );
         } catch (\Exception $ex) {
             $error = $ex->getMessage();
-            error_log($error);
+            error_log( $error );
         }
 
-        $options->insert_option(Options::SYNC_ERROR, $error);
+        $options->insert_option( Option::SYNC_ERROR, $error );
     }
 }

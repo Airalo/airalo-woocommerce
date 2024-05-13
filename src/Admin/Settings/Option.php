@@ -2,7 +2,7 @@
 
 namespace Airalo\Admin\Settings;
 
-class Options {
+class Option {
 
     const AUTO_PUBLISH = 'airalo_auto_publish';
     const AUTO_PUBLISH_AFTER_UPDATE = 'airalo_auto_publish_after_update';

@@ -2,7 +2,7 @@
 
 namespace Airalo\Admin\Settings;
 
-class Credentials {
+class Credential {
 
     const CLIENT_ID = 'airalo_client_id';
     const CLIENT_SECRET = 'airalo_client_secret';

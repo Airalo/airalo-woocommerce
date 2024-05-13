@@ -27,19 +27,19 @@ function airalo_menu () {
 }
 
 function airalo_settings_page () {
-    $credentials = new \Airalo\Admin\Settings\Credentials();
-    $client_id = $credentials->get_credential( \Airalo\Admin\Settings\Credentials::CLIENT_ID );
-    $sandbox_client_id = $credentials->get_credential( \Airalo\Admin\Settings\Credentials::CLIENT_ID_SANDBOX );
+    $credentials = new \Airalo\Admin\Settings\Credential();
+    $client_id = $credentials->get_credential( \Airalo\Admin\Settings\Credential::CLIENT_ID );
+    $sandbox_client_id = $credentials->get_credential( \Airalo\Admin\Settings\Credential::CLIENT_ID_SANDBOX );
 
-    $options = new \Airalo\Admin\Settings\Options();
-    $auto_publish = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Options::AUTO_PUBLISH );
-    $auto_publish_after_update = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Options::AUTO_PUBLISH_AFTER_UPDATE );
-    $use_sandbox = $options->fetch_option_for_settings_page(\Airalo\Admin\Settings\Options::USE_SANDBOX);
+    $options = new \Airalo\Admin\Settings\Option();
+    $auto_publish = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::AUTO_PUBLISH );
+    $auto_publish_after_update = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::AUTO_PUBLISH_AFTER_UPDATE );
+    $use_sandbox = $options->fetch_option_for_settings_page(\Airalo\Admin\Settings\Option::USE_SANDBOX);
 
-    $last_sync = $options->fetch_option(\Airalo\Admin\Settings\Options::LAST_SYNC);
-    $last_successful_sync = $options->fetch_option(\Airalo\Admin\Settings\Options::LAST_SUCCESSFUL_SYNC);
+    $last_sync = $options->fetch_option(\Airalo\Admin\Settings\Option::LAST_SYNC);
+    $last_successful_sync = $options->fetch_option(\Airalo\Admin\Settings\Option::LAST_SUCCESSFUL_SYNC);
 
-    $error = $options->fetch_option(\Airalo\Admin\Settings\Options::SYNC_ERROR);
+    $error = $options->fetch_option(\Airalo\Admin\Settings\Option::SYNC_ERROR);
     $show_error = $error ? 'visible': 'hidden';
 
     ?>
@@ -186,23 +186,23 @@ function save_airalo_settings(): void {
     $auto_publish_after_update = $_POST['airalo_auto_publish_update'] ?? 'off';
     $use_sandbox = $_POST['airalo_use_sandbox'] ?? 'off';
 
-    $options = new \Airalo\Admin\Settings\Options();
+    $options = new \Airalo\Admin\Settings\Option();
 
-    $options->insert_option( \Airalo\Admin\Settings\Options::AUTO_PUBLISH, $auto_publish );
-    $options->insert_option( \Airalo\Admin\Settings\Options::AUTO_PUBLISH_AFTER_UPDATE, $auto_publish_after_update );
-    $options->insert_option( \Airalo\Admin\Settings\Options::USE_SANDBOX, $use_sandbox );
+    $options->insert_option( \Airalo\Admin\Settings\Option::AUTO_PUBLISH, $auto_publish );
+    $options->insert_option( \Airalo\Admin\Settings\Option::AUTO_PUBLISH_AFTER_UPDATE, $auto_publish_after_update );
+    $options->insert_option( \Airalo\Admin\Settings\Option::USE_SANDBOX, $use_sandbox );
 }
 
 function save_airalo_credentials($clientId, $clientSecret, $isSandbox = false): void {
-    $clientIdCredential = \Airalo\Admin\Settings\Credentials::CLIENT_ID;
-    $clientSecretCredential = \Airalo\Admin\Settings\Credentials::CLIENT_SECRET;
+    $clientIdCredential = \Airalo\Admin\Settings\Credential::CLIENT_ID;
+    $clientSecretCredential = \Airalo\Admin\Settings\Credential::CLIENT_SECRET;
 
     if ( $isSandbox ) {
-        $clientIdCredential = \Airalo\Admin\Settings\Credentials::CLIENT_ID_SANDBOX;
-        $clientSecretCredential = \Airalo\Admin\Settings\Credentials::CLIENT_SECRET_SANDBOX;
+        $clientIdCredential = \Airalo\Admin\Settings\Credential::CLIENT_ID_SANDBOX;
+        $clientSecretCredential = \Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX;
     }
 
-    $credentials = new \Airalo\Admin\Settings\Credentials();
+    $credentials = new \Airalo\Admin\Settings\Credential();
 
     if ( $clientId ) {
         $credentials->insert_credential($clientId, $clientIdCredential);

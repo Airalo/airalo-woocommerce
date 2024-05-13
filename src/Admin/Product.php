@@ -1,7 +1,7 @@
 <?php
 namespace Airalo\Admin;
 
-use Airalo\Admin\Settings\Options;
+use Airalo\Admin\Settings\Option;
 
 class Product {
 
@@ -105,14 +105,14 @@ class Product {
     }
 
     private function set_product_status(\WC_Product $product, $status, $is_created, $is_updated ): void {
-        $options = new Options();
-        $setting_create = $options->fetch_option(Options::AUTO_PUBLISH);
-        $setting_update = $options->fetch_option(Options::AUTO_PUBLISH_AFTER_UPDATE);
+        $options = new Option();
+        $setting_create = $options->fetch_option(Option::AUTO_PUBLISH);
+        $setting_update = $options->fetch_option(Option::AUTO_PUBLISH_AFTER_UPDATE);
         $new_status = $status;
 
-        if ( $status == self::STATUS_DRAFT && $is_created && $setting_create == Options::ENABLED) {
+        if ( $status == self::STATUS_DRAFT && $is_created && $setting_create == Option::ENABLED) {
             $new_status = self::STATUS_PUBLISH;
-        } elseif ( $status == self::STATUS_PUBLISH && $is_updated && $setting_update == Options::DISABLED) {
+        } elseif ( $status == self::STATUS_PUBLISH && $is_updated && $setting_update == Option::DISABLED) {
             $new_status = self::STATUS_DRAFT;
         }
 
