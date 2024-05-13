@@ -15,21 +15,28 @@ class ProductSyncer {
         $data = $productArray['data'];
         $options = new Options();
         $options->insert_option(Options::LAST_SYNC, date('Y-m-d H:i:s'));
+        $error = '';
 
-        foreach ( $data as $item ) {
+        try {
+            foreach ( $data as $item ) {
 
-            foreach ( $item['operators'] as $operator ) {
+                foreach ( $item['operators'] as $operator ) {
 
-                foreach ( $operator['packages'] as $package ) {
+                    foreach ( $operator['packages'] as $package ) {
 
-                    $product = new Product();
-                    $product->update_or_create($package, $operator, $item);
+                        $product = new Product();
+                        $product->update_or_create($package, $operator, $item);
+
+                    }
 
                 }
 
             }
-
+            $options->insert_option(Options::LAST_SUCCESSFUL_SYNC, date('Y-m-d H:i:s'));
+        } catch (\Exception $ex) {
+            $error = $ex->getMessage();
         }
-        $options->insert_option(Options::LAST_SUCCESSFUL_SYNC, date('Y-m-d H:i:s'));
+
+        $options->insert_option(Options::SYNC_ERROR, $error);
     }
 }

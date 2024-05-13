@@ -39,6 +39,9 @@ function airalo_settings_page () {
     $last_sync = $options->fetch_option(\Airalo\Admin\Settings\Options::LAST_SYNC);
     $last_successful_sync = $options->fetch_option(\Airalo\Admin\Settings\Options::LAST_SUCCESSFUL_SYNC);
 
+    $error = $options->fetch_option(\Airalo\Admin\Settings\Options::SYNC_ERROR);
+    $show_error = $error ? 'visible': 'hidden';
+
     ?>
 
     <div>
@@ -53,6 +56,7 @@ function airalo_settings_page () {
                         <input type="submit" name="sync_products" value="Sync Now" class="button button-primary"/>
                         <p><span style="font-weight: bold">Last Sync:</span> <?php echo $last_sync ?></p>
                         <p><span style="font-weight: bold">Last Successful Sync:</span> <?php echo $last_successful_sync?></p>
+                        <p><span style="font-weight: bold; visibility: <?php echo $show_error ?>">Sync Error:</span> <?php echo $error?></p>
                     </td>
                 </tr>
             </table>

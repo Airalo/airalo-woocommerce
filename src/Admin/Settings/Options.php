@@ -10,6 +10,7 @@ class Options {
 
     const LAST_SYNC = 'airalo_last_sync';
     const LAST_SUCCESSFUL_SYNC = 'airalo_last_successful_sync';
+    const SYNC_ERROR = 'airalo_sync_error';
 
     const ENABLED = 'on';
     const DISABLED = 'off';
