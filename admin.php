@@ -36,6 +36,9 @@ function airalo_settings_page () {
     $autoPublishAfterUpdate = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Options::AUTO_PUBLISH_AFTER_UPDATE );
     $useSandbox = $options->fetch_option_for_settings_page(\Airalo\Admin\Settings\Options::USE_SANDBOX);
 
+    $last_sync = $options->fetch_option(\Airalo\Admin\Settings\Options::LAST_SYNC);
+    $last_successful_sync = $options->fetch_option(\Airalo\Admin\Settings\Options::LAST_SUCCESSFUL_SYNC);
+
     ?>
 
     <div>
@@ -46,7 +49,11 @@ function airalo_settings_page () {
             <table class="form-table">
                 <tr>
                     <th scope="row">Sync Products</th>
-                    <td><input type="submit" name="sync_products" value="Sync Now" class="button button-primary"/></td>
+                    <td>
+                        <input type="submit" name="sync_products" value="Sync Now" class="button button-primary"/>
+                        <p><span style="font-weight: bold">Last Sync:</span> <?php echo $last_sync ?></p>
+                        <p><span style="font-weight: bold">Last Successful Sync:</span> <?php echo $last_successful_sync?></p>
+                    </td>
                 </tr>
             </table>
             <br/>
