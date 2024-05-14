@@ -2,6 +2,10 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 add_filter('plugin_action_links_airalo', 'airalo_add_settings_link');
 
 function airalo_add_settings_link($Links) {
@@ -209,7 +213,7 @@ function save_airalo_credentials($clientId, $clientSecret, $isSandbox = false): 
     }
 
     if ( $clientSecret ) {
-        $credentials->insert_credential($clientId, $clientSecretCredential);
+        $credentials->insert_credential($clientSecret, $clientSecretCredential);
     }
 }
 
