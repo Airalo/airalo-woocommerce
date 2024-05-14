@@ -14,11 +14,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class ProductSyncer {
 
+    private const AIRALO_MAX_EXECUTION = 600;
+
     public function __construct() {
     }
 
     public function handle() {
-        ini_set('max_execution_time', '300');
+        ini_set('max_execution_time', self::AIRALO_MAX_EXECUTION);
 
         $options = new Option();
         $environment = $options->fetch_option( Option::USE_SANDBOX ) == Option::ENABLED ? 'sandbox' : 'production';
