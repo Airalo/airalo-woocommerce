@@ -9,8 +9,8 @@ class Term {
     private const IMAGE_NAME_PREFIX = 'operator_image_';
     const IMAGE_METADATA_KEY = 'image_id';
 
-    public function fetch_or_create_image_term( array $operator ) {
-        $taxonomy_name = self::IMAGE_NAME_PREFIX . $operator['id'];
+    public function fetch_or_create_image_term( $operator ) {
+        $taxonomy_name = self::IMAGE_NAME_PREFIX . $operator->id;
         $term_name = $taxonomy_name . '_id';
 
         if ($term = get_term_by( 'slug', $term_name, $taxonomy_name )) {
@@ -25,7 +25,7 @@ class Term {
         return get_term_by( 'slug', $term_name, $taxonomy_name );
     }
 
-    private function create_image_taxonomy( array $operator, string $name, string $term_name ) {
+    private function create_image_taxonomy( $operator, string $name, string $term_name ) {
         $labels = [
             'name' => _x($name, 'taxonomy general name', 'textdomain'),
             'singular_name' => _x($name.'_singular', 'taxonomy singular name', 'textdomain'),
@@ -54,7 +54,8 @@ class Term {
                 return;
             }
 
-            $image_id = media_sideload_image( $operator['image']['url'], 0, null, 'id' );
+
+            $image_id = media_sideload_image( $operator->image->url, 0, null, 'id' );
             add_term_meta( $term['term_id'], $term_metadata_key, $image_id );
         }
     }

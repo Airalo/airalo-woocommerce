@@ -229,10 +229,7 @@ function airalo_settings_field_cb() {
 add_action( 'sync_products', 'sync_products_function', 10, 2 );
 
 function sync_products_function() {
-    // @TODO call api
-    $json = '';
-
-    $product_syncer = new \Airalo\Admin\Syncers\ProductSyncer( $json );
+    $product_syncer = new \Airalo\Admin\Syncers\ProductSyncer();
     $product_syncer->handle();
 }
 
