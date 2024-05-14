@@ -41,7 +41,7 @@ class ProductSyncer {
             AiraloStatic::init([
                 'client_id' => $client_id,
                 'client_secret' => $client_secret,
-                'env' => 'sandbox',
+                'env' => $environment,
             ]);
 
             $allPackages = AiraloStatic::getAllPackages();
