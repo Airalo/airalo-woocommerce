@@ -2,6 +2,10 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 add_filter('plugin_action_links_airalo', 'airalo_add_settings_link');
 
 function airalo_add_settings_link($Links) {
@@ -62,7 +66,7 @@ function airalo_settings_page () {
             </table>
             <br/>
             <table>
-                <caption><h2>Credentials</h2></caption>
+                <caption><h2>Production Credentials</h2></caption>
                 <tr>
                     <th scope="row">Client Id</th>
                     <td>
@@ -209,7 +213,7 @@ function save_airalo_credentials($clientId, $clientSecret, $isSandbox = false): 
     }
 
     if ( $clientSecret ) {
-        $credentials->insert_credential($clientId, $clientSecretCredential);
+        $credentials->insert_credential($clientSecret, $clientSecretCredential);
     }
 }
 
@@ -225,10 +229,7 @@ function airalo_settings_field_cb() {
 add_action( 'sync_products', 'sync_products_function', 10, 2 );
 
 function sync_products_function() {
-    // @TODO call api
-    $json = '';
-
-    $product_syncer = new \Airalo\Admin\Syncers\ProductSyncer( $json );
+    $product_syncer = new \Airalo\Admin\Syncers\ProductSyncer();
     $product_syncer->handle();
 }
 
