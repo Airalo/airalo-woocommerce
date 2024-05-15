@@ -66,7 +66,7 @@ function airalo_settings_page () {
             </table>
             <br/>
             <table>
-                <caption><h2>Credentials</h2></caption>
+                <caption><h2>Production Credentials</h2></caption>
                 <tr>
                     <th scope="row">Client Id</th>
                     <td>
