@@ -43,8 +43,8 @@ function airalo_settings_page () {
     $last_sync = $options->fetch_option(\Airalo\Admin\Settings\Option::LAST_SYNC);
     $last_successful_sync = $options->fetch_option(\Airalo\Admin\Settings\Option::LAST_SUCCESSFUL_SYNC);
 
-    $error = $options->fetch_option(\Airalo\Admin\Settings\Option::SYNC_ERROR);
-    $show_error = $error ? 'visible': 'hidden';
+    $error = $options->fetch_option(\Airalo\Admin\Settings\Option::SYNC_ERROR);    
+    $show_error = $error ? 'airaloShow': 'airaloHide';
 
     ?>
 
@@ -52,8 +52,8 @@ function airalo_settings_page () {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
+    <style><?php require __DIR__ . '/airalo-css/resetStyle.css' ?></style>
     <style><?php require __DIR__ . '/airalo-css/pluginStyle.css' ?></style>
-    
 
     <div id="airalo-container">
         <div class="airaloPluginHeader">
@@ -69,7 +69,18 @@ function airalo_settings_page () {
                     <p class="cardTitle">General</p>
 
                     <div class="flexBox">
-                        <p class="actionName">Sync Products</p>
+                        <div>
+                            <h3 class="actionName">Sync Products</h3>
+                            <div>
+                                <span class="airaloChip">Last Sync: <?php echo $last_sync ?></span>
+                            </div>
+                            <div>
+                                <span class="airaloChip">Last Successful Sync: <?php echo $last_successful_sync  ?></span>
+                            </div>
+                            <div class="<?php echo $show_error ?>">
+                                <span class="airaloChip">Sync Error:<?php echo $error?></span>
+                            </div>
+                        </div>
                         <form method="post" action="options.php">
                             <?php settings_fields('airalo-settings-group'); ?>
                             <?php do_settings_sections('airalo-settings-group'); ?>
@@ -90,7 +101,7 @@ function airalo_settings_page () {
                             <label for="airalo_use_sandbox">
                                 Use Sandbox
                                 <span class="switch">
-                                <input type="checkbox" name="airalo_use_sandbox" <?php echo $useSandbox ?> id="airalo_use_sandbox"/>
+                                <input type="checkbox" name="airalo_use_sandbox" <?php echo $use_sandbox ?> id="airalo_use_sandbox"/>
                                 <span class="slider round"></span>
                                 </span>
                             </label>
@@ -100,7 +111,7 @@ function airalo_settings_page () {
                             <label for="airalo_auto_publish">
                                 Auto Publish Product
                                 <span class="switch">
-                                <input type="checkbox" name="airalo_auto_publish" <?php echo $autoPublish ?> id="airalo_auto_publish"/>
+                                <input type="checkbox" name="airalo_auto_publish" <?php echo $auto_publish ?> id="airalo_auto_publish"/>
                                 <span class="slider round"></span>
                                 </span>
                             </label>
@@ -109,7 +120,7 @@ function airalo_settings_page () {
                             <label for="airalo_auto_publish_update">
                                 Auto Publish After Price Update
                                 <span class="switch">
-                                <input type="checkbox" name="airalo_auto_publish_update" <?php echo $autoPublishAfterUpdate ?> id="airalo_auto_publish_update"/>
+                                <input type="checkbox" name="airalo_auto_publish_update" <?php echo $auto_publish_after_update ?> id="airalo_auto_publish_update"/>
                                 <span class="slider round"></span>
                                 </span>
                             </label>
@@ -133,7 +144,7 @@ function airalo_settings_page () {
                         <?php do_settings_sections('airalo-settings-group'); ?>
                         <div>
                             <label for="airalo_client_id_sandbox">Client Id</label>
-                            <input type="text" name="airalo_client_id" value="<?php echo htmlspecialchars($clientId, ENT_QUOTES, 'UTF-8') ?>"/>
+                            <input type="text" name="airalo_client_id" placeholder="Enter ID" value="<?php echo htmlspecialchars($client_id, ENT_QUOTES, 'UTF-8') ?>"/>
                         </div>
 
 
@@ -159,7 +170,7 @@ function airalo_settings_page () {
                         
                         <div>
                             <label for="airalo_client_id_sandbox">Client Id</label>
-                            <input type="text" name="airalo_client_id_sandbox" placeholder="Enter ID" value="<?php echo htmlspecialchars($sandboxClientId, ENT_QUOTES, 'UTF-8') ?>"/>
+                            <input type="text" name="airalo_client_id_sandbox" placeholder="Enter ID" value="<?php echo htmlspecialchars($sandbox_client_id, ENT_QUOTES, 'UTF-8') ?>"/>
                         </div>
                         
                         <div>
