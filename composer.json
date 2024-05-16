@@ -1,4 +1,14 @@
 {
+    "require": {
+        "airalo/sdk": "dev-master"
+    },
+    "repositories": [
+        {
+            "name": "airalo/sdk",
+            "type": "vcs",
+            "url":  "git@github.com:Airalo/airalo-php-sdk.git"
+        }
+    ],
     "autoload": {
         "psr-4": {"Airalo\\": "src/"}
     }

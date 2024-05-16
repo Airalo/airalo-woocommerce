@@ -2,11 +2,18 @@
 
 namespace Airalo\Admin\Settings;
 
-class Options {
+class Option {
 
     const AUTO_PUBLISH = 'airalo_auto_publish';
     const AUTO_PUBLISH_AFTER_UPDATE = 'airalo_auto_publish_after_update';
     const USE_SANDBOX = 'airalo_use_sandbox';
+
+    const LAST_SYNC = 'airalo_last_sync';
+    const LAST_SUCCESSFUL_SYNC = 'airalo_last_successful_sync';
+    const SYNC_ERROR = 'airalo_sync_error';
+
+    const ENABLED = 'on';
+    const DISABLED = 'off';
 
     public function insert_option( string $name, $value ): void {
         update_option( $name, $value );
