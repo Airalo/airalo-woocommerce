@@ -38,95 +38,134 @@ function airalo_settings_page () {
 
     ?>
 
-    <div>
-        <h2> Airalo Plugin</h2>
-        <form method="post" action="options.php">
-            <?php settings_fields('airalo-settings-group'); ?>
-            <?php do_settings_sections('airalo-settings-group'); ?>
-            <table class="form-table">
-                <tr>
-                    <th scope="row">Sync Products</th>
-                    <td><input type="submit" name="sync_products" value="Sync Now" class="button button-primary"/></td>
-                </tr>
-            </table>
-            <br/>
-            <table>
-                <caption><h2>Credentials</h2></caption>
-                <tr>
-                    <th scope="row">Client Id</th>
-                    <td>
-                        <label>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+
+    <style><?php require __DIR__ . '/airalo-css/pluginStyle.css' ?></style>
+    
+
+    <div id="airalo-container">
+        <div class="airaloPluginHeader">
+            <h2 class="airaloPluginTitle"> Airalo Plugin</h2>
+            <div class="airaloLogoContainer">
+                <?php require __DIR__ . '/airalo-images/logo-partner-platform.svg' ?>
+            </div>
+        </div>
+
+        <div class="cardsContainer">
+            <section>
+                <div class="airaloCard">
+                    <p class="cardTitle">General</p>
+
+                    <div class="flexBox">
+                        <p class="actionName">Sync Products</p>
+                        <form method="post" action="options.php">
+                            <?php settings_fields('airalo-settings-group'); ?>
+                            <?php do_settings_sections('airalo-settings-group'); ?>
+                            
+                            <input type="submit" name="sync_products" value="Sync Now" class="airaloButton"/>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="airaloCard settingsCard">
+                    <p class="cardTitle">Settings</p>
+
+                    <form method="post" action="options.php">
+                        <?php settings_fields('airalo-settings-group'); ?>
+                        <?php do_settings_sections('airalo-settings-group'); ?>
+                        
+                        <div>
+                            <label for="airalo_use_sandbox">
+                                Use Sandbox
+                                <span class="switch">
+                                <input type="checkbox" name="airalo_use_sandbox" <?php echo $useSandbox ?> id="airalo_use_sandbox"/>
+                                <span class="slider round"></span>
+                                </span>
+                            </label>
+                        </div>
+                        
+                        <div>
+                            <label for="airalo_auto_publish">
+                                Auto Publish Product
+                                <span class="switch">
+                                <input type="checkbox" name="airalo_auto_publish" <?php echo $autoPublish ?> id="airalo_auto_publish"/>
+                                <span class="slider round"></span>
+                                </span>
+                            </label>
+                        </div>
+                        <div>
+                            <label for="airalo_auto_publish_update">
+                                Auto Publish After Price Update
+                                <span class="switch">
+                                <input type="checkbox" name="airalo_auto_publish_update" <?php echo $autoPublishAfterUpdate ?> id="airalo_auto_publish_update"/>
+                                <span class="slider round"></span>
+                                </span>
+                            </label>
+                        </div>
+
+                        <div class="airaloButtonContainer">
+                            <input type="submit" name="save_airalo_settings" value="Save" class="airaloButton"/>
+                        </div>
+                    </form>
+                    
+                </div>
+
+            </section>
+
+            <section>
+                <div class="airaloCard credentialsCard">
+                    <p class="cardTitle">Credentials</p>
+
+                    <form method="post" action="options.php">
+                        <?php settings_fields('airalo-settings-group'); ?>
+                        <?php do_settings_sections('airalo-settings-group'); ?>
+                        <div>
+                            <label for="airalo_client_id_sandbox">Client Id</label>
                             <input type="text" name="airalo_client_id" value="<?php echo htmlspecialchars($clientId, ENT_QUOTES, 'UTF-8') ?>"/>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">Client Secret</th>
-                    <td>
-                        <label>
-                            <input type="password" name="airalo_client_secret"/>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="submit" name="save_airalo_credentials" value="Save Credentials" class="button button-primary"/></td>
-                </tr>
-            </table>
-            <br>
-            <table>
-                <caption><h2>Sandbox Credentials</h2></caption>
-                <tr>
-                    <th scope="row">Client Id</th>
-                    <td>
-                        <label>
-                            <input type="text" name="airalo_client_id_sandbox" value="<?php echo htmlspecialchars($sandboxClientId, ENT_QUOTES, 'UTF-8') ?>"/>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">Client Secret</th>
-                    <td>
-                        <label>
-                            <input type="password" name="airalo_client_secret_sandbox"/>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="submit" name="save_airalo_sandbox_credentials" value="Save Sandbox Credentials" class="button button-primary"/></td>
-                </tr>
-            </table>
-            <br>
-            <table>
-                <caption><h2>Settings</h2></caption>
-                <tr>
-                    <th scope="row">Use Sandbox</th>
-                    <td>
-                        <label>
-                            <input type="checkbox" name="airalo_use_sandbox" <?php echo $useSandbox ?>/>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">Auto Publish Product</th>
-                    <td>
-                        <label>
-                            <input type="checkbox" name="airalo_auto_publish" <?php echo $autoPublish ?>/>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">Auto Publish After Price Update</th>
-                    <td>
-                        <label>
-                            <input type="checkbox" name="airalo_auto_publish_update" <?php echo $autoPublishAfterUpdate ?>/>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="submit" name="save_airalo_settings" value="Save Settings" class="button button-primary"/></td>
-                </tr>
-            </table>
-        </form>
+                        </div>
+
+
+                        <div>
+                            <label for="airalo_client_secret_sandbox">Client Secret</label>
+                            <input type="password" name="airalo_client_secret" placeholder="Enter Secret"/>
+                        </div>
+
+
+                        <div class="airaloButtonContainer">
+                            <input type="submit" name="save_airalo_credentials" value="Save Credentials" class="airaloButton"/>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="airaloCard credentialsCard">
+                    <p class="cardTitle">Sandbox Credentials</p>
+
+
+                    <form method="post" action="options.php">
+                        <?php settings_fields('airalo-settings-group'); ?>
+                        <?php do_settings_sections('airalo-settings-group'); ?>
+                        
+                        <div>
+                            <label for="airalo_client_id_sandbox">Client Id</label>
+                            <input type="text" name="airalo_client_id_sandbox" placeholder="Enter ID" value="<?php echo htmlspecialchars($sandboxClientId, ENT_QUOTES, 'UTF-8') ?>"/>
+                        </div>
+                        
+                        <div>
+                            <label for="airalo_client_secret_sandbox">Client Secret</label>
+                            <input type="password" name="airalo_client_secret_sandbox" placeholder="Enter Secret"/>
+                        </div>
+
+                        <div class="airaloButtonContainer">
+                            <input type="submit" name="save_airalo_sandbox_credentials" value="Save Sandbox Credentials" class="airaloButton"/>
+                        </div>
+                    </form>
+
+
+                </div>
+            </section>
+        </div>
     </div>
     <?php
 }
