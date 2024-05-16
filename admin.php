@@ -36,6 +36,10 @@ function airalo_settings_page () {
     $sandbox_client_id = $credentials->get_credential( \Airalo\Admin\Settings\Credential::CLIENT_ID_SANDBOX );
 
     $options = new \Airalo\Admin\Settings\Option();
+
+    $client_secret_encrypted = $options->fetch_option(\Airalo\Admin\Settings\Credential::CLIENT_SECRET);
+    $client_sandbox_secret_encrypted = $options->fetch_option(\Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX);
+
     $auto_publish = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::AUTO_PUBLISH );
     $auto_publish_after_update = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::AUTO_PUBLISH_AFTER_UPDATE );
     $use_sandbox = $options->fetch_option_for_settings_page(\Airalo\Admin\Settings\Option::USE_SANDBOX);
@@ -79,7 +83,7 @@ function airalo_settings_page () {
                     <th scope="row">Client Secret</th>
                     <td>
                         <label>
-                            <input type="password" name="airalo_client_secret"/>
+                            <input type="password" name="airalo_client_secret"  value="<?php echo htmlspecialchars($client_secret_encrypted, ENT_QUOTES, 'UTF-8') ?>"/>
                         </label>
                     </td>
                 </tr>
@@ -101,7 +105,7 @@ function airalo_settings_page () {
                     <th scope="row">Client Secret</th>
                     <td>
                         <label>
-                            <input type="password" name="airalo_client_secret_sandbox"/>
+                            <input type="password" name="airalo_client_secret_sandbox" value="<?php echo htmlspecialchars($client_sandbox_secret_encrypted, ENT_QUOTES, 'UTF-8') ?>"/>
                         </label>
                     </td>
                 </tr>
@@ -149,6 +153,8 @@ add_action('admin_init', 'airalo_register_settings');
 function airalo_register_settings () {
     register_setting('airalo-settings-group', 'airalo_settings');
 
+    $options = new \Airalo\Admin\Settings\Option();
+
     add_settings_section(
         'airalo_main_section',
         'Main Settings',
@@ -171,12 +177,25 @@ function airalo_register_settings () {
     if ( isset( $_POST['save_airalo_credentials'] ) ) {
         $clientId = $_POST['airalo_client_id'] ?? null;
         $clientSecret = $_POST['airalo_client_secret'] ?? null;
+        $encryptedSecret = $options->fetch_option(\Airalo\Admin\Settings\Credential::CLIENT_SECRET);
+
+        if ($clientSecret == $encryptedSecret && $encryptedSecret != null) {
+            $clientSecret = null;
+        }
+
         save_airalo_credentials(  $clientId, $clientSecret );
     }
 
     if ( isset ( $_POST['save_airalo_sandbox_credentials'] ) ) {
         $clientId = $_POST['airalo_client_id_sandbox'] ?? null;
         $clientSecret = $_POST['airalo_client_secret_sandbox'] ?? null;
+
+        $encryptedSecret = $options->fetch_option(\Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX);
+
+        if ($clientSecret == $encryptedSecret && $encryptedSecret != null) {
+            $clientSecret = null;
+        }
+
         save_airalo_credentials( $clientId, $clientSecret, true );
     }
 
