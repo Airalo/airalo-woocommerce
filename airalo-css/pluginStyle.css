@@ -1,0 +1,264 @@
+#airalo-container {
+  width: calc(100% - 20px);
+
+  .airaloHide {
+    display: none;
+  }
+
+  .airaloShow {
+    display: block;
+  }
+
+  .airaloChip {
+    border-radius: 62.4375rem;
+    background: var(--Surface-Tertiary-Highlight, #e1effe);
+
+    color: var(--Text-Caption-Highlight, #1a56db);
+
+    font-family: "IBM Plex Sans";
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.375rem;
+
+    padding: 0 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .airaloPluginHeader {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 16px;
+    margin-bottom: 40px;
+
+    .airaloPluginTitle {
+      color: #111928;
+      font-size: 32px;
+      font-family: IBM Plex Sans;
+      font-weight: 500;
+      line-height: 37px;
+      word-wrap: break-word;
+    }
+  }
+
+  .cardsContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: min-content;
+    grid-auto-flow: dense;
+    grid-gap: 20px;
+    align-content: start;
+  }
+
+  .airaloCard {
+    border-radius: var(--rounded-2xl, 1rem);
+    background: var(--Surface-Primary-On-Dark, #fff);
+    padding: var(--4, 1rem);
+
+    margin-bottom: var(--4, 1rem);
+
+    &:not(.settingsCard) {
+      label {
+        margin-bottom: var(--4, 0.5rem);
+      }
+    }
+  }
+
+  .cardTitle {
+    color: var(--Text-Title-Highlight, #1a56db);
+    /* Title/Title 5 */
+    font-family: "IBM Plex Sans";
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1rem; /* 114.286% */
+
+    margin-bottom: var(--4, 1rem);
+  }
+
+  .actionName {
+    color: var(--Text-Title-Normal, #111928);
+
+    font-family: "IBM Plex Sans";
+    font-size: 1.125rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.25rem; /* 111.111% */
+    letter-spacing: -0.00113rem;
+
+    margin-bottom: 0.5rem;
+  }
+
+  .flexBox {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .airaloButton {
+    display: flex;
+    height: 2.75rem;
+    min-width: 6.875rem;
+    min-height: 2.75rem;
+    padding: var(--0, 0rem) var(--6, 1.5rem);
+    justify-content: center;
+    align-items: center;
+    gap: var(--2, 0.5rem);
+
+    border: none;
+    border-radius: var(--rounded-lg, 0.5rem);
+    background: var(--Surface-Primary-Highlight, #1a56db);
+
+    color: var(--Text-Title-On-Dark, #f9fafb);
+    text-align: center;
+
+    /* Title/Title 4 */
+    font-family: "IBM Plex Sans";
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.125rem; /* 112.5% */
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .settingsCard {
+    form {
+      width: 100%;
+
+      > div {
+        margin-bottom: 0.5rem;
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .airaloButtonContainer {
+      margin-top: 1rem;
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      color: var(--Text-Body-Normal, #374151);
+
+      font-family: "IBM Plex Sans";
+      font-size: 1rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.625rem;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: var(--10, 2.5rem);
+      height: var(--5, 1.25rem);
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      width: 16px;
+      height: 16px;
+      left: 4px;
+      bottom: 2px;
+      background-color: white;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
+    }
+
+    input:checked + .slider {
+      background-color: #1a56db;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px #1a56db;
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX(16px);
+      -ms-transform: translateX(16px);
+      transform: translateX(16px);
+    }
+
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+  }
+
+  .credentialsCard {
+    .airaloButtonContainer {
+      display: grid;
+    }
+
+    .airaloButton {
+      justify-self: flex-end;
+    }
+
+    form {
+      width: 100%;
+    }
+
+    div {
+      margin-bottom: 1rem;
+      > input:not(.airaloButton) {
+        width: 100%;
+        display: flex;
+        height: 2.75rem;
+        min-height: 2.75rem;
+        padding: var(--2, 0.5rem) var(--4, 1rem);
+        justify-content: space-between;
+        align-items: center;
+        align-self: stretch;
+      }
+
+      label {
+        display: block;
+        color: #374151;
+        font-size: 14px;
+        font-family: IBM Plex Sans;
+        font-weight: 400;
+        line-height: 24px;
+        word-wrap: break-word;
+      }
+    }
+  }
+}
