@@ -50,6 +50,9 @@ class ProductSyncer {
             $options->insert_option( Option::LAST_SYNC, date( 'Y-m-d H:i:s' ) );
 
             $error = '';
+            if ( ! $data ) {
+                $error = 'No data fetched. Please check your credentials.';
+            }
 
             foreach ( $data as $item ) {
 
@@ -73,8 +76,13 @@ class ProductSyncer {
             $options->insert_option( Option::LAST_SUCCESSFUL_SYNC, date( 'Y-m-d H:i:s' ) );
 
         } catch ( \Exception $ex ) {
-            $error = $ex->getMessage();
-            error_log( $error );
+            $error_message = strip_tags( $ex->getMessage() );
+            $error = $error_message;
+            if (strpos($error_message, 'Airalo SDK initialization failed') !== false) {
+                $error = 'Airalo SDK initialization failed, please check credentials';
+            }
+
+            error_log( $ex->getMessage() );
         }
 
         $options->insert_option( Option::SYNC_ERROR, $error );
