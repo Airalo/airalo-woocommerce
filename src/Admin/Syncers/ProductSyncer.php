@@ -78,7 +78,7 @@ class ProductSyncer {
         } catch ( \Exception $ex ) {
             $error_message = strip_tags( $ex->getMessage() );
             $error = $error_message;
-            if (strpos($error_message, 'Airalo SDK initialization failed') !== false) {
+            if (stripos($error_message, 'Airalo SDK initialization failed') !== false) {
                 $error = 'Airalo SDK initialization failed, please check credentials';
             }
 
