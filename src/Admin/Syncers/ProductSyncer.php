@@ -44,7 +44,7 @@ class ProductSyncer {
                 'env' => $environment,
             ]);
 
-            $allPackages = AiraloStatic::getAllPackages();
+            $allPackages = AiraloStatic::getSimPackages();
             $data = $allPackages->data;
 
             $options->insert_option( Option::LAST_SYNC, date( 'Y-m-d H:i:s' ) );
