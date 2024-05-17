@@ -6,9 +6,7 @@ use Airalo\Admin\Product;
 use Airalo\Admin\Settings\Credential;
 use Airalo\Admin\Settings\Option;
 use Airalo\Admin\Term;
-use Airalo\Airalo;
 use Airalo\AiraloStatic;
-use Airalo\Helpers\Cached;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
