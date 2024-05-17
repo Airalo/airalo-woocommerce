@@ -6,7 +6,9 @@ use Airalo\Admin\Product;
 use Airalo\Admin\Settings\Credential;
 use Airalo\Admin\Settings\Option;
 use Airalo\Admin\Term;
+use Airalo\Airalo;
 use Airalo\AiraloStatic;
+use Airalo\Helpers\Cached;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
@@ -44,7 +46,7 @@ class ProductSyncer {
                 'env' => $environment,
             ]);
 
-            $allPackages = AiraloStatic::getAllPackages();
+            $allPackages = AiraloStatic::getSimPackages();
             $data = $allPackages->data;
 
             $options->insert_option( Option::LAST_SYNC, date( 'Y-m-d H:i:s' ) );
