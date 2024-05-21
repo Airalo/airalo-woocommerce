@@ -42,6 +42,9 @@ class ProductSyncer {
                 'client_id' => $client_id,
                 'client_secret' => $client_secret,
                 'env' => $environment,
+                'http_headers' => [
+                    'woocommerce-plugin: ' . AIRALO_PLUGIN_VERSION,
+                ],
             ]);
 
             $allPackages = AiraloStatic::getSimPackages();
