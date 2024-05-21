@@ -12,17 +12,20 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:Airalo/airalo-php-sdk.git",
-                "reference": "0cd06ebc44e0b8f963b0cbaa6de5624ea4cb1f58"
+                "reference": "81b7c60bdb4e4a5719e5c4374fb25e56334e7328"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Airalo/airalo-php-sdk/zipball/0cd06ebc44e0b8f963b0cbaa6de5624ea4cb1f58",
-                "reference": "0cd06ebc44e0b8f963b0cbaa6de5624ea4cb1f58",
+                "url": "https://api.github.com/repos/Airalo/airalo-php-sdk/zipball/81b7c60bdb4e4a5719e5c4374fb25e56334e7328",
+                "reference": "81b7c60bdb4e4a5719e5c4374fb25e56334e7328",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.4",
                 "phpunit/phpunit": "^9.5"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.10"
             },
             "default-branch": true,
             "type": "project",
@@ -32,12 +35,23 @@
                     "Airalo\\Tests\\": "tests/"
                 }
             },
+            "scripts": {
+                "phpunit": [
+                    "vendor/bin/phpunit"
+                ],
+                "phpstan": [
+                    "php vendor/bin/phpstan analyze -c phpstan.neon --memory-limit=-1"
+                ],
+                "phpstan-update-baseline": [
+                    "php vendor/bin/phpstan analyze -c phpstan.neon --memory-limit=-1 --generate-baseline"
+                ]
+            },
             "description": "Airalo's Partner API PHP SDK",
             "support": {
                 "source": "https://github.com/Airalo/airalo-php-sdk/tree/master",
                 "issues": "https://github.com/Airalo/airalo-php-sdk/issues"
             },
-            "time": "2024-05-17T13:01:12+00:00"
+            "time": "2024-05-21T08:11:28+00:00"
         },
         {
             "name": "doctrine/instantiator",

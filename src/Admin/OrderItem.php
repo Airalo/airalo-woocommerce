@@ -3,6 +3,10 @@
 namespace Airalo\Admin;
 use WC_Order_Item;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 class OrderItem
 {
     private const SKU_PREFIX = 'airalo-';

@@ -2,6 +2,10 @@
 
 namespace Airalo\Admin\Helpers;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 class TokenHelper
 {
     public function is_token_expired() {

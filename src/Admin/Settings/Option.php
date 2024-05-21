@@ -2,6 +2,10 @@
 
 namespace Airalo\Admin\Settings;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 class Option {
 
     const AUTO_PUBLISH = 'airalo_auto_publish';
