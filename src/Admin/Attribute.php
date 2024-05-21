@@ -2,6 +2,10 @@
 
 namespace Airalo\Admin;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 class Attribute
 {
     private const HIDDEN_ATTRIBUTES = [ 'net_price', 'price', 'operator_gradient_start', 'operator_gradient_end' ];

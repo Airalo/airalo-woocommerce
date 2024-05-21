@@ -2,6 +2,10 @@
 
 namespace Airalo\Admin\Settings;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 class Credential {
 
     const CLIENT_ID = 'airalo_client_id';

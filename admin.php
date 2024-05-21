@@ -6,19 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-add_filter('plugin_action_links_airalo', 'airalo_add_settings_link');
-
-function airalo_add_settings_link($Links) {
-    $settings_link = '<a href="admin.php?page=airalo-settings">Settings</a>';
-    if (! $Links) {
-        $links = [];
-    }
-
-    array_unshift($links, $settings_link);
-    return $links;
-}
-
-add_action('admin_menu', 'airalo_menu');
+add_action( 'admin_menu', 'airalo_menu' );
 
 function airalo_menu () {
     add_menu_page(
@@ -196,10 +184,10 @@ function airalo_settings_page () {
     <?php
 }
 
-add_action('admin_init', 'airalo_register_settings');
+add_action( 'admin_init', 'airalo_register_settings' );
 
 function airalo_register_settings () {
-    register_setting('airalo-settings-group', 'airalo_settings');
+    register_setting( 'airalo-settings-group', 'airalo_settings' );
 
     $options = new \Airalo\Admin\Settings\Option();
 
@@ -219,15 +207,15 @@ function airalo_register_settings () {
     );
 
     if ( isset( $_POST['sync_products'] ) ) {
-        do_action('sync_products');
+        do_action( 'sync_products' );
     }
 
     if ( isset( $_POST['save_airalo_credentials'] ) ) {
         $clientId = $_POST['airalo_client_id'] ?? null;
         $clientSecret = $_POST['airalo_client_secret'] ?? null;
-        $encryptedSecret = $options->fetch_option(\Airalo\Admin\Settings\Credential::CLIENT_SECRET);
+        $encryptedSecret = $options->fetch_option( \Airalo\Admin\Settings\Credential::CLIENT_SECRET );
 
-        if ($clientSecret == $encryptedSecret && $encryptedSecret != null) {
+        if  ($clientSecret == $encryptedSecret && $encryptedSecret != null ) {
             $clientSecret = null;
         }
 
@@ -238,7 +226,7 @@ function airalo_register_settings () {
         $clientId = $_POST['airalo_client_id_sandbox'] ?? null;
         $clientSecret = $_POST['airalo_client_secret_sandbox'] ?? null;
 
-        $encryptedSecret = $options->fetch_option(\Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX);
+        $encryptedSecret = $options->fetch_option( \Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX );
 
         if ($clientSecret == $encryptedSecret && $encryptedSecret != null) {
             $clientSecret = null;

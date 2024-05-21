@@ -4,6 +4,10 @@ namespace Airalo\Admin;
 
 use WP_Taxonomy;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 class Term {
 
     private const IMAGE_NAME_PREFIX = 'operator_image_';

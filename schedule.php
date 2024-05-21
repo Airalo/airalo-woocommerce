@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 function schedule_hourly_event() {
     if ( !wp_next_scheduled( 'hourly_cron_hook') ) {
-        wp_schedule_event(time(), 'hourly', 'hourly_cron_hook');
+        wp_schedule_event( time(), 'hourly', 'hourly_cron_hook' );
     }
 }
 
@@ -16,7 +16,7 @@ add_action( 'wp', 'schedule_hourly_event' );
 
 function sync_airalo_products_hourly() {
 
-    (new \Airalo\Admin\Syncers\ProductSyncer())->handle();
+    ( new \Airalo\Admin\Syncers\ProductSyncer() )->handle();
 
 }
 

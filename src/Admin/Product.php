@@ -3,6 +3,10 @@ namespace Airalo\Admin;
 
 use Airalo\Admin\Settings\Option;
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
+
 class Product {
 
     private const STATUS_DRAFT = 'draft';
