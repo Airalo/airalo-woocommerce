@@ -42,6 +42,9 @@ class ProductSyncer {
                 'client_id' => $client_id,
                 'client_secret' => $client_secret,
                 'env' => $environment,
+                'http_headers' => [
+                    'woocommerce-plugin: ' . AIRALO_PLUGIN_VERSION,
+                ],
             ]);
 
             $allPackages = AiraloStatic::getSimPackages();
@@ -78,8 +81,9 @@ class ProductSyncer {
         } catch ( \Exception $ex ) {
             $error_message = strip_tags( $ex->getMessage() );
             $error = $error_message;
-            if (stripos($error_message, 'Airalo SDK initialization failed') !== false) {
-                $error = 'Airalo SDK initialization failed, please check credentials';
+
+            if  ( stripos( $error_message, 'Airalo SDK initialization failed') !== false ) {
+                $error = 'Airalo SDK initialization failed, please check ' . ucfirst( $environment ) . ' credentials';
             }
 
             error_log( $ex->getMessage() );
