@@ -6,18 +6,6 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-add_filter( 'plugin_action_links_airalo', 'airalo_add_settings_link' );
-
-function airalo_add_settings_link( $links ) {
-    $settings_link = '<a href="admin.php?page=airalo-settings">Settings</a>';
-    if  ( ! $links ) {
-        $links = [];
-    }
-
-    array_unshift( $links, $settings_link );
-    return $links;
-}
-
 add_action( 'admin_menu', 'airalo_menu' );
 
 function airalo_menu () {

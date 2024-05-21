@@ -21,3 +21,10 @@ require_once __DIR__ . '/vendor/autoload.php';
 require_once plugin_dir_path( __FILE__ ) . 'admin.php';
 require_once plugin_dir_path( __FILE__ ) . 'schedule.php';
 
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'plugin_action_links' );
+
+function plugin_action_links( $links ) {
+    $settings_link = ['settings' => '<a href="admin.php?page=airalo-settings">Settings</a>'];
+
+    return array_merge( $settings_link, $links );
+}
