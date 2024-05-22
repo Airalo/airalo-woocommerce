@@ -124,7 +124,7 @@ function airalo_settings_page () {
 
                 <section>
                     <div class="airaloCard credentialsCard">
-                        <p class="cardTitle">Credentials</p>
+                        <p class="cardTitle">Production Credentials</p>
                             <div>
                                 <label for="airalo_client_id_sandbox">Client Id</label>
                                 <input type="text" name="airalo_client_id" placeholder="Enter ID" value="<?php echo htmlspecialchars($client_id, ENT_QUOTES, 'UTF-8') ?>"/>
