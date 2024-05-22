@@ -221,6 +221,11 @@ function save_airalo_settings(): void {
 
     $options = new \Airalo\Admin\Settings\Option();
 
+    $use_sandbox_old = $options->fetch_option( \Airalo\Admin\Settings\Option::USE_SANDBOX );
+    if ( $use_sandbox_old != $use_sandbox ) {
+        $options->insert_option( \Airalo\Admin\Settings\Option::ENVIRONMENT_SWITCHED, 'true' );
+    }
+
     $options->insert_option( \Airalo\Admin\Settings\Option::AUTO_PUBLISH, $auto_publish );
     $options->insert_option( \Airalo\Admin\Settings\Option::AUTO_PUBLISH_AFTER_UPDATE, $auto_publish_after_update );
     $options->insert_option( \Airalo\Admin\Settings\Option::USE_SANDBOX, $use_sandbox );

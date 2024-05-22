@@ -16,6 +16,8 @@ class Option {
     const LAST_SUCCESSFUL_SYNC = 'airalo_last_successful_sync';
     const SYNC_ERROR = 'airalo_sync_error';
 
+    const ENVIRONMENT_SWITCHED = 'airalo_environment_switched';
+
     const ENABLED = 'on';
     const DISABLED = 'off';
 
