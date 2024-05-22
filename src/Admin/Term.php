@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Term {
 
-    private const IMAGE_NAME_PREFIX = 'operator_image_';
+    const IMAGE_NAME_PREFIX = 'operator_image_';
     const IMAGE_METADATA_KEY = 'image_id';
 
     public function fetch_or_create_image_term( $operator ) {
