@@ -25,7 +25,7 @@ class Product {
         return $this->product;
     }
 
-    public function update_or_create( $package, $operator, $item, $setting_create, $setting_update, $image_id ): void
+    public function update_or_create( $package, $operator, $item, $setting_create, $setting_update, $image_id, $environment ): void
     {
         $sku = self::SKU_PREFIX . $package->id;
         $product = $this->get_product_by_sku( $sku );
@@ -34,13 +34,14 @@ class Product {
 
         $is_update = false;
         $is_create = false;
-        if (! $product->get_sku()) {
+
+        if ( ! $product->get_sku() ) {
             $product->set_sku( $sku );
             $status = self::STATUS_DRAFT;
             $is_create = true;
         }
 
-        $info = implode("\n", (array) $operator->info);
+        $info = implode( "\n", (array) $operator->info );
         if ( isset( $operator->other_info ) ) {
             $info.= "\n" . $operator->other_info;
         }
@@ -58,7 +59,12 @@ class Product {
         }
 
         $product->set_description( $info ?? '');
-        $product->set_name( $item->title. ' ' .$package->title );
+        $name = $item->title. ' ' .$package->title;
+        if ( $environment == 'sandbox' ) {
+            $name = strtoupper($environment) . ' - ' . $name;
+        }
+
+        $product->set_name($name);
 
         $this->set_product_status( $product, $status, $is_create, $is_update, $setting_create, $setting_update );
 
@@ -95,6 +101,7 @@ class Product {
             'network_coverage' => $network_coverage,
             'net_price' => $package->net_price ?? null,
             'price' => $package->price ?? null,
+            'operator_id' => $operator->id ?? null,
         ];
 
         $attributes = ( new Attribute() )->create_attributes( $operator_attributes );

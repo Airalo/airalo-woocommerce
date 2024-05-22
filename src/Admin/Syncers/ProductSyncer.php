@@ -68,7 +68,7 @@ class ProductSyncer {
                     foreach ( $operator->packages as $package ) {
 
                         $product = new Product();
-                        $product->update_or_create( $package, $operator, $item, $setting_create, $setting_update, $image_id );
+                        $product->update_or_create( $package, $operator, $item, $setting_create, $setting_update, $image_id, $environment );
 
                     }
 

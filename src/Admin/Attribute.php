@@ -8,7 +8,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Attribute
 {
-    private const HIDDEN_ATTRIBUTES = [ 'net_price', 'price', 'operator_gradient_start', 'operator_gradient_end' ];
+    private const HIDDEN_ATTRIBUTES = [
+        'net_price',
+        'price',
+        'operator_gradient_start',
+        'operator_gradient_end',
+        'operator_id',
+    ];
 
     public function create_attributes( array $attributeData ) {
         $attributes = [];
