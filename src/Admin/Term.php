@@ -31,8 +31,8 @@ class Term {
 
     private function create_image_taxonomy( $operator, string $name, string $term_name ) {
         $labels = [
-            'name' => _x($name, 'taxonomy general name', 'textdomain'),
-            'singular_name' => _x($name.'_singular', 'taxonomy singular name', 'textdomain'),
+            'name' => _x( $name, 'taxonomy general name', 'textdomain' ),
+            'singular_name' => _x( $name.'_singular', 'taxonomy singular name', 'textdomain' ),
         ];
 
         $args = [
@@ -40,7 +40,7 @@ class Term {
             'show_ui' => true,
             'show_admin_column' => true,
             'query_var' => true,
-            'rewrite' => ['slug' => $name],
+            'rewrite' => [ 'slug' => $name ],
         ];
 
         $taxonomy = register_taxonomy( $name, ['post'], $args );

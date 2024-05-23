@@ -97,7 +97,7 @@ class ProductSyncer {
         $options->insert_option( Option::SYNC_ERROR, $error );
     }
 
-    private function removeAllAiraloProducts(Option $option): void  {
+    private function removeAllAiraloProducts( Option $option ) {
         $args = [
             'post_type' => 'product',
             'posts_per_page' => -1,
@@ -110,9 +110,8 @@ class ProductSyncer {
             ],
         ];
 
-        $query = new \WP_Query($args);
+        $query = new \WP_Query( $args );
 
-        $count = 0;
         if ( $query->have_posts() ) {
             while ( $query->have_posts() ) {
                 $query->the_post();
@@ -131,7 +130,7 @@ class ProductSyncer {
                     'show_ui' => true,
                     'show_admin_column' => true,
                     'query_var' => true,
-                    'rewrite' => ['slug' => $taxonomy_name],
+                    'rewrite' => [ 'slug' => $taxonomy_name ],
                 ];
 
                 register_taxonomy( $taxonomy_name, ['post'], $args );
