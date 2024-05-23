@@ -3,10 +3,9 @@
 namespace Airalo\Admin\Syncers;
 
 use Airalo\Admin\Product;
-use Airalo\Admin\Settings\Credential;
 use Airalo\Admin\Settings\Option;
 use Airalo\Admin\Term;
-use Airalo\AiraloStatic;
+use Airalo\Services\Airalo\AiraloClient;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
@@ -16,43 +15,25 @@ class ProductSyncer {
 
     private const AIRALO_MAX_EXECUTION = 600;
 
-    public function __construct() {
-    }
-
     public function handle() {
-        ini_set('max_execution_time', self::AIRALO_MAX_EXECUTION);
-
+        ini_set( 'max_execution_time', self::AIRALO_MAX_EXECUTION );
         $options = new Option();
 
         if ( $options->fetch_option( Option::ENVIRONMENT_SWITCHED ) == 'true' ) {
+            // remove airalo products from the user's page when environment is switched
             $this->removeAllAiraloProducts( $options );
         }
 
         $environment = $options->fetch_option( Option::USE_SANDBOX ) == Option::ENABLED ? 'sandbox' : 'production';
 
-        $credential = new Credential();
-        if ( $environment == 'sandbox') {
-            $client_id = $credential->get_credential( Credential::CLIENT_ID_SANDBOX );
-            $client_secret = $credential->get_credential( Credential::CLIENT_SECRET_SANDBOX );
-        } else {
-            $client_id = $credential->get_credential( Credential::CLIENT_ID );
-            $client_secret = $credential->get_credential( Credential::CLIENT_SECRET );
-        }
+        $setting_create = $options->fetch_option( Option::AUTO_PUBLISH );
+        $setting_update = $options->fetch_option( Option::AUTO_PUBLISH_AFTER_UPDATE );
 
-        $setting_create = $options->fetch_option(Option::AUTO_PUBLISH);
-        $setting_update = $options->fetch_option(Option::AUTO_PUBLISH_AFTER_UPDATE);
 
         try {
-            AiraloStatic::init([
-                'client_id' => $client_id,
-                'client_secret' => $client_secret,
-                'env' => $environment,
-                'http_headers' => [
-                    'woocommerce-plugin: ' . AIRALO_PLUGIN_VERSION,
-                ],
-            ]);
+            $client = ( new AiraloClient( $environment ) )->getClient();
 
-            $allPackages = AiraloStatic::getSimPackages();
+            $allPackages = $client->getSimPackages();
             $data = $allPackages->data;
 
             $options->insert_option( Option::LAST_SYNC, date( 'Y-m-d H:i:s' ) );
