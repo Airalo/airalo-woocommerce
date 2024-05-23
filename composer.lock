@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:Airalo/airalo-php-sdk.git",
-                "reference": "81b7c60bdb4e4a5719e5c4374fb25e56334e7328"
+                "reference": "b731171529ebde3ce40da406e6a1f82608bdc6bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Airalo/airalo-php-sdk/zipball/81b7c60bdb4e4a5719e5c4374fb25e56334e7328",
-                "reference": "81b7c60bdb4e4a5719e5c4374fb25e56334e7328",
+                "url": "https://api.github.com/repos/Airalo/airalo-php-sdk/zipball/b731171529ebde3ce40da406e6a1f82608bdc6bf",
+                "reference": "b731171529ebde3ce40da406e6a1f82608bdc6bf",
                 "shasum": ""
             },
             "require": {
@@ -51,7 +51,7 @@
                 "source": "https://github.com/Airalo/airalo-php-sdk/tree/master",
                 "issues": "https://github.com/Airalo/airalo-php-sdk/issues"
             },
-            "time": "2024-05-21T08:11:28+00:00"
+            "time": "2024-05-23T12:23:01+00:00"
         },
         {
             "name": "doctrine/instantiator",
