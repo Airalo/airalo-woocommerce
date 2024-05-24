@@ -21,6 +21,8 @@ class Option {
     const ENABLED = 'on';
     const DISABLED = 'off';
 
+    const LANGUAGE = 'airalo_language';
+
     public function insert_option( string $name, $value ): void {
         update_option( $name, $value );
     }
@@ -31,5 +33,9 @@ class Option {
 
     public function fetch_option_for_settings_page( string $name ): string {
         return $this->fetch_option($name)  == 'on' ? 'checked' : '';
+    }
+
+    public function get_environment(): string {
+        return $this->fetch_option( self::USE_SANDBOX ) == self::ENABLED ? 'sandbox' : 'production';
     }
 }

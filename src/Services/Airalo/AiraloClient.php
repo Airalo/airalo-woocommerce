@@ -9,9 +9,11 @@ use Airalo\Airalo;
 class AiraloClient
 {
     private string $environment = '';
+    private string $language = 'en';
 
-    public function __construct( string $environment ) {
-        $this->environment = $environment;
+    public function __construct( Option $option ) {
+        $this->environment = $option->get_environment();
+        $this->language = $option->fetch_option( Option::LANGUAGE ) ?? $this->language;
     }
 
     public function getClient(): Airalo {
@@ -33,6 +35,7 @@ class AiraloClient
             'env' => $this->environment,
             'http_headers' => [
                 'woocommerce-plugin: ' . AIRALO_PLUGIN_VERSION,
+                'Accept-Language: ' . $this->language,
             ],
         ]);
     }

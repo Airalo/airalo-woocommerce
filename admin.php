@@ -38,6 +38,8 @@ function airalo_settings_page () {
     $error = $options->fetch_option(\Airalo\Admin\Settings\Option::SYNC_ERROR);    
     $show_error = $error ? 'airaloShow': 'airaloHide';
 
+    $language = $options->fetch_option( \Airalo\Admin\Settings\Option::LANGUAGE );
+
     ?>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -89,6 +91,24 @@ function airalo_settings_page () {
                     <div class="airaloCard settingsCard">
                         <p class="cardTitle">Settings</p>
 
+                            <div style="margin-bottom: 10px">
+                                <label>
+                                    <select name="airalo_language">
+                                        <option disabled selected value> -- Select A Language -- </option>
+
+                                        <?php
+
+                                        foreach ( \Airalo\Admin\Settings\Language::get_all_languages() as $key => $value ) {
+
+                                            $selected = $language == $key ? 'selected' : '';
+
+                                            echo "<option value=" . $key ." " . $selected .">" . $value . "</option>";
+                                        }
+
+                                        ?>
+                                    </select>
+                                </label>
+                            </div>
                             <div>
                                 <label for="airalo_use_sandbox">
                                     Use Sandbox
@@ -218,6 +238,7 @@ function save_airalo_settings(): void {
     $auto_publish = $_POST['airalo_auto_publish'] ?? 'off';
     $auto_publish_after_update = $_POST['airalo_auto_publish_update'] ?? 'off';
     $use_sandbox = $_POST['airalo_use_sandbox'] ?? 'off';
+    $language = $_POST['airalo_language'] ?? 'en';
 
     $options = new \Airalo\Admin\Settings\Option();
 
@@ -229,6 +250,7 @@ function save_airalo_settings(): void {
     $options->insert_option( \Airalo\Admin\Settings\Option::AUTO_PUBLISH, $auto_publish );
     $options->insert_option( \Airalo\Admin\Settings\Option::AUTO_PUBLISH_AFTER_UPDATE, $auto_publish_after_update );
     $options->insert_option( \Airalo\Admin\Settings\Option::USE_SANDBOX, $use_sandbox );
+    $options->insert_option(\Airalo\Admin\Settings\Option::LANGUAGE, $language);
 }
 
 function save_airalo_credentials($clientId, $clientSecret, $isSandbox = false): void {
