@@ -24,14 +24,14 @@ class ProductSyncer {
             $this->removeAllAiraloProducts( $options );
         }
 
-        $environment = $options->fetch_option( Option::USE_SANDBOX ) == Option::ENABLED ? 'sandbox' : 'production';
+        $environment = $options->get_environment();
 
         $setting_create = $options->fetch_option( Option::AUTO_PUBLISH );
         $setting_update = $options->fetch_option( Option::AUTO_PUBLISH_AFTER_UPDATE );
 
 
         try {
-            $client = ( new AiraloClient( $environment ) )->getClient();
+            $client = ( new AiraloClient( $options ) )->getClient();
 
             $allPackages = $client->getSimPackages();
             $data = $allPackages->data;
