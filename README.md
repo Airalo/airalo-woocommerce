@@ -12,7 +12,8 @@ to the Airalo backend.
 1. Clone the Wordpress Repo https://github.com/Airalo/woocommerce
 2. run ```cd plugins```
 3. Clone this repo in the plugins folder
-4. run ```composer install```
+4. run ```cd airalo-woocommerce```
+5. run ```composer install```
 
 # Running the plugin
 
