@@ -31,7 +31,7 @@ class ProductSyncer {
 
 
         try {
-            $client = ( new AiraloClient( $environment ) )->getClient();
+            $client = ( new AiraloClient( $options ) )->getClient();
 
             $allPackages = $client->getSimPackages();
             $data = $allPackages->data;
