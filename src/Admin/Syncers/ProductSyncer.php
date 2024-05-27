@@ -28,6 +28,7 @@ class ProductSyncer {
 
         $setting_create = $options->fetch_option( Option::AUTO_PUBLISH );
         $setting_update = $options->fetch_option( Option::AUTO_PUBLISH_AFTER_UPDATE );
+        $sync_images = $options->fetch_option( Option::SYNC_IMAGES );
 
 
         try {
@@ -47,9 +48,12 @@ class ProductSyncer {
 
                 foreach ( $item->operators as $operator ) {
 
-                    $term = new Term();
-                    $term = $term->fetch_or_create_image_term( $operator );
-                    $image_id = get_term_meta( $term->term_id, Term::IMAGE_METADATA_KEY, true );
+                    $image_id = null;
+                    if ( $sync_images == 'on' ) {
+                        $term = new Term();
+                        $term = $term->fetch_or_create_image_term( $operator );
+                        $image_id = get_term_meta( $term->term_id, Term::IMAGE_METADATA_KEY, true );
+                    }
 
                     foreach ( $operator->packages as $package ) {
 
