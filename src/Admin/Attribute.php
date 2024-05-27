@@ -14,6 +14,7 @@ class Attribute
         'operator_gradient_start',
         'operator_gradient_end',
         'operator_id',
+        'is_airalo',
     ];
 
     public function create_attributes( array $attributeData ) {

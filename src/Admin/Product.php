@@ -102,6 +102,7 @@ class Product {
             'net_price' => $package->net_price ?? null,
             'price' => $package->price ?? null,
             'operator_id' => $operator->id ?? null,
+            'is_airalo' => 1,
         ];
 
         $attributes = ( new Attribute() )->create_attributes( $operator_attributes );
