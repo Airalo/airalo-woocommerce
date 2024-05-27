@@ -86,10 +86,19 @@ class Product {
     private function add_operator_attributes(  $operator, \WC_Product $product,  $package ): void {
         $operator_coverage = $operator->coverages ?? [];
         $network_coverage = '';
+
         foreach ( $operator_coverage as $coverage ) {
             foreach ( $coverage->networks as $network ) {
                 $network_coverage .= $network->name . ':' . implode( ', ', (array) $network->types ) ."\n\n";
             }
+        }
+
+        $countries = [];
+        $countries_iso = [];
+
+        foreach ( $operator->countries as $country ) {
+            $countries[] = $country->title;
+            $countries_iso[] = $country->country_code;
         }
 
         $operator_attributes = [
@@ -103,6 +112,8 @@ class Product {
             'price' => $package->price ?? null,
             'operator_id' => $operator->id ?? null,
             'is_airalo' => 1,
+            'country' => implode( ', ', $countries ),
+            'country_codes' => implode( ', ', $countries_iso ),
         ];
 
         $attributes = ( new Attribute() )->create_attributes( $operator_attributes );
