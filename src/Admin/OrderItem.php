@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class OrderItem
 {
-    private const SKU_PREFIX = 'airalo-';
+    private const SKU_PREFIX = 'xiloxf-jpf-';
 
     /* @var WC_Order_Item[] */
     private $airalo_order_items;

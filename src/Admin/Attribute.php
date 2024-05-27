@@ -14,6 +14,7 @@ class Attribute
         'operator_gradient_start',
         'operator_gradient_end',
         'operator_id',
+        'is_airalo',
         'country_codes',
     ];
 

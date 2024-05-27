@@ -11,7 +11,7 @@ class Product {
 
     private const STATUS_DRAFT = 'draft';
     private const STATUS_PUBLISH = 'publish';
-    const SKU_PREFIX = 'airalo-';
+    const SKU_PREFIX = 'xiloxf-jpf-';
 
     private ?\WC_Product $product;
 
@@ -111,6 +111,7 @@ class Product {
             'net_price' => $package->net_price ?? null,
             'price' => $package->price ?? null,
             'operator_id' => $operator->id ?? null,
+            'is_airalo' => 1,
             'country' => implode( ', ', $countries ),
             'country_codes' => implode( ', ', $countries_iso ),
         ];
