@@ -25,7 +25,7 @@ class AiraloOrder {
                 ->orderBulk( $this->get_order_payload( $wc_order ) );
 
             if (!$result) {
-                $wc_order->update_status('on-hold', 'Empty Airalo response, please contact support');
+                $wc_order->update_status( 'on-hold', 'Empty Airalo response, please contact support' );
 
                 return;
             }
@@ -39,12 +39,12 @@ class AiraloOrder {
             }
 
             if (count($failed_packages)) {
-                $wc_order->update_status('on-hold', 'There are Airalo package order failures. Response: ' . (string)$result);
+                $wc_order->update_status( 'on-hold', 'There are Airalo package order failures. Response: ' . (string)$result );
             }
         } catch ( \Exception $ex ) {
             error_log( $ex->getMessage() );
 
-            $wc_order->update_status('on-hold', 'There are Airalo package order failures. Error: ' . $ex->getMessage());
+            $wc_order->update_status( 'on-hold', 'There are Airalo package order failures. Error: ' . $ex->getMessage() );
         }
     }
 
@@ -55,7 +55,7 @@ class AiraloOrder {
      */
     public function handle_validation( $passed, $quantity ) {
         if ($quantity > self::MAX_QUANTITY) {
-            wc_add_notice(sprintf('You cannot add more than %d items to the cart.', self::MAX_QUANTITY), 'error');
+            wc_add_notice( sprintf('You cannot add more than %d items to the cart.', self::MAX_QUANTITY), 'error' );
 
             return false;
         }
@@ -75,7 +75,7 @@ class AiraloOrder {
         }
 
         if ($bulk_packages_total > self::MAX_QUANTITY) {
-            wc_add_notice(sprintf('You cannot add more than %d different Airalo products to the cart.', self::MAX_QUANTITY, $cart_item['data']->get_name()), 'error');
+            wc_add_notice( sprintf('You cannot add more than %d different Airalo products to the cart.', self::MAX_QUANTITY, $cart_item['data']->get_name()), 'error' );
 
             return false;
         }
@@ -84,7 +84,7 @@ class AiraloOrder {
             ($total_quantity_in_cart > self::MAX_QUANTITY)
             || ($total_quantity_in_cart + $quantity > self::MAX_QUANTITY)
         ) {
-            wc_add_notice(sprintf('You cannot add more than %d items containing "%s" to the cart.', self::MAX_QUANTITY, $cart_item['data']->get_name()), 'error');
+            wc_add_notice( sprintf('You cannot add more than %d items containing "%s" to the cart.', self::MAX_QUANTITY, $cart_item['data']->get_name()), 'error' );
 
             return false;
         }
@@ -96,7 +96,7 @@ class AiraloOrder {
      * @return mixed
      */
     private function get_env() {
-        return (new Option)
+        return ( new Option )
             ->fetch_option( Option::USE_SANDBOX ) == Option::ENABLED ? 'sandbox' : 'production';
     }
 
