@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "499008b81e713b80180bf31c77aa8b5d",
+    "content-hash": "8bc10b2035e8f278783f238a704247ed",
     "packages": [
         {
             "name": "airalo/sdk",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:Airalo/airalo-php-sdk.git",
-                "reference": "b731171529ebde3ce40da406e6a1f82608bdc6bf"
+                "url": "https://github.com/Airalo/airalo-php-sdk.git",
+                "reference": "27bbad0c226a1df8920cdf35d8a61ab313940fd9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Airalo/airalo-php-sdk/zipball/b731171529ebde3ce40da406e6a1f82608bdc6bf",
-                "reference": "b731171529ebde3ce40da406e6a1f82608bdc6bf",
+                "url": "https://api.github.com/repos/Airalo/airalo-php-sdk/zipball/27bbad0c226a1df8920cdf35d8a61ab313940fd9",
+                "reference": "27bbad0c226a1df8920cdf35d8a61ab313940fd9",
                 "shasum": ""
             },
             "require": {
@@ -27,7 +27,6 @@
             "require-dev": {
                 "phpstan/phpstan": "^1.10"
             },
-            "default-branch": true,
             "type": "project",
             "autoload": {
                 "psr-4": {
@@ -35,23 +34,13 @@
                     "Airalo\\Tests\\": "tests/"
                 }
             },
-            "scripts": {
-                "phpunit": [
-                    "vendor/bin/phpunit"
-                ],
-                "phpstan": [
-                    "php vendor/bin/phpstan analyze -c phpstan.neon --memory-limit=-1"
-                ],
-                "phpstan-update-baseline": [
-                    "php vendor/bin/phpstan analyze -c phpstan.neon --memory-limit=-1 --generate-baseline"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "description": "Airalo's Partner API PHP SDK",
             "support": {
-                "source": "https://github.com/Airalo/airalo-php-sdk/tree/master",
-                "issues": "https://github.com/Airalo/airalo-php-sdk/issues"
+                "issues": "https://github.com/Airalo/airalo-php-sdk/issues",
+                "source": "https://github.com/Airalo/airalo-php-sdk/tree/1.0.0"
             },
-            "time": "2024-05-23T12:23:01+00:00"
+            "time": "2024-05-27T08:11:33+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -1797,9 +1786,7 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "airalo/sdk": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
