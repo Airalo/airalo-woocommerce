@@ -2,13 +2,13 @@
 
 /**
  * Plugin Name: Airalo
- * Plugin URI: https://airalo.com/
+ * Plugin URI: https://wordpress.org/plugins/airalo
  * Description: An ecommerce toolkit that helps you sell anything. Beautifully.
  * Version: 1.0.0
  * Author: Airalo
  * Author URI: https://airalo.com
  * Text Domain: airalo-plugin
- * Domain Path: /i18n/languages/
+ * Domain Path:
  * Requires at least: 6.3
  * Requires PHP: 7.4
  * Requires Plugins: woocommerce
