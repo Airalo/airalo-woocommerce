@@ -20,9 +20,9 @@ class AiraloOrder {
         $wc_order = wc_get_order( $order );
 
         try {
-            $result = ( new AiraloClient( $this->get_env() ) )
+            $result = ( new AiraloClient( ( new Option ) ) )
                 ->getClient()
-                ->orderBulk( $this->get_order_payload( $wc_order ) );
+                ->orderBulk( $this->get_order_payload( $wc_order ), 'Bulk order placed via Airalo Plugin' );
 
             if (!$result) {
                 $wc_order->update_status( 'on-hold', 'Empty Airalo response, please contact support' );
@@ -75,7 +75,7 @@ class AiraloOrder {
         }
 
         if ($bulk_packages_total > self::MAX_QUANTITY) {
-            wc_add_notice( sprintf('You cannot add more than %d different Airalo products to the cart.', self::MAX_QUANTITY, $cart_item['data']->get_name()), 'error' );
+            wc_add_notice( sprintf('You cannot add more than %d different eSIM products to the cart.', self::MAX_QUANTITY, $cart_item['data']->get_name()), 'error' );
 
             return false;
         }
@@ -90,14 +90,6 @@ class AiraloOrder {
         }
 
         return $passed;
-    }
-
-    /**
-     * @return mixed
-     */
-    private function get_env() {
-        return ( new Option )
-            ->fetch_option( Option::USE_SANDBOX ) == Option::ENABLED ? 'sandbox' : 'production';
     }
 
     /**

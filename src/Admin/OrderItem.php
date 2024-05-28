@@ -25,8 +25,8 @@ class OrderItem
 
     public function get_airalo_order_items(): array
     {
-        $this->airalo_order_items = array_filter($this->all_order_items, function (WC_Order_Item $orderItem) {
-            return strpos($orderItem->get_product()->get_sku(), self::SKU_PREFIX) === 0;
+        $this->airalo_order_items = array_filter($this->all_order_items, function (WC_Order_Item $order_item) {
+            return strpos($order_item->get_product()->get_sku(), self::SKU_PREFIX) === 0;
         });
 
         return $this->airalo_order_items;
