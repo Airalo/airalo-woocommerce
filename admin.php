@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+use Airalo\Admin\AiraloOrder;
+
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
@@ -306,21 +308,14 @@ function sync_products_function() {
     $product_syncer->handle();
 }
 
-add_action('woocommerce_thankyou', 'identify_airalo_products', 10, 1);
+add_filter('woocommerce_add_to_cart_validation', 'validate_cart_item_quantity', 10, 3);
 
-function identify_airalo_products($order_id) {
-    $order = wc_get_order($order_id);
-    $items = $order->get_items();
-
-    $order_item = new \Airalo\Admin\OrderItem( $items );
-    $airalo_order_items = $order_item->get_airalo_order_items();
+function validate_cart_item_quantity($passed, $ignore_param, $quantity) {
+    return (new AiraloOrder)->handleValidation($passed, $quantity);
 }
 
-add_action('woocommerce_init', 'check_token_expiry');
+add_action( 'woocommerce_thankyou', 'airalo_submit_order', 10, 1);
 
-function check_token_expiry() {
-    $tokenHelper = new \Airalo\Admin\Helpers\TokenHelper();
-    if ( $tokenHelper->is_token_expired() ) {
-        $tokenHelper->renew_token();
-    }
+function airalo_submit_order($order) {
+    (new AiraloOrder)->handleOrder($order);
 }
