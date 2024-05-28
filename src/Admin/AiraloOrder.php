@@ -16,7 +16,7 @@ class AiraloOrder {
      * @param mixed $order
      * @return void
      */
-    public function handleOrder($order) {
+    public function handle_order( $order ) {
         $wc_order = wc_get_order( $order );
 
         try {
@@ -53,7 +53,7 @@ class AiraloOrder {
      * @param int $quantity
      * @return mixed
      */
-    public function handleValidation($passed, $quantity) {
+    public function handle_validation( $passed, $quantity ) {
         if ($quantity > self::MAX_QUANTITY) {
             wc_add_notice(sprintf('You cannot add more than %d items to the cart.', self::MAX_QUANTITY), 'error');
 
@@ -93,7 +93,7 @@ class AiraloOrder {
     }
 
     /**
-     * @return string
+     * @return mixed
      */
     private function get_env() {
         return (new Option)
@@ -104,7 +104,7 @@ class AiraloOrder {
      * @param mixed $order
      * @return array
      */
-    private function get_order_payload($order) {
+    private function get_order_payload( $order ) {
         $items = $order->get_items();
 
         $order_items = new \Airalo\Admin\OrderItem( $items );
