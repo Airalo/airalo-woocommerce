@@ -11,6 +11,7 @@ class Option {
     const AUTO_PUBLISH = 'airalo_auto_publish';
     const AUTO_PUBLISH_AFTER_UPDATE = 'airalo_auto_publish_after_update';
     const USE_SANDBOX = 'airalo_use_sandbox';
+    const SYNC_IMAGES = 'airalo_sync_images';
 
     const LAST_SYNC = 'airalo_last_sync';
     const LAST_SUCCESSFUL_SYNC = 'airalo_last_successful_sync';
