@@ -310,12 +310,12 @@ function sync_products_function() {
 
 add_filter('woocommerce_add_to_cart_validation', 'validate_cart_item_quantity', 10, 3);
 
-function validate_cart_item_quantity($passed, $ignore_param, $quantity) {
-    return (new AiraloOrder)->handle_validation($passed, $quantity);
+function validate_cart_item_quantity( $passed, $ignore_param, $quantity ) {
+    return (new AiraloOrder)->handle_validation( $passed, $quantity );
 }
 
 add_action( 'woocommerce_thankyou', 'airalo_submit_order', 10, 1);
 
-function airalo_submit_order($order) {
-    (new AiraloOrder)->handle_order($order);
+function airalo_submit_order( $order ) {
+    (new AiraloOrder)->handle_order( $order );
 }
