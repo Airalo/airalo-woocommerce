@@ -24,7 +24,7 @@ class AiraloOrder {
                 ->getClient()
                 ->orderBulk( $this->get_order_payload( $wc_order ), 'Bulk order placed via Airalo Plugin' );
 
-            if (!$result) {
+            if ( !$result ) {
                 $wc_order->update_status( 'on-hold', 'Empty Airalo response, please contact support' );
 
                 return;
@@ -32,13 +32,13 @@ class AiraloOrder {
 
             $failed_packages = [];
 
-            foreach ($result as $slug => $response) {
+            foreach ( $result as $slug => $response ) {
                 if ($response->meta->message != 'success') {
                     $failed_packages[$slug] = $response;
                 }
             }
 
-            if (count($failed_packages)) {
+            if ( count( $failed_packages ) ) {
                 $wc_order->update_status( 'on-hold', 'There are Airalo package order failures. Response: ' . (string)$result );
             }
         } catch ( \Exception $ex ) {
@@ -54,7 +54,7 @@ class AiraloOrder {
      * @return mixed
      */
     public function handle_validation( $passed, $quantity ) {
-        if ($quantity > self::MAX_QUANTITY) {
+        if ( $quantity > self::MAX_QUANTITY ) {
             wc_add_notice( sprintf('You cannot add more than %d items to the cart.', self::MAX_QUANTITY), 'error' );
 
             return false;
@@ -65,26 +65,26 @@ class AiraloOrder {
         $total_quantity_in_cart = 0;
         $bulk_packages_total = 0;
 
-        foreach ($cart as $cart_item) {
+        foreach ( $cart as $cart_item ) {
             $product_name = $cart_item['data']->get_sku();
 
-            if (strpos($product_name, Product::SKU_PREFIX) !== false) {
+            if ( strpos( $product_name, Product::SKU_PREFIX ) !== false ) {
                 $bulk_packages_total += 1;
                 $total_quantity_in_cart += $cart_item['quantity'];
             }
         }
 
-        if ($bulk_packages_total > self::MAX_QUANTITY) {
+        if ( $bulk_packages_total > self::MAX_QUANTITY ) {
             wc_add_notice( sprintf('You cannot add more than %d different eSIM products to the cart.', self::MAX_QUANTITY, $cart_item['data']->get_name()), 'error' );
 
             return false;
         }
 
         if (
-            ($total_quantity_in_cart > self::MAX_QUANTITY)
-            || ($total_quantity_in_cart + $quantity > self::MAX_QUANTITY)
+            ( $total_quantity_in_cart > self::MAX_QUANTITY )
+            || ( $total_quantity_in_cart + $quantity > self::MAX_QUANTITY )
         ) {
-            wc_add_notice( sprintf('You cannot add more than %d items containing "%s" to the cart.', self::MAX_QUANTITY, $cart_item['data']->get_name()), 'error' );
+            wc_add_notice( sprintf( 'You cannot add more than %d items containing "%s" to the cart.', self::MAX_QUANTITY, $cart_item['data']->get_name() ), 'error' );
 
             return false;
         }
@@ -105,10 +105,10 @@ class AiraloOrder {
 
         $bulk_payload = [];
 
-        foreach ($airalo_order_items as $airalo_order_item) {
+        foreach ( $airalo_order_items as $airalo_order_item ) {
             $product = $airalo_order_item->get_product();
 
-            $bulk_payload[str_replace(Product::SKU_PREFIX, '', $product->get_sku())] = $airalo_order_item['quantity'];
+            $bulk_payload[str_replace( Product::SKU_PREFIX, '', $product->get_sku() )] = $airalo_order_item['quantity'];
         }
 
         return $bulk_payload;
