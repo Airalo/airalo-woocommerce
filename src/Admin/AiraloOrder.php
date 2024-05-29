@@ -28,7 +28,7 @@ class AiraloOrder {
             $result = $this->airalo_client
                 ->orderBulk( $this->get_order_payload( $wc_order ), 'Bulk order placed via Airalo Plugin' );
 
-            if (!$result) {
+            if ( !$result ) {
                 $wc_order->update_status( 'on-hold', 'Empty Airalo response, please contact support' );
 
                 return;
@@ -36,8 +36,8 @@ class AiraloOrder {
 
             $failed_packages = [];
 
-            foreach ($result as $slug => $response) {
-                if ($response->meta->message != 'success') {
+            foreach ( $result as $slug => $response ) {
+                if ( $response->meta->message != 'success' ) {
                     $failed_packages[$slug] = $response;
 
                     continue;
@@ -73,7 +73,7 @@ class AiraloOrder {
 
         $bulk_payload = [];
 
-        foreach ($airalo_order_items as $airalo_order_item) {
+        foreach ( $airalo_order_items as $airalo_order_item ) {
             $product = $airalo_order_item->get_product();
 
             $bulk_payload[str_replace(Product::SKU_PREFIX, '', $product->get_sku())] = $airalo_order_item['quantity'];
@@ -110,8 +110,8 @@ class AiraloOrder {
                     'Package ID: ' . $package->package_id,
                     'Validity: ' . $response->data->validity . ' days',
                     'Data: ' . $response->data->data,
-                    'Minutes: ' . ($response->data->voice ? $response->data->voice : 'N/A'),
-                    'SMS: ' . ($response->data->text ? $response->data->text : 'N/A'),
+                    'Minutes: ' . ( $response->data->voice ? $response->data->voice : 'N/A' ),
+                    'SMS: ' . ( $response->data->text ? $response->data->text : 'N/A' ),
                 ]));
 
                 $wc_order->save();
