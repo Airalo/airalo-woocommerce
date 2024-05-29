@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class AiraloOrder {
+
     private Airalo $airalo_client;
 
     public function __construct()
