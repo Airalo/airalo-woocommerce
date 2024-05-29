@@ -3,6 +3,8 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use Airalo\Admin\AiraloOrder;
+use Airalo\Admin\OrderValidator;
+use Airalo\Helpers\Cached;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
@@ -311,11 +313,20 @@ function sync_products_function() {
 add_filter( 'woocommerce_add_to_cart_validation', 'validate_cart_item_quantity', 10, 3 );
 
 function validate_cart_item_quantity( $passed, $ignore_param, $quantity ) {
-    return ( new AiraloOrder )->handle_validation( $passed, $quantity );
+    return ( new OrderValidator )->handle( $passed, $quantity );
 }
 
 add_action( 'woocommerce_thankyou', 'airalo_submit_order', 10, 1 );
 
 function airalo_submit_order( $order ) {
-    ( new AiraloOrder )->handle_order( $order );
+    $order = wc_get_order( $order );
+
+    if ( Cached::get( function() {
+        // do nothing, just check if cache for this order exists
+    }, $order->get_id() )
+    ) {
+        return;
+    }
+
+    ( new AiraloOrder )->handle( $order );
 }
