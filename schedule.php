@@ -16,13 +16,13 @@ function schedule_hourly_event() {
 
 add_action( 'wp', 'schedule_hourly_event' );
 
-function schedule_daily_event() {
-    if ( !wp_next_scheduled( 'daily_cron_hook') ) {
-        wp_schedule_event( time(), 'daily', 'daily_cron_hook' );
+function airalo_schedule_daily_event() {
+    if ( !wp_next_scheduled( 'airalo_daily_cron_hook') ) {
+        wp_schedule_event( time(), 'daily', 'airalo_daily_cron_hook' );
     }
 }
 
-add_action( 'wp', 'schedule_daily_event' );
+add_action( 'wp', 'airalo_schedule_daily_event' );
 
 function sync_airalo_products_hourly() {
 
@@ -37,4 +37,4 @@ function clean_sdk_cache() {
     Cached::clearCache();
 }
 
-add_action( 'daily_cron_hook', 'clean_sdk_cache' );
+add_action( 'airalo_daily_cron_hook', 'clean_sdk_cache' );
