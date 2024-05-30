@@ -101,6 +101,7 @@ class AiraloOrder {
                 }
                 
                 $package_data['location'] = ucfirst( $package->slug );
+                $package_data['package_id'] = $package->package_id;
             }
 
             $sims = $response->data->sims ?? [];
@@ -108,7 +109,7 @@ class AiraloOrder {
             foreach ($sims as $sim) {
                 $wc_order->add_meta_data( $sim->iccid, implode(PHP_EOL, [
                     'Coverage: ' . $package_data['location'],
-                    'Package ID: ' . $package->package_id,
+                    'Package ID: ' . $package_data['package_id'],
                     'Validity: ' . $response->data->validity . ' days',
                     'Data: ' . $response->data->data,
                     'Minutes: ' . ( $response->data->voice ? $response->data->voice : 'N/A' ),
