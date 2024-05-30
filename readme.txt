@@ -1,5 +1,5 @@
 === Airalo ===
-Contributors: (this should be a list of wordpress.org userid's)
+Contributors: amaaloufairalo
 Tags: esim
 Requires at least: 6.4
 Tested up to: 6.5.3
