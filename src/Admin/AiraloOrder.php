@@ -4,24 +4,28 @@ namespace Airalo\Admin;
 
 use Airalo\Services\Airalo\AiraloClient;
 use Airalo\Admin\Settings\Option;
+use Airalo\Airalo;
+use Airalo\Helpers\Cached;
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
 class AiraloOrder {
-    private const MAX_QUANTITY = 50;
+
+    private Airalo $airalo_client;
+
+    public function __construct() {
+        $this->airalo_client = ( new AiraloClient( new Option ) )->getClient();
+    }
 
     /**
      * @param mixed $order
      * @return void
      */
-    public function handle_order( $order ) {
-        $wc_order = wc_get_order( $order );
-
+    public function handle( $wc_order ) {
         try {
-            $result = ( new AiraloClient( ( new Option ) ) )
-                ->getClient()
+            $result = $this->airalo_client
                 ->orderBulk( $this->get_order_payload( $wc_order ), 'Bulk order placed via Airalo Plugin' );
 
             if ( !$result ) {
@@ -33,63 +37,27 @@ class AiraloOrder {
             $failed_packages = [];
 
             foreach ( $result as $slug => $response ) {
-                if ($response->meta->message != 'success') {
+                if ( $response->meta->message != 'success' ) {
                     $failed_packages[$slug] = $response;
+
+                    continue;
                 }
+
+                $this->add_order_meta( $wc_order, $slug, $response );
             }
 
             if ( count( $failed_packages ) ) {
                 $wc_order->update_status( 'on-hold', 'There are Airalo package order failures. Response: ' . (string)$result );
             }
+
+            Cached::get( function() {
+                return true; // this order is done
+            }, $wc_order->get_id() );
         } catch ( \Exception $ex ) {
             error_log( $ex->getMessage() );
 
             $wc_order->update_status( 'on-hold', 'There are Airalo package order failures. Error: ' . $ex->getMessage() );
         }
-    }
-
-    /**
-     * @param mixed $orders
-     * @param int $quantity
-     * @return mixed
-     */
-    public function handle_validation( $passed, $quantity ) {
-        if ( $quantity > self::MAX_QUANTITY ) {
-            wc_add_notice( sprintf('You cannot add more than %d items to the cart.', self::MAX_QUANTITY), 'error' );
-
-            return false;
-        }
-
-        $cart = WC()->cart->get_cart();
-
-        $total_quantity_in_cart = 0;
-        $bulk_packages_total = 0;
-
-        foreach ( $cart as $cart_item ) {
-            $product_name = $cart_item['data']->get_sku();
-
-            if ( strpos( $product_name, Product::SKU_PREFIX ) !== false ) {
-                $bulk_packages_total += 1;
-                $total_quantity_in_cart += $cart_item['quantity'];
-            }
-        }
-
-        if ( $bulk_packages_total > self::MAX_QUANTITY ) {
-            wc_add_notice( sprintf('You cannot add more than %d different eSIM products to the cart.', self::MAX_QUANTITY, $cart_item['data']->get_name()), 'error' );
-
-            return false;
-        }
-
-        if (
-            ( $total_quantity_in_cart > self::MAX_QUANTITY )
-            || ( $total_quantity_in_cart + $quantity > self::MAX_QUANTITY )
-        ) {
-            wc_add_notice( sprintf( 'You cannot add more than %d items containing "%s" to the cart.', self::MAX_QUANTITY, $cart_item['data']->get_name() ), 'error' );
-
-            return false;
-        }
-
-        return $passed;
     }
 
     /**
@@ -112,5 +80,45 @@ class AiraloOrder {
         }
 
         return $bulk_payload;
+    }
+
+    /**
+     * @param mixed $wc_order
+     * @param string $slug
+     * @param mixed $response
+     * @return void
+     */
+    private function add_order_meta( $wc_order, string $slug, $response ) {
+        $package_data = [];
+
+        try {
+            $packages = $this->airalo_client->getAllPackages( true );
+
+            foreach ($packages['data'] as $package) {
+                if ($package->package_id != $slug) {
+                    continue;
+                }
+                
+                $package_data['location'] = ucfirst( $package->slug );
+                $package_data['package_id'] = $package->package_id;
+            }
+
+            $sims = $response->data->sims ?? [];
+
+            foreach ($sims as $sim) {
+                $wc_order->add_meta_data( $sim->iccid, implode(PHP_EOL, [
+                    'Coverage: ' . $package_data['location'],
+                    'Package ID: ' . $package_data['package_id'],
+                    'Validity: ' . $response->data->validity . ' days',
+                    'Data: ' . $response->data->data,
+                    'Minutes: ' . ( $response->data->voice ? $response->data->voice : 'N/A' ),
+                    'SMS: ' . ( $response->data->text ? $response->data->text : 'N/A' ),
+                ]));
+
+                $wc_order->save();
+            }
+        } catch ( \Exception $ex ) {
+            error_log( $ex->getMessage() );
+        }
     }
 }
