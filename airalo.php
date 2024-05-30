@@ -9,7 +9,7 @@
  * Author URI: https://airalo.com
  * Text Domain: airalo-plugin
  * Domain Path:
- * Requires at least: 6.3
+ * Requires at least: 6.4
  * Requires PHP: 7.4
  * Requires Plugins: woocommerce
  *
