@@ -331,6 +331,7 @@ function airalo_submit_order( $order ) {
     ( new AiraloOrder )->handle( $order );
 }
 
+// TODO: this will most probably go away or will be refactored because we want on user history to add a link to a new page with instructions
 add_action( 'woocommerce_order_details_after_order_table', 'display_custom_fields_on_user_history' );
 
 function display_custom_fields_on_user_history( $order ) {
