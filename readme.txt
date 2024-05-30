@@ -1,5 +1,5 @@
 === Airalo ===
-Contributors: amaaloufairalo
+Contributors: amaaloufairalo, isikiyski, mhraza123
 Tags: esim
 Requires at least: 6.4
 Tested up to: 6.5.3
