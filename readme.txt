@@ -13,22 +13,20 @@ The Airalo plugin allows you to seamlessly sync our products with your store.
 
 == Description ==
 
-The Airalo plugin enables you to sync our products directly into your WooCommerce store allowing you to easily manage them.
-An hourly job insures the products added are always up-to-date. You can also manually sync our products if needed.
+The Airalo Plugin for eSIM Integration is designed to seamlessly sync eSIM packages from our platform to your WooCommerce store and handle order submissions automatically. This plugin simplifies the management of eSIM products and ensures smooth communication between your WooCommerce store and our backend services.
 
 == Features ==
 
-- **Automatic Product Sync**: Updates Airalo products hourly.
-- **Custom Setting**: allows you to tweak setting to fit your needs.
-- **Easy Setup**: Insert your credentials and you're ready to go.
+- **Product Synchronization**: Automatically sync Airalo eSIM packages from our platform to your WooCommerce store, keeping your product listings up to date.
+- **Order Submission**: Once an order is paid, the plugin submits the order details to our Partner REST API endpoint, ensuring efficient processing and fulfilment.
+- **Easy Configuration**: Setup credentials and configure product sync options within the WooCommerce admin panel, making the integration process straightforward and user-friendly.
 
-== Usage ==
+== Installation & Usage ==
 
-- Ensure the plugin is active as well as the Woocommerce plugin.
-- Open the Airalo page in the admin dashboard sidebar.
-- Insert your credentials
-- Choose your settings.
-- Press the Sync button.
+- **Install the Plugin**: Upload the plugin to your WooCommerce store and activate it.
+- **Configure Credentials**: Navigate to the plugin settings and enter your Airalo Partner API credentials to establish a connection with our platform.
+- **Configure Product Sync Options**: Set up synchronization preferences to control how Airalo eSIM packages are imported and displayed in your WooCommerce store.
+- **Automatic Order Handling**: The plugin will automatically handle order submissions to our Partner REST API endpoint when an order is marked as paid.
 
 == Changelog ==
 
