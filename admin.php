@@ -286,11 +286,11 @@ function save_airalo_credentials($clientId, $clientSecret, $isSandbox = false): 
     $credentials = new \Airalo\Admin\Settings\Credential();
 
     if ( $clientId ) {
-        $credentials->insert_credential($clientId, $clientIdCredential);
+        $credentials->insert_credential( sanitize_text_field( $clientId ), $clientIdCredential );
     }
 
     if ( $clientSecret ) {
-        $credentials->insert_credential($clientSecret, $clientSecretCredential);
+        $credentials->insert_credential( sanitize_text_field( $clientSecret ), $clientSecretCredential );
     }
 }
 

@@ -15,8 +15,7 @@ class AiraloOrder {
 
     private Airalo $airalo_client;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->airalo_client = ( new AiraloClient( new Option ) )->getClient();
     }
 
@@ -47,7 +46,7 @@ class AiraloOrder {
                 $this->add_order_meta( $wc_order, $slug, $response );
             }
 
-            if (count($failed_packages)) {
+            if ( count( $failed_packages ) ) {
                 $wc_order->update_status( 'on-hold', 'There are Airalo package order failures. Response: ' . (string)$result );
             }
 
@@ -77,7 +76,7 @@ class AiraloOrder {
         foreach ( $airalo_order_items as $airalo_order_item ) {
             $product = $airalo_order_item->get_product();
 
-            $bulk_payload[str_replace(Product::SKU_PREFIX, '', $product->get_sku())] = $airalo_order_item['quantity'];
+            $bulk_payload[str_replace( Product::SKU_PREFIX, '', $product->get_sku() )] = $airalo_order_item['quantity'];
         }
 
         return $bulk_payload;

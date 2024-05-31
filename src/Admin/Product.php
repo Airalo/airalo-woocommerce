@@ -25,8 +25,7 @@ class Product {
         return $this->product;
     }
 
-    public function update_or_create( $package, $operator, $item, $setting_create, $setting_update, $image_id, $environment ): void
-    {
+    public function update_or_create( $package, $operator, $item, $setting_create, $setting_update, $image_id, $environment ): void {
         $sku = self::SKU_PREFIX . $package->id;
         $product = $this->get_product_by_sku( $sku );
         $product = $product ?? new \WC_Product();
@@ -104,6 +103,8 @@ class Product {
         $operator_attributes = [
             'operator_gradient_start' => $operator->gradient_start ?? null,
             'operator_gradient_end' => $operator->gradient_end ?? null,
+            'voice' => $package->voice ? 'Yes' : 'No',
+            'text' => $package->text ? 'Yes' : 'No',
             'apn_type' => $operator->apn_type ?? null,
             'apn_value' => $operator->apn_value ?? null,
             'is_roaming' => $operator->is_roaming ?? null,

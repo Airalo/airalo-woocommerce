@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function schedule_hourly_event() {
-    if ( !wp_next_scheduled( 'hourly_cron_hook') ) {
-        wp_schedule_event( time(), 'hourly', 'hourly_cron_hook' );
+    if ( !wp_next_scheduled( 'airalo_hourly_cron_hook' ) ) {
+        wp_schedule_event( time(), 'hourly', 'airalo_hourly_cron_hook' );
     }
 }
 
@@ -30,8 +30,7 @@ function sync_airalo_products_hourly() {
 
 }
 
-add_action( 'hourly_cron_hook', 'sync_airalo_products_hourly' );
-
+add_action( 'airalo_hourly_cron_hook', 'sync_airalo_products_hourly' );
 
 function clean_sdk_cache() {
     Cached::clearCache();
