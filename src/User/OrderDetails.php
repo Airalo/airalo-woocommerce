@@ -53,6 +53,10 @@ class OrderDetails {
             foreach ( $order_lines as $values ) {
                 list( $title, $val ) = explode( ':', $values );
 
+                if ( $title == 'Package ID' ) {
+                    continue;
+                }
+
                 echo "<tr><th>$title:</th><td>$val</td></tr>";
             }
         }
