@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once plugin_dir_path( __FILE__ ). '../vendor/autoload.php';
 
 use Airalo\Admin\AiraloOrder;
 use Airalo\Admin\OrderValidator;
@@ -57,14 +57,14 @@ function airalo_settings_page () {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
-    <style><?php require __DIR__ . '/airalo-css/resetStyle.css' ?></style>
-    <style><?php require __DIR__ . '/airalo-css/pluginStyle.css' ?></style>
+    <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/resetStyle.css' ?></style>
+    <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/pluginStyle.css' ?></style>
 
     <div id="airalo-container">
         <div class="airaloPluginHeader">
             <h2 class="airaloPluginTitle"> Airalo Plugin</h2>
             <div class="airaloLogoContainer">
-                <?php require __DIR__ . '/airalo-images/logo-partner-platform.svg' ?>
+                <?php require plugin_dir_path( __FILE__ ) . '../assets/images/logo-partner-platform.svg' ?>
             </div>
         </div>
 
@@ -337,4 +337,3 @@ add_action( 'woocommerce_order_details_after_order_table', 'display_custom_field
 function display_custom_fields_on_user_history( $order ) {
     ( new \Airalo\User\OrderDetails )->handle( $order );
 }
-

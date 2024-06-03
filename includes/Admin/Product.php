@@ -53,7 +53,7 @@ class Product {
             $info.= "\n" . $package->short_info;
         }
 
-        if ( ! $is_create && floatval($product->get_regular_price()) != $package->price ) {
+        if ( ! $is_create && floatval( $product->get_attribute( 'price' ) ) != $package->price ) {
             $is_update = true;
         }
 
