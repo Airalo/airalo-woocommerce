@@ -11,6 +11,10 @@ class Product {
 
     private const STATUS_DRAFT = 'draft';
     private const STATUS_PUBLISH = 'publish';
+    private const OUT_OF_STOCK = 'outofstock';
+    private const IN_STOCK = 'instock';
+    private const EMPTY_SERVICE_FIELD_DEFAULT = 'No';
+
     const SKU_PREFIX = 'xiloxf-jpf-';
 
     private ?\WC_Product $product;
@@ -67,9 +71,9 @@ class Product {
 
         $this->set_product_status( $product, $status, $is_create, $is_update, $setting_create, $setting_update );
 
-        $stock_status = 'instock';
+        $stock_status = self::IN_STOCK;
         if ( $package->amount <= 0 ) {
-            $stock_status = 'outofstock';
+            $stock_status = self::OUT_OF_STOCK;
         }
 
         $product->set_stock_status( $stock_status );
@@ -103,8 +107,9 @@ class Product {
         $operator_attributes = [
             'operator_gradient_start' => $operator->gradient_start ?? null,
             'operator_gradient_end' => $operator->gradient_end ?? null,
-            'voice' => $package->voice ? 'Yes' : 'No',
-            'text' => $package->text ? 'Yes' : 'No',
+            'voice' => $package->voice ?: self::EMPTY_SERVICE_FIELD_DEFAULT,
+            'text' => $package->text ?: self::EMPTY_SERVICE_FIELD_DEFAULT,
+            'data' => $package->amount ?: null,
             'apn_type' => $operator->apn_type ?? null,
             'apn_value' => $operator->apn_value ?? null,
             'is_roaming' => $operator->is_roaming ?? null,
