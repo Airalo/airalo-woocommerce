@@ -1,8 +1,8 @@
 <html>
     <head>
 
-        <style><?php require __DIR__ . '/airalo-css/resetStyle.css' ?></style>
-        <style><?php require __DIR__ . '/airalo-css/instructionsStyle.css' ?></style>
+        <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/resetStyle.css' ?></style>
+        <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/instructionsStyle.css' ?></style>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
@@ -13,7 +13,7 @@
 
         <div id="airalo-container">
             <?php
-                $path = __DIR__ . '/instructions.json';
+                $path = __DIR__ . '/sim_instructions.json';
                 $raw_data = file_get_contents($path);
                 $json_data = json_decode($raw_data);
             ?>
