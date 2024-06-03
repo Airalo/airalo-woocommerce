@@ -103,8 +103,9 @@ class Product {
         $operator_attributes = [
             'operator_gradient_start' => $operator->gradient_start ?? null,
             'operator_gradient_end' => $operator->gradient_end ?? null,
-            'voice' => $package->voice ? 'Yes' : 'No',
-            'text' => $package->text ? 'Yes' : 'No',
+            'voice' => $package->voice ?: 'No',
+            'text' => $package->text ?: 'No',
+            'data' => $package->amount ?: null,
             'apn_type' => $operator->apn_type ?? null,
             'apn_value' => $operator->apn_value ?? null,
             'is_roaming' => $operator->is_roaming ?? null,
