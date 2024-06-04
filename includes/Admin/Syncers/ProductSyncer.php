@@ -21,7 +21,7 @@ class ProductSyncer {
 
         if ( $options->fetch_option( Option::ENVIRONMENT_SWITCHED ) == 'true' ) {
             // remove airalo products from the user's page when environment is switched
-            $this->removeAllAiraloProducts( $options );
+            $this->remove_all_airalo_products( $options );
         }
 
         $environment = $options->get_environment();
@@ -30,8 +30,9 @@ class ProductSyncer {
         $setting_update = $options->fetch_option( Option::AUTO_PUBLISH_AFTER_UPDATE );
         $sync_images = $options->fetch_option( Option::SYNC_IMAGES );
 
-
         try {
+            $airalo_products = $this->fetch_airalo_products();
+
             $client = ( new AiraloClient( $options ) )->getClient();
 
             $allPackages = $client->getSimPackages();
@@ -58,7 +59,7 @@ class ProductSyncer {
                     foreach ( $operator->packages as $package ) {
 
                         $product = new Product();
-                        $product->update_or_create( $package, $operator, $item, $setting_create, $setting_update, $image_id, $environment );
+                        $product->update_or_create( $package, $operator, $item, $setting_create, $setting_update, $image_id, $environment, $airalo_products );
 
                     }
 
@@ -66,8 +67,9 @@ class ProductSyncer {
 
             }
 
-            $options->insert_option( Option::LAST_SUCCESSFUL_SYNC, date( 'Y-m-d H:i:s' ) );
+            $this->check_stock( $airalo_products );
 
+            $options->insert_option( Option::LAST_SUCCESSFUL_SYNC, date( 'Y-m-d H:i:s' ) );
         } catch ( \Exception $ex ) {
             $error_message = strip_tags( $ex->getMessage() );
             $error = $error_message;
@@ -82,7 +84,43 @@ class ProductSyncer {
         $options->insert_option( Option::SYNC_ERROR, $error );
     }
 
-    private function removeAllAiraloProducts( Option $option ) {
+    /**
+     * We do not return out of stock packages so this function
+     * Checks if the sku was marked as processed and sets the product out of stock.
+     *
+     * @param $airalo_products
+     * @return void
+     */
+    private function check_stock( $airalo_products ) {
+        foreach ( $airalo_products as $airalo_product ) {
+            $product = $airalo_product['product'];
+            $stock_status = Product::IN_STOCK;
+
+            if ( ! isset ( $airalo_product['processed'] ) ) {
+                $stock_status = Product::OUT_OF_STOCK;
+            }
+
+            $product->set_stock_status( $stock_status );
+            $product->save();
+        }
+    }
+
+    private function fetch_airalo_products() {
+        $products_by_sku = [];
+        $query = $this->get_airalo_products_query();
+
+        if ( $query->have_posts() ) {
+            while ( $query->have_posts() ) {
+                $query->the_post();
+                $product = wc_get_product(get_the_ID());
+                $products_by_sku[$product->get_sku()] = ['product' => $product];
+            }
+        }
+
+        return $products_by_sku;
+    }
+
+    private function get_airalo_products_query(): \WP_Query {
         $args = [
             'post_type' => 'product',
             'posts_per_page' => -1,
@@ -95,7 +133,11 @@ class ProductSyncer {
             ],
         ];
 
-        $query = new \WP_Query( $args );
+        return new \WP_Query( $args );
+    }
+
+    private function remove_all_airalo_products( Option $option ) {
+        $query = $this->get_airalo_products_query();
 
         if ( $query->have_posts() ) {
             while ( $query->have_posts() ) {

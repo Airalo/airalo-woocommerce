@@ -11,8 +11,8 @@ class Product {
 
     private const STATUS_DRAFT = 'draft';
     private const STATUS_PUBLISH = 'publish';
-    private const OUT_OF_STOCK = 'outofstock';
-    private const IN_STOCK = 'instock';
+    const OUT_OF_STOCK = 'outofstock';
+    const IN_STOCK = 'instock';
     private const EMPTY_SERVICE_FIELD_DEFAULT = 'No';
 
     const SKU_PREFIX = 'xiloxf-jpf-';
@@ -29,11 +29,16 @@ class Product {
         return $this->product;
     }
 
-    public function update_or_create( $package, $operator, $item, $setting_create, $setting_update, $image_id, $environment ): void {
+    public function update_or_create( $package, $operator, $item, $setting_create, $setting_update, $image_id, $environment, &$airalo_products ): void {
         $sku = self::SKU_PREFIX . $package->id;
         $product = $this->get_product_by_sku( $sku );
         $product = $product ?? new \WC_Product();
         $status = $product->get_status();
+
+        if ( isset( $airalo_products[$sku] ) ) {
+            // mark product as processed to not set it as out of stock
+            $airalo_products[$sku]['processed'] = 1;
+        }
 
         $is_update = false;
         $is_create = false;
@@ -70,13 +75,6 @@ class Product {
         $product->set_name($name);
 
         $this->set_product_status( $product, $status, $is_create, $is_update, $setting_create, $setting_update );
-
-        $stock_status = self::IN_STOCK;
-        if ( $package->amount <= 0 ) {
-            $stock_status = self::OUT_OF_STOCK;
-        }
-
-        $product->set_stock_status( $stock_status );
 
         $product->set_stock_quantity( $package->amount );
         $product->set_virtual( true );
