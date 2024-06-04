@@ -76,7 +76,6 @@ class Product {
 
         $this->set_product_status( $product, $status, $is_create, $is_update, $setting_create, $setting_update );
 
-        $product->set_stock_quantity( $package->amount );
         $product->set_virtual( true );
 
         $this->add_operator_attributes( $operator, $product, $package );
