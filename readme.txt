@@ -21,9 +21,17 @@ The Airalo Plugin for eSIM Integration is designed to seamlessly sync eSIM packa
 - **Order Submission**: Once an order is paid, the plugin submits the order details to our Partner REST API endpoint, ensuring efficient processing and fulfilment.
 - **Easy Configuration**: Setup credentials and configure product sync options within the WooCommerce admin panel, making the integration process straightforward and user-friendly.
 
-== Installation & Usage ==
+== Installation ==
+- ** Navigate to the plugin section in your admin dashboard **
+- ** Click on "Add New Plugin" **
+- ** Search for "Airalo" **
+- ** Click the "Install Now" button **
+- ** Navigate to the "Installed Plugins Page" **
+- ** Click on "Activate" **
 
-- **Install the Plugin**: Upload the plugin to your WooCommerce store and activate it.
+== Usage ==
+
+- **Install the Plugin**: Install the plugin from the Wordpress Plugin Store.
 - **Configure Credentials**: Navigate to the plugin settings and enter your Airalo Partner API credentials to establish a connection with our platform.
 - **Configure Product Sync Options**: Set up synchronization preferences to control how Airalo eSIM packages are imported and displayed in your WooCommerce store.
 - **Automatic Order Handling**: The plugin will automatically handle order submissions to our Partner REST API endpoint when an order is marked as paid.
