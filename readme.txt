@@ -1,6 +1,6 @@
 === Airalo ===
 Contributors: amaaloufairalo, isikiyski, mhraza123
-Tags: esim
+Tags: esim, woocommerce
 Requires at least: 6.4
 Tested up to: 6.5.3
 Stable tag: 1.0
