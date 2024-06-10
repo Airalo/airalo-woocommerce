@@ -1,0 +1,4 @@
+*** Airalo Changelog ***
+
+2024-06-01 - version 1.0.0
+* Initial Release

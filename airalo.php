@@ -13,7 +13,11 @@
  * Requires PHP: 7.4
  * Requires Plugins: woocommerce
  *
- * @package WooCommerce
+ * WC requires at least: 8.7
+ * WC tested up to: 8.9
+ *
+ * License: GNU General Public License v2.0
+ * License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
  */
 
 defined( 'ABSPATH' ) || exit;
