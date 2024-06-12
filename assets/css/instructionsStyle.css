@@ -39,6 +39,16 @@
       0px 1px 2px -1px rgba(0, 0, 0, 0.1);
   }
 
+  .input-iccid {
+    width: 100%;
+
+    padding: var(--25, 0.625rem) var(--5, 1.25rem);
+
+    border-radius: var(--rounded-lg, 0.5rem);
+    border: 1px solid var(--gray-200, #e5e7eb);
+    background: var(--white, #fff);
+  }
+
   .steps-container {
     padding: 1rem;
 
