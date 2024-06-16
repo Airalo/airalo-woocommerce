@@ -1,28 +1,12 @@
 <?php
+
+// Ensure dependencies are loaded
+require_once plugin_dir_path(__FILE__) . '../vendor/autoload.php';
+
 // Ensure the file is not accessed directly
 if (!defined('ABSPATH')) {
     exit;
 }
-
-// Register the custom endpoint
-function add_airalo_instructions_endpoint() {
-    add_rewrite_rule('^airalo-instructions/?', 'index.php?airalo_instructions=1', 'top');
-    add_rewrite_tag('%airalo_instructions%', '([^&]+)');
-}
-add_action('init', 'add_airalo_instructions_endpoint');
-
-// Flush rewrite rules on plugin activation
-function flush_rewrite_rules_on_activation() {
-    add_airalo_instructions_endpoint();
-    flush_rewrite_rules();
-}
-register_activation_hook(__FILE__, 'flush_rewrite_rules_on_activation');
-
-// Flush rewrite rules on plugin deactivation
-function flush_rewrite_rules_on_deactivation() {
-    flush_rewrite_rules();
-}
-register_deactivation_hook(__FILE__, 'flush_rewrite_rules_on_deactivation');
 
 // Handle the custom endpoint
 function handle_airalo_instructions_endpoint() {
@@ -33,24 +17,11 @@ function handle_airalo_instructions_endpoint() {
 }
 add_action('template_redirect', 'handle_airalo_instructions_endpoint');
 
-
-function add_iccid_link_to_order_details($order) {
-    $iccid = get_post_meta($order->get_id(), '_iccid', true);
-    if ($iccid) {
-        echo '<tr><th>ICCID:</th><td><a href="' . home_url('airalo-instructions?iccid=' . $iccid) . '">' . $iccid . '</a></td></tr>';
-    }
-}
-add_action('woocommerce_order_details_after_order_table', 'add_iccid_link_to_order_details');
-
-// Ensure dependencies are loaded
-require_once plugin_dir_path(__FILE__) . '../vendor/autoload.php';
-
 $iccid = isset($_GET['iccid']) ? sanitize_text_field($_GET['iccid']) : '';
 $encodedResult = '';
 if ($_GET['action'] === 'airalo_instructions'){
     // Render the form and instructions
 render_airalo_form($iccid, $encodedResult);
-
 }
 
 
@@ -94,7 +65,6 @@ function render_airalo_form($iccid = '', $language = '', $selectedMethod = 'inst
 
 
     <div id="airalo-container">
-        <a class="airalo-btn airaloButton" href="<?php echo $oder_detail_url;?>">Order Detail</a>
         <h1>eSIM Installation</h1>
 
         <form id="options.php" method="post">
@@ -153,7 +123,7 @@ function render_airalo_form($iccid = '', $language = '', $selectedMethod = 'inst
                 <input type="submit" name="get_airalo_instructions" value="Instructions" class="airaloButton"/>
             </div>
         </form>
-
+        <a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button airaloButton" href="<?php echo $oder_detail_url;?>">Back</a>
         <div id="instructions-container">
             <?php
             // Display instructions if response is set
