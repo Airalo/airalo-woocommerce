@@ -25,11 +25,10 @@ class InstallationInstruction
      * @param string $language
      * @return void
      */
-    public function handle($iccid,$language)
-    {
+    public function handle( $iccid, $language ) {
         try {
 
-            if ($language == '') {
+            if ( $language == '' ) {
                 $language = 'en';
             }
 
