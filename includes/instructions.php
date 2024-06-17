@@ -116,7 +116,7 @@ function render_airalo_form( $iccid = '', $language = '', $selectedMethod = 'ins
                         } else {
                             $versionName = 'Google Pixel';
                         }
-                        echo "<option value='android-" . esc_attr($version) . "'>" . esc_html($versionName) . "</option>";
+                        echo "<option value='android-" . esc_attr( $version ) . "'>" . esc_html( $versionName ) . "</option>";
                     }
                     ?>
                 </select>
