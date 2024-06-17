@@ -1,7 +1,7 @@
 <?php
 
 // Ensure dependencies are loaded
-require_once plugin_dir_path(__FILE__) . '../vendor/autoload.php';
+require_once plugin_dir_path( __FILE__ ) . '../vendor/autoload.php';
 
 // Ensure the file is not accessed directly
 if (!defined('ABSPATH')) {
