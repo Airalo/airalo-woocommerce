@@ -106,7 +106,7 @@ function render_airalo_form( $iccid = '', $language = '', $selectedMethod = 'ins
                         echo "<option value='ios-" . esc_attr($version) . "'>" . esc_html($versionName) . "</option>";
                     }
 
-                    foreach ($json_data['data']['instructions']['android'] as $android) {
+                    foreach ( $json_data['data']['instructions']['android'] as $android ) {
                         $version = $android['version'];
                         $model = $android['model'];
                         if ($model === 'Galaxy') {
