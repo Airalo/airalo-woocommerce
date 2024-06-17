@@ -10,18 +10,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Handle the custom endpoint
 function handle_airalo_instructions_endpoint() {
-    if (get_query_var('airalo_instructions', false) !== false) {
-        require_once plugin_dir_path(__FILE__) . 'instructions.php';
+    if ( get_query_var( 'airalo_instructions', false ) !== false ) {
+        require_once plugin_dir_path( __FILE__ ) . 'instructions.php';
         exit;
     }
 }
-add_action('template_redirect', 'handle_airalo_instructions_endpoint');
+add_action( 'template_redirect', 'handle_airalo_instructions_endpoint' );
 
-$iccid = isset($_GET['iccid']) ? sanitize_text_field($_GET['iccid']) : '';
+$iccid = isset( $_GET['iccid'] ) ? sanitize_text_field( $_GET['iccid'] ) : '';
 $encodedResult = '';
-if ($_GET['action'] === 'airalo_instructions'){
+if ( $_GET['action'] === 'airalo_instructions' ) {
     // Render the form and instructions
-render_airalo_form($iccid, $encodedResult);
+render_airalo_form( $iccid, $encodedResult );
 }
 
 
