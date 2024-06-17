@@ -12,12 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class InstallationInstruction
 {
-
     private Airalo $airalo_client;
 
     public function __construct()
     {
-        $this->airalo_client = (new AiraloClient(new Option))->getClient();
+        $this->airalo_client = ( new AiraloClient( new Option ) )->getClient();
     }
 
 
@@ -30,17 +29,14 @@ class InstallationInstruction
     {
         try {
 
-            if ($language == '') $language = 'en';
+            if ($language == '') {
+                $language = 'en';
+            }
 
-            $result = $this->airalo_client->getSimInstructions($iccid,$language);
+            $result = $this->airalo_client->getSimInstructions( $iccid, $language );
             return $result;
         } catch ( \Exception $ex ) {
             error_log( $ex->getMessage() );
         }
     }
-
-
-
-
-
 }
