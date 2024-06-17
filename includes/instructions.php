@@ -25,34 +25,35 @@ render_airalo_form( $iccid, $encodedResult );
 }
 
 
-function render_airalo_form($iccid = '', $language = '', $selectedMethod = 'installation_manual', $encodedResult = '') {
+function render_airalo_form( $iccid = '', $language = '', $selectedMethod = 'installation_manual', $encodedResult = '' ) {
     // Load JSON data for the dropdown
     $path = __DIR__ . '/instructions.json';
-    $raw_data = file_get_contents($path);
-    $json_data = json_decode($raw_data, true);
+    $raw_data = file_get_contents( $path );
+    $json_data = json_decode( $raw_data, true );
     $page_id = $_GET['p'] ?? 0;
     $order_id = $_GET['op'] ?? 0;
 
-    $oder_detail_url = home_url('?page_id='.$page_id.'&view-order='.$order_id);
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $language = sanitize_text_field($_POST['language'] ?? 'en');
-        $selectedMethod = sanitize_text_field($_POST['installation-select'] ?? 'installation_manual');
+    $oder_detail_url = home_url( '?page_id=' . $page_id . '&view-order=' . $order_id );
+    if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+        $language = sanitize_text_field( $_POST['language'] ?? 'en' );
+        $selectedMethod = sanitize_text_field( $_POST['installation-select'] ?? 'installation_manual' );
 
         // Call the external PHP function here
-        $response = call_external_function($iccid, $language);
+        $response = call_external_function( $iccid, $language );
 
-        if (!empty($response)) {
-            $result = update_response($response, $selectedMethod);
-            $encodedResult = json_encode($result);
+        if ( ! empty( $response ) ) {
+
+            $result = update_response( $response, $selectedMethod );
+            $encodedResult = json_encode( $result );
             // Return JSON response for AJAX request
-            if (defined('DOING_AJAX') && DOING_AJAX) {
-                wp_send_json_success($result);
+            if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+                wp_send_json_success( $result );
             }
         }
     }
 
     // Decode response if available
-    $response = $encodedResult ? json_decode($encodedResult, true) : null;
+    $response = $encodedResult ? json_decode( $encodedResult, true ) : null;
 
     ?>
     <title>Instructions - WooCommerce </title>
