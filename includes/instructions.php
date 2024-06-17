@@ -84,7 +84,7 @@ function render_airalo_form( $iccid = '', $language = '', $selectedMethod = 'ins
                 <select id="language" name="language">
                     <option disabled selected value> -- Select A Language -- </option>
                     <?php
-                    foreach (\Airalo\Admin\Settings\Language::get_all_languages() as $key => $value) {
+                    foreach ( \Airalo\Admin\Settings\Language::get_all_languages() as $key => $value ) {
                         $selected = $language == $key ? 'selected' : '';
                         echo "<option value='" . esc_attr($key) . "' " . esc_attr($selected) . ">" . esc_html($value) . "</option>";
                     }
