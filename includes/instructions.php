@@ -57,8 +57,8 @@ function render_airalo_form( $iccid = '', $language = '', $selectedMethod = 'ins
 
     ?>
     <title>Instructions - WooCommerce </title>
-    <style><?php require plugin_dir_path(__FILE__) . '../assets/css/resetStyle.css'; ?></style>
-    <style><?php require plugin_dir_path(__FILE__) . '../assets/css/instructionsStyle.css'; ?></style>
+    <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/resetStyle.css'; ?></style>
+    <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/instructionsStyle.css'; ?></style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
