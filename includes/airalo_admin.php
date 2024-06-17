@@ -35,6 +35,7 @@ function airalo_settings_page () {
     $auto_publish = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::AUTO_PUBLISH );
     $auto_publish_after_update = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::AUTO_PUBLISH_AFTER_UPDATE );
     $use_sandbox = $options->fetch_option_for_settings_page(\Airalo\Admin\Settings\Option::USE_SANDBOX);
+    $airalo_sim_name = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::USE_AIRALO_SIM_NAME );
 
     $sync_images = $options->fetch_option( \Airalo\Admin\Settings\Option::SYNC_IMAGES );
     if ( $sync_images !== 'off' ) {
@@ -138,6 +139,15 @@ function airalo_settings_page () {
                                         </span>
                                 </label>
                             </div>
+                        <div>
+                            <label for="airalo_sim_name">
+                                Use Airalo Sim Name
+                                <span class="switch">
+                                        <input type="checkbox" name="airalo_sim_name" <?php echo $airalo_sim_name ?> id="airalo_sim_name"/>
+                                        <span class="slider round"></span>
+                                        </span>
+                            </label>
+                        </div>
                             <div>
                                 <label for="airalo_auto_publish">
                                     Auto Publish Product
@@ -259,6 +269,7 @@ function save_airalo_settings(): void {
     $use_sandbox = $_POST['airalo_use_sandbox'] ?? 'off';
     $language = $_POST['airalo_language'] ?? 'en';
     $sync_images = $_POST['airalo_sync_images'] ?? 'off';
+    $airalo_sim_name = $_POST['airalo_sim_name'] ?? 'off';
 
     $options = new \Airalo\Admin\Settings\Option();
 
@@ -272,6 +283,7 @@ function save_airalo_settings(): void {
     $options->insert_option( \Airalo\Admin\Settings\Option::USE_SANDBOX, $use_sandbox );
     $options->insert_option( \Airalo\Admin\Settings\Option::LANGUAGE, $language );
     $options->insert_option( \Airalo\Admin\Settings\Option::SYNC_IMAGES, $sync_images );
+    $options->insert_option( \Airalo\Admin\Settings\Option::USE_AIRALO_SIM_NAME, $airalo_sim_name );
 }
 
 function save_airalo_credentials($clientId, $clientSecret, $isSandbox = false): void {
