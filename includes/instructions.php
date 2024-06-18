@@ -84,9 +84,9 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
                 <select id="language" name="language">
                     <option disabled selected value> -- Select A Language -- </option>
                     <?php
-                    foreach (\Airalo\Admin\Settings\Language::get_all_languages() as $key => $value) {
+                    foreach ( \Airalo\Admin\Settings\Language::get_all_languages() as $key => $value ) {
                         $selected = $language == $key ? 'selected' : '';
-                        echo "<option value='" . esc_attr($key) . "' " . esc_attr($selected) . ">" . esc_html($value) . "</option>";
+                        echo "<option value='" . esc_attr( $key ) . "' " . esc_attr( $selected ) . ">" . esc_html( $value ) . "</option>";
                     }
                     ?>
                 </select>
@@ -103,10 +103,10 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
                         } else {
                             $version_name = 'iOS 17';
                         }
-                        echo "<option value='ios-" . esc_attr($version) . "'>" . esc_html($version_name) . "</option>";
+                        echo "<option value='ios-" . esc_attr( $version ) . "'>" . esc_html( $version_name ) . "</option>";
                     }
 
-                    foreach ($json_data['data']['instructions']['android'] as $android) {
+                    foreach ( $json_data['data']['instructions']['android'] as $android ) {
                         $version = $android['version'];
                         $model = $android['model'];
                         if ($model === 'Galaxy') {
@@ -116,7 +116,7 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
                         } else {
                             $version_name = 'Google Pixel';
                         }
-                        echo "<option value='android-" . esc_attr($version) . "'>" . esc_html($version_name) . "</option>";
+                        echo "<option value='android-" . esc_attr( $version ) . "'>" . esc_html( $version_name ) . "</option>";
                     }
                     ?>
                 </select>
