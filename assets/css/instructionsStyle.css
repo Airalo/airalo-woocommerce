@@ -39,6 +39,20 @@
       0px 1px 2px -1px rgba(0, 0, 0, 0.1);
   }
 
+  .input-iccid {
+    width: 100%;
+
+    padding: var(--25, 0.625rem) var(--5, 1.25rem);
+
+    border-radius: var(--rounded-lg, 0.5rem);
+    border: 1px solid var(--gray-200, #e5e7eb);
+    background: var(--white, #fff);
+  }
+
+  #qr-code-container {
+    margin-top: 1rem;
+  }
+
   .steps-container {
     padding: 1rem;
 
@@ -175,6 +189,26 @@
       }
     }
   }
+}
+.airalo-btn.airaloButton {
+  max-width: 180px;
+  display: flex;
+  height: 2.75rem;
+  min-height: 2.75rem;
+  padding: var(--0, 0rem) var(--6, 1.5rem);
+  justify-content: center;
+  align-items: center;
+  gap: var(--2, 0.5rem);
+  border: none;
+  border-radius: var(--rounded-lg, 0.5rem);
+  background: var(--Surface-Primary-Highlight, #1a56db);
+  color: var(--Text-Title-On-Dark, #f9fafb);
+  text-align: center;
+  font-family: "IBM Plex Sans";
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.125rem;
 }
 
 @media screen and (min-width: 1024px) {
