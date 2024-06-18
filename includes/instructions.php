@@ -18,14 +18,14 @@ function handle_airalo_instructions_endpoint() {
 add_action( 'template_redirect', 'handle_airalo_instructions_endpoint' );
 
 $iccid = isset( $_GET['iccid'] ) ? sanitize_text_field( $_GET['iccid'] ) : '';
-$encodedResult = '';
+$encoded_result = '';
 if ( $_GET['action'] === 'airalo_instructions' ) {
     // Render the form and instructions
-render_airalo_form( $iccid, $encodedResult );
+render_airalo_form( $iccid, $encoded_result );
 }
 
 
-function render_airalo_form( $iccid = '', $language = '', $selectedMethod = 'installation_manual', $encodedResult = '' ) {
+function render_airalo_form( $iccid = '', $language = '', $selected_method = 'installation_manual', $encoded_result = '' ) {
     // Load JSON data for the dropdown
     $path = __DIR__ . '/instructions.json';
     $raw_data = file_get_contents( $path );
@@ -36,15 +36,15 @@ function render_airalo_form( $iccid = '', $language = '', $selectedMethod = 'ins
     $oder_detail_url = home_url( '?page_id=' . $page_id . '&view-order=' . $order_id );
     if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
         $language = sanitize_text_field( $_POST['language'] ?? 'en' );
-        $selectedMethod = sanitize_text_field( $_POST['installation-select'] ?? 'installation_manual' );
+        $selected_method = sanitize_text_field( $_POST['installation-select'] ?? 'installation_manual' );
 
         // Call the external PHP function here
         $response = call_external_function( $iccid, $language );
 
         if ( ! empty( $response ) ) {
 
-            $result = update_response( $response, $selectedMethod );
-            $encodedResult = json_encode( $result );
+            $result = update_response( $response, $selected_method );
+            $encoded_result = json_encode( $result );
             // Return JSON response for AJAX request
             if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
                 wp_send_json_success( $result );
@@ -53,7 +53,7 @@ function render_airalo_form( $iccid = '', $language = '', $selectedMethod = 'ins
     }
 
     // Decode response if available
-    $response = $encodedResult ? json_decode( $encodedResult, true ) : null;
+    $response = $encoded_result ? json_decode( $encoded_result, true ) : null;
 
     ?>
     <title>Instructions - WooCommerce </title>
@@ -72,8 +72,8 @@ function render_airalo_form( $iccid = '', $language = '', $selectedMethod = 'ins
             <input type="hidden" name="action" value="submit_airalo_settings">
 
             <select id="installation-select" name="installation-select">
-                <option value='installation_via_qr_code' <?php echo $selectedMethod == 'installation_via_qr_code' ? 'selected' : '' ?>>Installation via QR Code</option>
-                <option value='installation_manual' <?php echo $selectedMethod == 'installation_manual' ? 'selected' : '' ?>>Installation Manual</option>
+                <option value='installation_via_qr_code' <?php echo $selected_method == 'installation_via_qr_code' ? 'selected' : '' ?>>Installation via QR Code</option>
+                <option value='installation_manual' <?php echo $selected_method == 'installation_manual' ? 'selected' : '' ?>>Installation Manual</option>
             </select>
 
             <div class="container">
@@ -97,26 +97,26 @@ function render_airalo_form( $iccid = '', $language = '', $selectedMethod = 'ins
                     foreach ($json_data['data']['instructions']['ios'] as $ios) {
                         $version = $ios['version'];
                         if (in_array($version, ['15.0', '14.0', '13.0', '12.0'])) {
-                            $versionName = 'iOS ≤ 15';
+                            $version_name = 'iOS ≤ 15';
                         } elseif ($version === '16.0') {
-                            $versionName = 'iOS 16';
+                            $version_name = 'iOS 16';
                         } else {
-                            $versionName = 'iOS 17';
+                            $version_name = 'iOS 17';
                         }
-                        echo "<option value='ios-" . esc_attr($version) . "'>" . esc_html($versionName) . "</option>";
+                        echo "<option value='ios-" . esc_attr($version) . "'>" . esc_html($version_name) . "</option>";
                     }
 
                     foreach ($json_data['data']['instructions']['android'] as $android) {
                         $version = $android['version'];
                         $model = $android['model'];
                         if ($model === 'Galaxy') {
-                            $versionName = 'Samsung Galaxy';
+                            $version_name = 'Samsung Galaxy';
                         } elseif ($model === 'Samsung') {
-                            $versionName = 'Samsung';
+                            $version_name = 'Samsung';
                         } else {
-                            $versionName = 'Google Pixel';
+                            $version_name = 'Google Pixel';
                         }
-                        echo "<option value='android-" . esc_attr($version) . "'>" . esc_html($versionName) . "</option>";
+                        echo "<option value='android-" . esc_attr($version) . "'>" . esc_html($version_name) . "</option>";
                     }
                     ?>
                 </select>
@@ -132,7 +132,7 @@ function render_airalo_form( $iccid = '', $language = '', $selectedMethod = 'ins
                 ?>
                 <div id="qr-code-container">
                     <?php
-                    if (!empty($response) && $selectedMethod == 'installation_via_qr_code') {
+                    if (!empty($response) && $selected_method == 'installation_via_qr_code') {
                         ?>
                         <img src="<?php echo $response['qrCodeUrl'] ?>" alt="QR Code">
                         <?php
@@ -172,57 +172,57 @@ function call_external_function($iccid, $language) {
     }
 }
 
-function update_response($jsonData, $selectedMethod, $selectedVersion = "ios") {
+function update_response($json_data, $selected_method, $selected_version = "ios") {
     $steps = [];
-    $networkSteps = [];
-    $qrCodeUrl = '';
-    $apnType = '';
-    $apnValue = '';
-    $isRoaming = false;
-    $jsonData = json_decode($jsonData, true);
+    $network_steps = [];
+    $qr_code_url = '';
+    $apn_type = '';
+    $apn_value = '';
+    $is_roaming = false;
+    $json_data = json_decode($json_data, true);
 
-    if ($selectedVersion === "ios") {
-        $steps = array_values($jsonData['data']['instructions']['ios'][0][$selectedMethod]['steps']);
-        $networkSteps = array_values($jsonData['data']['instructions']['ios'][0]['network_setup']['steps']);
-        $qrCodeUrl = $jsonData['data']['instructions']['ios'][0][$selectedMethod]['qr_code_url'];
-        $apnType = $jsonData['data']['instructions']['ios'][0]['network_setup']['apn_type'];
-        $apnValue = $jsonData['data']['instructions']['ios'][0]['network_setup']['apn_value'];
-        $isRoaming = $jsonData['data']['instructions']['ios'][0]['network_setup']['is_roaming'];
-    } elseif ($selectedVersion === "android") {
-        $steps = array_values($jsonData['data']['instructions']['android'][0][$selectedMethod]['steps']);
-        $networkSteps = array_values($jsonData['data']['instructions']['android'][0]['network_setup']['steps']);
-        $qrCodeUrl = $jsonData['data']['instructions']['android'][0][$selectedMethod]['qr_code_url'];
-        $apnType = $jsonData['data']['instructions']['android'][0]['network_setup']['apn_type'];
-        $apnValue = $jsonData['data']['instructions']['android'][0]['network_setup']['apn_value'];
-        $isRoaming = $jsonData['data']['instructions']['android'][0]['network_setup']['is_roaming'];
+    if ($selected_version === "ios") {
+        $steps = array_values($json_data['data']['instructions']['ios'][0][$selected_method]['steps']);
+        $network_steps = array_values($json_data['data']['instructions']['ios'][0]['network_setup']['steps']);
+        $qr_code_url = $json_data['data']['instructions']['ios'][0][$selected_method]['qr_code_url'];
+        $apn_type = $json_data['data']['instructions']['ios'][0]['network_setup']['apn_type'];
+        $apn_value = $json_data['data']['instructions']['ios'][0]['network_setup']['apn_value'];
+        $is_roaming = $json_data['data']['instructions']['ios'][0]['network_setup']['is_roaming'];
+    } elseif ($selected_version === "android") {
+        $steps = array_values($json_data['data']['instructions']['android'][0][$selected_method]['steps']);
+        $network_steps = array_values($json_data['data']['instructions']['android'][0]['network_setup']['steps']);
+        $qr_code_url = $json_data['data']['instructions']['android'][0][$selected_method]['qr_code_url'];
+        $apn_type = $json_data['data']['instructions']['android'][0]['network_setup']['apn_type'];
+        $apn_value = $json_data['data']['instructions']['android'][0]['network_setup']['apn_value'];
+        $is_roaming = $json_data['data']['instructions']['android'][0]['network_setup']['is_roaming'];
     }
 
-    $stepsHtml = '<ol>';
+    $steps_html = '<ol>';
     foreach ($steps as $step) {
-        $stepsHtml .= '<li>' . htmlspecialchars($step) . '</li>';
+        $steps_html .= '<li>' . htmlspecialchars($step) . '</li>';
     }
-    $stepsHtml .= '</ol>';
+    $steps_html .= '</ol>';
 
-    $networkStepsHtml = '<ol>';
-    foreach ($networkSteps as $step) {
-        $networkStepsHtml .= '<li>' . htmlspecialchars($step) . '</li>';
+    $network_steps_html = '<ol>';
+    foreach ($network_steps as $step) {
+        $network_steps_html .= '<li>' . htmlspecialchars($step) . '</li>';
     }
-    $networkStepsHtml .= '</ol>';
+    $network_steps_html .= '</ol>';
 
-    $networkInfoHtml = '<div class="network-item-details">
+    $network_info_html = '<div class="network-item-details">
         <h3>Data roaming</h3>
-        <p>' . (isset($isRoaming) ? "On" : "Off") . '</p>
+        <p>' . (isset($is_roaming) ? "On" : "Off") . '</p>
     </div>
     <div class="network-item-details">
         <h3>APN</h3>
-        <p>' . capitalize($apnType) . '</p>
+        <p>' . capitalize($apn_type) . '</p>
     </div>';
 
     $output = [
-        'stepsHtml' => $stepsHtml,
-        'networkStepsHtml' => $networkStepsHtml,
-        'networkInfoHtml' => $networkInfoHtml,
-        'qrCodeUrl' => $selectedMethod === "installation_via_qr_code" ? $qrCodeUrl : '',
+        'stepsHtml' => $steps_html,
+        'networkStepsHtml' => $network_steps_html,
+        'networkInfoHtml' => $network_info_html,
+        'qrCodeUrl' => $selected_method === "installation_via_qr_code" ? $qr_code_url : '',
     ];
 
     return $output;
