@@ -24,6 +24,8 @@ class Option {
 
     const LANGUAGE = 'airalo_language';
 
+    const USE_AIRALO_SIM_NAME = 'use_airalo_sim_name';
+
     public function insert_option( string $name, $value ): void {
         update_option( $name, $value );
     }

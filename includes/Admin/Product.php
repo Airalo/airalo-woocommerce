@@ -29,7 +29,7 @@ class Product {
         return $this->product;
     }
 
-    public function update_or_create( $package, $operator, $item, $setting_create, $setting_update, $image_id, $environment, &$airalo_products ): void {
+    public function update_or_create( $package, $operator, $item, $setting_create, $setting_update, $image_id, $environment, $setting_name, &$airalo_products ): void {
         $sku = self::SKU_PREFIX . $package->id;
         $product = $this->get_product_by_sku( $sku );
         $product = $product ?? new \WC_Product();
@@ -66,13 +66,10 @@ class Product {
             $product->set_image_id( $image_id );
         }
 
-        $product->set_description( $info ?? '');
-        $name = $item->title. ' ' .$package->title;
-        if ( $environment == 'sandbox' ) {
-            $name = strtoupper($environment) . ' - ' . $name;
-        }
+        $this->set_product_name( $product, $package, $item, $operator, $setting_name, $environment );
 
-        $product->set_name($name);
+        $product->set_description( $info ?? '' );
+
 
         $this->set_product_status( $product, $status, $is_create, $is_update, $setting_create, $setting_update );
 
@@ -81,6 +78,19 @@ class Product {
         $this->add_operator_attributes( $operator, $product, $package );
 
         $product->save();
+    }
+
+    private function set_product_name( $product, $package, $item, $operator, $setting_name, $environment ) {
+        // Operator title is the airalo esim name while the item title is the country
+        $main_title = $setting_name == Option::ENABLED ? $operator->title : $item->title;
+
+        $name = $main_title. ' ' .$package->title;
+
+        if ( $environment == 'sandbox' ) {
+            $name = strtoupper( $environment ) . ' - ' . $name;
+        }
+
+        $product->set_name( $name );
     }
 
     private function add_operator_attributes(  $operator, \WC_Product $product,  $package ): void {
