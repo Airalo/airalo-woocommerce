@@ -36,7 +36,7 @@ function plugin_action_links( $links ) {
         return $links;
     }
 
-    $settings_link = ['settings' => '<a href="/includes/airalo_admin.php?page=airalo-settings">Settings</a>'];
+    $settings_link = ['settings' => '<a href="/wp-admin/admin.php?page=airalo-settings">Settings</a>'];
 
     return array_merge( $settings_link, $links );
 }
