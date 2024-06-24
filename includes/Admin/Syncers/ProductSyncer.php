@@ -113,7 +113,7 @@ class ProductSyncer {
         if ( $query->have_posts() ) {
             while ( $query->have_posts() ) {
                 $query->the_post();
-                $product = wc_get_product(get_the_ID());
+                $product = wc_get_product( get_the_ID() );
                 $products_by_sku[$product->get_sku()] = ['product' => $product];
             }
         }
