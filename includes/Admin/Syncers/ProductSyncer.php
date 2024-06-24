@@ -2,6 +2,7 @@
 
 namespace Airalo\Admin\Syncers;
 
+use Airalo\Admin\InstallationInstruction;
 use Airalo\Admin\Product;
 use Airalo\Admin\Settings\Option;
 use Airalo\Admin\Term;
@@ -51,7 +52,7 @@ class ProductSyncer {
                 foreach ( $item->operators as $operator ) {
 
                     $image_id = null;
-                    if ( $sync_images == 'on' ) {
+                    if ( $sync_images == Option::ENABLED ) {
                         $term = new Term();
                         $term = $term->fetch_or_create_image_term( $operator );
                         $image_id = get_term_meta( $term->term_id, Term::IMAGE_METADATA_KEY, true );
