@@ -40,7 +40,7 @@ function render_airalo_form() {
     $iccid = sanitize_text_field( get_query_var( 'iccid', '' ) );
     $page_id = sanitize_text_field( get_query_var( 'rp', '' ) );
     $order_id = sanitize_text_field( get_query_var( 'op', '' ) );
-    $oder_detail_url = home_url( '?page_id=' . $page_id . '&view-order=' . $order_id );
+    $order_detail_url = home_url( '?page_id=' . $page_id . '&view-order=' . $order_id );
     // Process form submission if POST request
     if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
         $language = $_POST['language'] ?? 'en';
@@ -139,7 +139,7 @@ function render_airalo_form() {
                 ?>
                 <div id="qr-code-container">
                     <?php
-                    if (!empty($response) && $selected_method == 'installation_via_qr_code') {
+                    if ($selected_method == 'installation_via_qr_code') {
                         ?>
                         <img src="<?php echo esc_html( $response['qrCodeUrl'] ) ?>" alt="QR Code">
                         <?php
