@@ -40,7 +40,7 @@ class ProductSyncer {
             $allPackages = $client->getSimPackages();
             $data = $allPackages->data;
 
-            $options->insert_option( Option::LAST_SYNC, date( 'Y-m-d H:i:s' ) );
+            $options->insert_option( Option::LAST_SYNC, gmdate( 'Y-m-d H:i:s' ) );
 
             $error = '';
             if ( ! $data ) {
@@ -71,9 +71,9 @@ class ProductSyncer {
 
             $this->check_stock( $airalo_products );
 
-            $options->insert_option( Option::LAST_SUCCESSFUL_SYNC, date( 'Y-m-d H:i:s' ) );
+            $options->insert_option( Option::LAST_SUCCESSFUL_SYNC, gmdate( 'Y-m-d H:i:s' ) );
         } catch ( \Exception $ex ) {
-            $error_message = strip_tags( $ex->getMessage() );
+            $error_message = wp_strip_all_tags( $ex->getMessage() );
             $error = $error_message;
 
             if  ( stripos( $error_message, 'Airalo SDK initialization failed') !== false ) {

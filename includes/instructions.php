@@ -33,7 +33,7 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
     $page_id = $_GET['p'] ?? 0;
     $order_id = $_GET['op'] ?? 0;
 
-    $oder_detail_url = home_url( '?page_id=' . $page_id . '&view-order=' . $order_id );
+    $order_detail_url = home_url( '?page_id=' . $page_id . '&view-order=' . $order_id );
     if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
         $language = sanitize_text_field( $_POST['language'] ?? 'en' );
         $selected_method = sanitize_text_field( $_POST['installation-select'] ?? 'installation_manual' );
@@ -44,7 +44,7 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
         if ( ! empty( $response ) ) {
 
             $result = update_response( $response, $selected_method );
-            $encoded_result = json_encode( $result );
+            $encoded_result = wp_json_encode( $result );
             // Return JSON response for AJAX request
             if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
                 wp_send_json_success( $result );
@@ -78,7 +78,7 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
 
             <div class="container">
                 <h3>ICCID</h3>
-                <input type="text" required disabled name="iccid" class="input-iccid" value="<?php echo esc_attr($iccid); ?>" minlength="1" id="iccid">
+                <input type="text" required disabled name="iccid" class="input-iccid" value="<?php echo esc_attr( $iccid ); ?>" minlength="1" id="iccid">
 
                 <h3>Select Language</h3>
                 <select id="language" name="language">
@@ -124,7 +124,7 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
                 <input type="submit" name="get_airalo_instructions" value="Instructions" class="airaloButton"/>
             </div>
         </form>
-        <a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button airaloButton" href="<?php echo $oder_detail_url;?>">Back</a>
+        <a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button airaloButton" href="<?php echo esc_html( $order_detail_url );?>">Back</a>
         <div id="instructions-container">
             <?php
             // Display instructions if response is set
@@ -134,7 +134,7 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
                     <?php
                     if (!empty($response) && $selected_method == 'installation_via_qr_code') {
                         ?>
-                        <img src="<?php echo $response['qrCodeUrl'] ?>" alt="QR Code">
+                        <img src="<?php echo esc_html( $response['qrCodeUrl'] ) ?>" alt="QR Code">
                         <?php
                     }
                     ?>
@@ -142,15 +142,15 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
 
                 <h2 class="step-title">Step 1: Install eSIM</h2>
                 <div id="steps-container" class="steps-container">
-                    <?php print_r($response['stepsHtml']); ?>
+                    <?php print_r( $response['stepsHtml'] ); ?>
                 </div>
 
                 <h2 class="step-title">Step 2: Access data</h2>
                 <div id="network-steps-container" class="steps-container">
-                    <?php echo $response['networkStepsHtml']; ?>
+                    <?php print_r( $response['networkStepsHtml'] ); ?>
                 </div>
                 <div id="network-container">
-                    <?php echo $response['networkInfoHtml']; ?>
+                    <?php print_r( $response['networkInfoHtml'] ); ?>
                 </div>
                 <?php
             }
@@ -167,7 +167,7 @@ function call_external_function($iccid, $language) {
         $response = $instructions->handle($iccid, $language);
         return $response;
     } catch (Exception $e) {
-        echo 'Exception caught: ' . $e->getMessage();
+        echo 'Exception caught: ' . esc_html( $e->getMessage() );
         return false;
     }
 }
