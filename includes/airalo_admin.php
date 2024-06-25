@@ -47,7 +47,7 @@ function airalo_settings_page () {
     $last_sync = $options->fetch_option(\Airalo\Admin\Settings\Option::LAST_SYNC);
     $last_successful_sync = $options->fetch_option(\Airalo\Admin\Settings\Option::LAST_SUCCESSFUL_SYNC);
 
-    $error = $options->fetch_option(\Airalo\Admin\Settings\Option::SYNC_ERROR);    
+    $error = $options->fetch_option( \Airalo\Admin\Settings\Option::SYNC_ERROR );
     $show_error = $error ? 'airaloShow': 'airaloHide';
 
     $language = $options->fetch_option( \Airalo\Admin\Settings\Option::LANGUAGE );
