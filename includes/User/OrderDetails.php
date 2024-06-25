@@ -44,7 +44,7 @@ class OrderDetails {
      */
     private function parse_details( $iccids ) {
         echo '<section class="woocommerce-order-details__custom-fields">';
-        echo '<h2>' . __( 'eSIM Details' ) . '</h2>';
+        echo '<h2>' . esc_html( __( 'eSIM Details' ) ) . '</h2>';
 
         $current_url = home_url( $_SERVER['REQUEST_URI'] );
         $query_params = wp_parse_args( $_SERVER['QUERY_STRING'] );
@@ -54,7 +54,7 @@ class OrderDetails {
 
         foreach ( $iccids as $iccid => $order_lines ) {
             echo '<table class="woocommerce-table woocommerce-table--order-details shop_table order_details">';
-            echo '<tr><th>ICCID:</th><td><a href="' . home_url('/?action=airalo_instructions&iccid=' . $iccid.'&p='.$page_id.'&op='.$order_id) . '">' . $iccid . '</a></td></tr>';
+            echo '<tr><th>ICCID:</th><td><a href="' . esc_html( home_url( '/?action=airalo_instructions&iccid=' . $iccid.'&p='.$page_id.'&op='.$order_id ) ) . '">' . esc_html( $iccid ) . '</a></td></tr>';
 
             foreach ( $order_lines as $values ) {
                 list( $title, $val ) = explode( ':', $values );
@@ -63,7 +63,7 @@ class OrderDetails {
                     continue;
                 }
 
-                echo "<tr><th>$title:</th><td>$val</td></tr>";
+                echo "<tr><th>" . esc_html( $title ) . " :</th><td>" . esc_html($val) . "</td></tr>";
             }
         }
 

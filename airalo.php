@@ -7,14 +7,15 @@
  * Version: 1.0.0
  * Author: Airalo
  * Author URI: https://airalo.com
- * Text Domain: airalo-plugin
+ * Text Domain: airalo
  * Domain Path:
  * Requires at least: 6.4
+ * Tested up to: 6.5.3
  * Requires PHP: 7.4
  * Requires Plugins: woocommerce
  *
  * WC requires at least: 8.7
- * WC tested up to: 8.9
+ * WC tested up to: 9.0.1
  *
  * License: GNU General Public License v2.0
  * License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html
@@ -55,7 +56,7 @@ function airalo_check_required_plugins() {
 function airalo_required_plugin_notice() {
     if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
         echo '<div class="notice notice-error"><p>';
-        _e('Requires Woocommerce to be installed and active.', 'airalo-plugin');
+        esc_html_e('Requires Woocommerce to be installed and active.', 'airalo');
         echo '</p></div>';
     }
 }
