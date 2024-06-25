@@ -2,6 +2,7 @@
 
 namespace Airalo\Admin\Syncers;
 
+use Airalo\Admin\InstallationInstruction;
 use Airalo\Admin\Product;
 use Airalo\Admin\Settings\Option;
 use Airalo\Admin\Term;
@@ -39,7 +40,7 @@ class ProductSyncer {
             $allPackages = $client->getSimPackages();
             $data = $allPackages->data;
 
-            $options->insert_option( Option::LAST_SYNC, date( 'Y-m-d H:i:s' ) );
+            $options->insert_option( Option::LAST_SYNC, gmdate( 'Y-m-d H:i:s' ) );
 
             $error = '';
             if ( ! $data ) {
@@ -51,7 +52,7 @@ class ProductSyncer {
                 foreach ( $item->operators as $operator ) {
 
                     $image_id = null;
-                    if ( $sync_images == 'on' ) {
+                    if ( $sync_images == Option::ENABLED ) {
                         $term = new Term();
                         $term = $term->fetch_or_create_image_term( $operator );
                         $image_id = get_term_meta( $term->term_id, Term::IMAGE_METADATA_KEY, true );
@@ -70,9 +71,9 @@ class ProductSyncer {
 
             $this->check_stock( $airalo_products );
 
-            $options->insert_option( Option::LAST_SUCCESSFUL_SYNC, date( 'Y-m-d H:i:s' ) );
+            $options->insert_option( Option::LAST_SUCCESSFUL_SYNC, gmdate( 'Y-m-d H:i:s' ) );
         } catch ( \Exception $ex ) {
-            $error_message = strip_tags( $ex->getMessage() );
+            $error_message = wp_strip_all_tags( $ex->getMessage() );
             $error = $error_message;
 
             if  ( stripos( $error_message, 'Airalo SDK initialization failed') !== false ) {
@@ -113,7 +114,7 @@ class ProductSyncer {
         if ( $query->have_posts() ) {
             while ( $query->have_posts() ) {
                 $query->the_post();
-                $product = wc_get_product(get_the_ID());
+                $product = wc_get_product( get_the_ID() );
                 $products_by_sku[$product->get_sku()] = ['product' => $product];
             }
         }

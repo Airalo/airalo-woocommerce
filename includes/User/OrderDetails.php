@@ -44,7 +44,7 @@ class OrderDetails {
      */
     private function parse_details( $iccids ) {
         echo '<section class="woocommerce-order-details__custom-fields">';
-        echo '<h2>' . __( 'eSIM Details' ) . '</h2>';
+        echo '<h2>' . esc_html( __( 'eSIM Details' ) ) . '</h2>';
 
         $query_params = wp_parse_args( $_SERVER['QUERY_STRING'] );
         $page_id = isset( $query_params['page_id'] ) ? intval( $query_params['page_id'] ) : 0;

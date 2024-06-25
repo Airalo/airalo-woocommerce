@@ -48,7 +48,11 @@ function render_airalo_form() {
         if ( ! empty( $response ) ) {
             $selected_method = sanitize_text_field( $_POST['installation-select'] ?? 'installation_manual' );
             $result = update_response( $response, $selected_method );
-            $encoded_result = json_encode( $result );
+            $encoded_result = wp_json_encode( $result );
+            // Return JSON response for AJAX request
+            if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+                wp_send_json_success( $result );
+            }
         }
     }
     // Decode response if available
@@ -79,7 +83,7 @@ function render_airalo_form() {
                 <div class="row">
                     <div class="col-12">
                         <h3>ICCID</h3>
-                        <input type="text" required disabled name="iccid" class="input-iccid" value="<?php echo esc_attr($iccid); ?>" minlength="1" id="iccid">
+                        <input type="text" required disabled name="iccid" class="input-iccid" value="<?php echo esc_attr( $iccid ); ?>" minlength="1" id="iccid">
                     </div>
                 </div>
 
@@ -127,7 +131,7 @@ function render_airalo_form() {
                 <input type="submit" name="get_airalo_instructions" value="Instructions" class="airalo-instruction-btn"/>
             </div>
         </form>
-        <a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button airaloButton" href="<?php echo $oder_detail_url;?>">Back</a>
+        <a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button airaloButton" href="<?php echo esc_html( $order_detail_url );?>">Back</a>
         <div id="instructions-container">
             <?php
             // Display instructions if response is set
@@ -137,7 +141,7 @@ function render_airalo_form() {
                     <?php
                     if (!empty($response) && $selected_method == 'installation_via_qr_code') {
                         ?>
-                        <img src="<?php echo $response['qrCodeUrl'] ?>" alt="QR Code">
+                        <img src="<?php echo esc_html( $response['qrCodeUrl'] ) ?>" alt="QR Code">
                         <?php
                     }
                     ?>
@@ -145,15 +149,15 @@ function render_airalo_form() {
 
                 <h2 class="step-title">Step 1: Install eSIM</h2>
                 <div id="steps-container" class="steps-container">
-                    <?php print_r($response['stepsHtml']); ?>
+                    <?php print_r( $response['stepsHtml'] ); ?>
                 </div>
 
                 <h2 class="step-title">Step 2: Access data</h2>
                 <div id="network-steps-container" class="steps-container">
-                    <?php echo $response['networkStepsHtml']; ?>
+                    <?php print_r( $response['networkStepsHtml'] ); ?>
                 </div>
                 <div id="network-container">
-                    <?php echo $response['networkInfoHtml']; ?>
+                    <?php print_r( $response['networkInfoHtml'] ); ?>
                 </div>
                 <?php
             }
@@ -171,7 +175,7 @@ function call_external_function($iccid, $language) {
         $response = $instructions->handle($iccid, $language);
         return $response;
     } catch (Exception $e) {
-        echo 'Exception caught: ' . $e->getMessage();
+        echo 'Exception caught: ' . esc_html( $e->getMessage() );
         return false;
     }
 }
