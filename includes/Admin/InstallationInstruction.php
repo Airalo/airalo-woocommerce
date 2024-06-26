@@ -10,17 +10,17 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class InstallationInstruction
-{
-    private Airalo $airalo_client;
+class InstallationInstruction {
+    private $airalo_client;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->airalo_client = ( new AiraloClient( new Option() ) )->getClient();
     }
 
 
     /**
+     * Fetches sim instructions
+     *
      * @param mixed $iccid
      * @param string $language
      * @return void
@@ -28,7 +28,7 @@ class InstallationInstruction
     public function handle( $iccid, $language ) {
         try {
 
-            if ( $language == '' ) {
+            if ( '' == $language ) {
                 $language = 'en';
             }
 

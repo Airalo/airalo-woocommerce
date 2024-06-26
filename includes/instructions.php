@@ -19,9 +19,9 @@ add_action( 'template_redirect', 'handle_airalo_instructions_endpoint' );
 
 $iccid = isset( $_GET['iccid'] ) ? sanitize_text_field( $_GET['iccid'] ) : '';
 $encoded_result = '';
-if ( $_GET['action'] === 'airalo_instructions' ) {
+if ( isset( $_GET['action'] ) && 'airalo_instructions' === $_GET['action'] ) {
     // Render the form and instructions
-render_airalo_form( $iccid, $encoded_result );
+    render_airalo_form( $iccid, $encoded_result );
 }
 
 
@@ -30,11 +30,11 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
     $path = __DIR__ . '/instructions.json';
     $raw_data = file_get_contents( $path );
     $json_data = json_decode( $raw_data, true );
-    $page_id = $_GET['p'] ?? 0;
-    $order_id = $_GET['op'] ?? 0;
+    $page_id = $_GET['p'] ? sanitize_text_field($_GET['p'] ) : 0;
+    $order_id = $_GET['op'] ? sanitize_text_field($_GET['p'] )  : 0;
 
     $order_detail_url = home_url( '?page_id=' . $page_id . '&view-order=' . $order_id );
-    if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+    if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
         $language = sanitize_text_field( $_POST['language'] ?? 'en' );
         $selected_method = sanitize_text_field( $_POST['installation-select'] ?? 'installation_manual' );
 
@@ -72,8 +72,8 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
             <input type="hidden" name="action" value="submit_airalo_settings">
 
             <select id="installation-select" name="installation-select">
-                <option value='installation_via_qr_code' <?php echo $selected_method == 'installation_via_qr_code' ? 'selected' : ''; ?>>Installation via QR Code</option>
-                <option value='installation_manual' <?php echo $selected_method == 'installation_manual' ? 'selected' : ''; ?>>Installation Manual</option>
+                <option value='installation_via_qr_code' <?php echo 'installation_via_qr_code' == $selected_method ? 'selected' : ''; ?>>Installation via QR Code</option>
+                <option value='installation_manual' <?php echo 'installation_manual' == $selected_method ? 'selected' : ''; ?>>Installation Manual</option>
             </select>
 
             <div class="container">
@@ -86,7 +86,7 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
                     <?php
                     foreach ( \Airalo\Admin\Settings\Language::get_all_languages() as $key => $value ) {
                         $selected = $language == $key ? 'selected' : '';
-                        echo "<option value='" . esc_attr( $key ) . "' " . esc_attr( $selected ) . ">" . esc_html( $value ) . "</option>";
+                        echo "<option value='" . esc_attr( $key ) . "' " . esc_attr( $selected ) . '>' . esc_html( $value ) . '</option>';
                     }
                     ?>
                 </select>
@@ -94,29 +94,29 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
                 <h3>Select device</h3>
                 <select id="version-select" name="device">
                     <?php
-                    foreach ($json_data['data']['instructions']['ios'] as $ios) {
+                    foreach ( $json_data['data']['instructions']['ios'] as $ios ) {
                         $version = $ios['version'];
-                        if (in_array($version, ['15.0', '14.0', '13.0', '12.0'])) {
+                        if ( in_array( $version, ['15.0', '14.0', '13.0', '12.0'] ) ) {
                             $version_name = 'iOS ≤ 15';
-                        } elseif ($version === '16.0') {
+                        } elseif ( '16.0' === $version ) {
                             $version_name = 'iOS 16';
                         } else {
                             $version_name = 'iOS 17';
                         }
-                        echo "<option value='ios-" . esc_attr( $version ) . "'>" . esc_html( $version_name ) . "</option>";
+                        echo "<option value='ios-" . esc_attr( $version ) . "'>" . esc_html( $version_name ) . '</option>';
                     }
 
                     foreach ( $json_data['data']['instructions']['android'] as $android ) {
                         $version = $android['version'];
                         $model = $android['model'];
-                        if ($model === 'Galaxy') {
+                        if ( 'Galaxy' === $model ) {
                             $version_name = 'Samsung Galaxy';
-                        } elseif ($model === 'Samsung') {
+                        } elseif ( 'Samsung' === $model ) {
                             $version_name = 'Samsung';
                         } else {
                             $version_name = 'Google Pixel';
                         }
-                        echo "<option value='android-" . esc_attr( $version ) . "'>" . esc_html( $version_name ) . "</option>";
+                        echo "<option value='android-" . esc_attr( $version ) . "'>" . esc_html( $version_name ) . '</option>';
                     }
                     ?>
                 </select>
@@ -124,7 +124,7 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
                 <input type="submit" name="get_airalo_instructions" value="Instructions" class="airaloButton"/>
             </div>
         </form>
-        <a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button airaloButton" href="<?php echo esc_html( $order_detail_url );?>">Back</a>
+        <a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button airaloButton" href="<?php echo esc_html( $order_detail_url ); ?>">Back</a>
         <div id="instructions-container">
             <?php
             // Display instructions if response is set
@@ -132,7 +132,7 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
                 ?>
                 <div id="qr-code-container">
                     <?php
-                    if (!empty($response) && $selected_method == 'installation_via_qr_code') {
+                    if ( !empty($response) && 'installation_via_qr_code' == $selected_method ) {
                         ?>
                         <img src="<?php echo esc_html( $response['qrCodeUrl'] ); ?>" alt="QR Code">
                         <?php
@@ -161,10 +161,10 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
 }
 
 // Define the external function call
-function call_external_function($iccid, $language) {
+function call_external_function( $iccid, $language ) {
     try {
         $instructions = new \Airalo\Admin\InstallationInstruction();
-        $response = $instructions->handle($iccid, $language);
+        $response = $instructions->handle( $iccid, $language );
         return $response;
     } catch ( Exception $e ) {
         echo 'Exception caught: ' . esc_html( $e->getMessage() );
@@ -172,7 +172,7 @@ function call_external_function($iccid, $language) {
     }
 }
 
-function update_response($json_data, $selected_method, $selected_version = "ios") {
+function update_response( $json_data, $selected_method, $selected_version = 'ios' ) {
     $steps = [];
     $network_steps = [];
     $qr_code_url = '';
@@ -181,14 +181,14 @@ function update_response($json_data, $selected_method, $selected_version = "ios"
     $is_roaming = false;
     $json_data = json_decode( $json_data, true );
 
-    if ($selected_version === "ios") {
+    if ( 'ios' === $selected_version ) {
         $steps = array_values( $json_data['data']['instructions']['ios'][0][$selected_method]['steps'] );
         $network_steps = array_values( $json_data['data']['instructions']['ios'][0]['network_setup']['steps'] );
         $qr_code_url = $json_data['data']['instructions']['ios'][0][$selected_method]['qr_code_url'];
         $apn_type = $json_data['data']['instructions']['ios'][0]['network_setup']['apn_type'];
         $apn_value = $json_data['data']['instructions']['ios'][0]['network_setup']['apn_value'];
         $is_roaming = $json_data['data']['instructions']['ios'][0]['network_setup']['is_roaming'];
-    } elseif ($selected_version === "android") {
+    } elseif ( 'android' === $selected_version ) {
         $steps = array_values( $json_data['data']['instructions']['android'][0][$selected_method]['steps'] );
         $network_steps = array_values( $json_data['data']['instructions']['android'][0]['network_setup']['steps'] );
         $qr_code_url = $json_data['data']['instructions']['android'][0][$selected_method]['qr_code_url'];
@@ -211,18 +211,18 @@ function update_response($json_data, $selected_method, $selected_version = "ios"
 
     $network_info_html = '<div class="network-item-details">
         <h3>Data roaming</h3>
-        <p>' . ( isset( $is_roaming ) ? "On" : "Off" ) . '</p>
+        <p>' . ( isset( $is_roaming ) ? 'On' : 'Off' ) . '</p>
     </div>
     <div class="network-item-details">
         <h3>APN</h3>
-        <p>' . capitalize ($apn_type ) . '</p>
+        <p>' . capitalize ( $apn_type ) . '</p>
     </div>';
 
     $output = [
         'stepsHtml' => $steps_html,
         'networkStepsHtml' => $network_steps_html,
         'networkInfoHtml' => $network_info_html,
-        'qrCodeUrl' => $selected_method === "installation_via_qr_code" ? $qr_code_url : '',
+        'qrCodeUrl' => 'installation_via_qr_code' ===  $selected_method ? $qr_code_url : '',
     ];
 
     return $output;

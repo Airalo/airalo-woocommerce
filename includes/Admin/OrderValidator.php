@@ -11,6 +11,8 @@ class OrderValidator {
     private const MAX_QUANTITY = 50;
 
     /**
+     * Validates the amount of allowed airalo esims in the cart
+     *
      * @param mixed $orders
      * @param int $quantity
      * @return mixed
@@ -31,7 +33,7 @@ class OrderValidator {
             $product_name = $cart_item['data']->get_sku();
 
             if ( strpos( $product_name, Product::SKU_PREFIX ) !== false ) {
-                $bulk_packages_total += 1;
+                ++$bulk_packages_total;
                 $total_quantity_in_cart += $cart_item['quantity'];
             }
         }

@@ -6,8 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
 
-class Attribute
-{
+class Attribute {
     private const HIDDEN_ATTRIBUTES = [
         'net_price',
         'price',

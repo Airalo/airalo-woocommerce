@@ -17,7 +17,7 @@ class Product {
 
     const SKU_PREFIX = 'xiloxf-jpf-';
 
-    private ?\WC_Product $product;
+    private $product;
 
     public function get_product_by_sku( string $sku ): ?\WC_Product {
         $product_id = wc_get_product_id_by_sku( $sku );
@@ -82,11 +82,11 @@ class Product {
 
     private function set_product_name( $product, $package, $item, $operator, $setting_name, $environment ) {
         // Operator title is the airalo esim name while the item title is the country
-        $main_title = $setting_name == Option::ENABLED ? $operator->title : $item->title;
+        $main_title = Option::ENABLED == $setting_name ? $operator->title : $item->title;
 
-        $name = $main_title. ' ' .$package->title;
+        $name = $main_title . ' ' . $package->title;
 
-        if ( $environment == 'sandbox' ) {
+        if ( 'sandbox' == $environment ) {
             $name = strtoupper( $environment ) . ' - ' . $name;
         }
 
@@ -99,7 +99,7 @@ class Product {
 
         foreach ( $operator_coverage as $coverage ) {
             foreach ( $coverage->networks as $network ) {
-                $network_coverage .= $network->name . ':' . implode( ', ', (array) $network->types ) ."\n\n";
+                $network_coverage .= $network->name . ':' . implode( ', ', (array) $network->types ) . "\n\n";
             }
         }
 
@@ -114,9 +114,9 @@ class Product {
         $operator_attributes = [
             'operator_gradient_start' => $operator->gradient_start ?? null,
             'operator_gradient_end' => $operator->gradient_end ?? null,
-            'voice' => $package->voice ?: self::EMPTY_SERVICE_FIELD_DEFAULT,
-            'text' => $package->text ?: self::EMPTY_SERVICE_FIELD_DEFAULT,
-            'data' => $package->amount ?: null,
+            'voice' => $package->voice ? $package->voice : self::EMPTY_SERVICE_FIELD_DEFAULT,
+            'text' => $package->text ? $package->text : self::EMPTY_SERVICE_FIELD_DEFAULT,
+            'data' => $package->amount ? $package->amount : null,
             'apn_type' => $operator->apn_type ?? null,
             'apn_value' => $operator->apn_value ?? null,
             'is_roaming' => $operator->is_roaming ?? null,
@@ -137,12 +137,12 @@ class Product {
     private function set_product_status(\WC_Product $product, $status, $is_created, $is_updated, $setting_create, $setting_update ): void {
         $new_status = $status;
 
-        if ( $status == self::STATUS_DRAFT && $is_created && $setting_create == Option::ENABLED) {
+        if ( self::STATUS_DRAFT == $status && $is_created && Option::ENABLED == $setting_create ) {
             $new_status = self::STATUS_PUBLISH;
-        } elseif ( $status == self::STATUS_PUBLISH && $is_updated && $setting_update == Option::DISABLED) {
+        } elseif ( self::STATUS_PUBLISH == $status && $is_updated && Option::DISABLED == $setting_update ) {
             $new_status = self::STATUS_DRAFT;
         }
 
-        $product->set_status($new_status);
+        $product->set_status( $new_status );
     }
 }

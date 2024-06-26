@@ -1,6 +1,6 @@
 <?php
 
-require_once plugin_dir_path( __FILE__ ). '../vendor/autoload.php';
+require_once plugin_dir_path( __FILE__ ) . '../vendor/autoload.php';
 
 use Airalo\Admin\AiraloOrder;
 use Airalo\Admin\OrderValidator;
@@ -38,7 +38,7 @@ function airalo_settings_page () {
     $airalo_sim_name = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::USE_AIRALO_SIM_NAME );
 
     $sync_images = $options->fetch_option( \Airalo\Admin\Settings\Option::SYNC_IMAGES );
-    if ( $sync_images !== 'off' ) {
+    if ( 'off' !== $sync_images ) {
         $sync_images = 'checked';
     } else {
         $sync_images = '';

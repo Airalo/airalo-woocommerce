@@ -2,8 +2,7 @@
 
 namespace Airalo\Admin\Settings;
 
-class Language
-{
+class Language {
 
     public static function get_all_languages(): array {
         return [

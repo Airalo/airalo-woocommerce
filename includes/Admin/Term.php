@@ -17,7 +17,8 @@ class Term {
         $taxonomy_name = self::IMAGE_NAME_PREFIX . $operator->id;
         $term_name = $taxonomy_name . '_id';
 
-        if ($term = get_term_by( 'slug', $term_name, $taxonomy_name )) {
+        $term = get_term_by( 'slug', $term_name, $taxonomy_name );
+        if ( $term ) {
             return $term;
         }
 
@@ -32,7 +33,7 @@ class Term {
     private function create_image_taxonomy( $operator, string $name, string $term_name ) {
         $labels = [
             'name' => _x( $name, 'taxonomy general name', 'textdomain' ),
-            'singular_name' => _x( $name.'_singular', 'taxonomy singular name', 'textdomain' ),
+            'singular_name' => _x( $name . '_singular', 'taxonomy singular name', 'textdomain' ),
         ];
 
         $args = [
@@ -53,7 +54,7 @@ class Term {
     private function add_term_to_taxonomy(WP_Taxonomy $taxonomy, $term_name, $term_metadata_key, $operator ) {
         if (! term_exists( $term_name, $taxonomy->name ) ) {
             $term = wp_insert_term( $term_name, $taxonomy->name, ['slug' => $term_name] );
-            if  ( is_wp_error( $term ) ) {
+            if ( is_wp_error( $term ) ) {
                 // error handling
                 return;
             }
