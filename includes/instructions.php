@@ -3,46 +3,50 @@
 // Ensure dependencies are loaded
 require_once plugin_dir_path( __FILE__ ) . '../vendor/autoload.php';
 
-// Ensure the file is not accessed directly
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
-
 // Handle the custom endpoint
 function handle_airalo_instructions_endpoint() {
-    if ( get_query_var( 'airalo_instructions', false ) !== false ) {
-        require_once plugin_dir_path( __FILE__ ) . 'instructions.php';
+    if ( get_query_var( 'action_method' ) == 'airalo_instructions' ) {
+        if ( ! is_user_logged_in() ) {
+            wp_redirect( wp_login_url() );
+            exit;
+        }
+        get_header();
+        render_airalo_form();
+        get_footer();
         exit;
     }
 }
 add_action( 'template_redirect', 'handle_airalo_instructions_endpoint' );
 
-$iccid = isset( $_GET['iccid'] ) ? sanitize_text_field( $_GET['iccid'] ) : '';
-$encoded_result = '';
-if ( $_GET['action'] === 'airalo_instructions' ) {
-    // Render the form and instructions
-render_airalo_form( $iccid, $encoded_result );
+// Modify the document title using document_title_parts hook (since WordPress 4.1)
+function custom_document_title_parts( $title_parts ) {
+    if ( get_query_var( 'action_method' ) == 'airalo_instructions' ) {
+        $title_parts['title'] = 'Instructions - WooCommerce Plugin';
+    }
+    return $title_parts;
 }
+add_filter( 'document_title_parts', 'custom_document_title_parts', 10, 1 );
 
-
-function render_airalo_form( $iccid = '', $language = '', $selected_method = 'installation_manual', $encoded_result = '' ) {
-    // Load JSON data for the dropdown
+// Function to render the form
+function render_airalo_form() {
     $path = __DIR__ . '/instructions.json';
     $raw_data = file_get_contents( $path );
     $json_data = json_decode( $raw_data, true );
-    $page_id = $_GET['p'] ?? 0;
-    $order_id = $_GET['op'] ?? 0;
-
+    $encoded_result = '';
+    // URL for back link
+    $iccid = sanitize_text_field( get_query_var( 'iccid', '' ) );
+    $page_id = sanitize_text_field( get_query_var( 'rp', '' ) );
+    $order_id = sanitize_text_field( get_query_var( 'op', '' ) );
     $order_detail_url = home_url( '?page_id=' . $page_id . '&view-order=' . $order_id );
+    // Process form submission if POST request
     if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
-        $language = sanitize_text_field( $_POST['language'] ?? 'en' );
-        $selected_method = sanitize_text_field( $_POST['installation-select'] ?? 'installation_manual' );
-
-        // Call the external PHP function here
-        $response = call_external_function( $iccid, $language );
-
+        $language = $_POST['language'] ?? 'en';
+        $response = call_external_function($iccid, $language);
         if ( ! empty( $response ) ) {
-
+            $selected_method = sanitize_text_field( $_POST['installation-select'] ?? 'installation_manual' );
             $result = update_response( $response, $selected_method );
             $encoded_result = wp_json_encode( $result );
             // Return JSON response for AJAX request
@@ -51,20 +55,19 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
             }
         }
     }
-
     // Decode response if available
     $response = $encoded_result ? json_decode( $encoded_result, true ) : null;
-
     ?>
-    <title>Instructions - WooCommerce </title>
-    <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/resetStyle.css'; ?></style>
-    <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/instructionsStyle.css'; ?></style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
+    <head>
+        <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/resetStyle.css'; ?></style>
+        <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/instructionsStyle.css'; ?></style>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
     <div id="airalo-container">
         <h1>eSIM Installation</h1>
 
@@ -77,8 +80,12 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
             </select>
 
             <div class="container">
-                <h3>ICCID</h3>
-                <input type="text" required disabled name="iccid" class="input-iccid" value="<?php echo esc_attr( $iccid ); ?>" minlength="1" id="iccid">
+                <div class="row">
+                    <div class="col-12">
+                        <h3>ICCID</h3>
+                        <input type="text" required disabled name="iccid" class="input-iccid" value="<?php echo esc_attr( $iccid ); ?>" minlength="1" id="iccid">
+                    </div>
+                </div>
 
                 <h3>Select Language</h3>
                 <select id="language" name="language">
@@ -121,7 +128,7 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
                     ?>
                 </select>
 
-                <input type="submit" name="get_airalo_instructions" value="Instructions" class="airaloButton"/>
+                <input type="submit" name="get_airalo_instructions" value="Instructions" class="airalo-instruction-btn"/>
             </div>
         </form>
         <a class="woocommerce-button woocommerce-button--previous woocommerce-Button woocommerce-Button--previous button airaloButton" href="<?php echo esc_html( $order_detail_url );?>">Back</a>
@@ -132,7 +139,7 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
                 ?>
                 <div id="qr-code-container">
                     <?php
-                    if (!empty($response) && $selected_method == 'installation_via_qr_code') {
+                    if ($selected_method == 'installation_via_qr_code') {
                         ?>
                         <img src="<?php echo esc_html( $response['qrCodeUrl'] ) ?>" alt="QR Code">
                         <?php
@@ -157,6 +164,7 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
             ?>
         </div>
     </div>
+    </body>
     <?php
 }
 
