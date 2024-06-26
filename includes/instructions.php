@@ -179,18 +179,18 @@ function update_response($json_data, $selected_method, $selected_version = "ios"
     $apn_type = '';
     $apn_value = '';
     $is_roaming = false;
-    $json_data = json_decode($json_data, true);
+    $json_data = json_decode( $json_data, true );
 
     if ($selected_version === "ios") {
-        $steps = array_values($json_data['data']['instructions']['ios'][0][$selected_method]['steps']);
-        $network_steps = array_values($json_data['data']['instructions']['ios'][0]['network_setup']['steps']);
+        $steps = array_values( $json_data['data']['instructions']['ios'][0][$selected_method]['steps'] );
+        $network_steps = array_values( $json_data['data']['instructions']['ios'][0]['network_setup']['steps'] );
         $qr_code_url = $json_data['data']['instructions']['ios'][0][$selected_method]['qr_code_url'];
         $apn_type = $json_data['data']['instructions']['ios'][0]['network_setup']['apn_type'];
         $apn_value = $json_data['data']['instructions']['ios'][0]['network_setup']['apn_value'];
         $is_roaming = $json_data['data']['instructions']['ios'][0]['network_setup']['is_roaming'];
     } elseif ($selected_version === "android") {
-        $steps = array_values($json_data['data']['instructions']['android'][0][$selected_method]['steps']);
-        $network_steps = array_values($json_data['data']['instructions']['android'][0]['network_setup']['steps']);
+        $steps = array_values( $json_data['data']['instructions']['android'][0][$selected_method]['steps'] );
+        $network_steps = array_values( $json_data['data']['instructions']['android'][0]['network_setup']['steps'] );
         $qr_code_url = $json_data['data']['instructions']['android'][0][$selected_method]['qr_code_url'];
         $apn_type = $json_data['data']['instructions']['android'][0]['network_setup']['apn_type'];
         $apn_value = $json_data['data']['instructions']['android'][0]['network_setup']['apn_value'];
@@ -198,24 +198,24 @@ function update_response($json_data, $selected_method, $selected_version = "ios"
     }
 
     $steps_html = '<ol>';
-    foreach ($steps as $step) {
-        $steps_html .= '<li>' . htmlspecialchars($step) . '</li>';
+    foreach ( $steps as $step ) {
+        $steps_html .= '<li>' . htmlspecialchars( $step, ENT_QUOTES ) . '</li>';
     }
     $steps_html .= '</ol>';
 
     $network_steps_html = '<ol>';
-    foreach ($network_steps as $step) {
-        $network_steps_html .= '<li>' . htmlspecialchars($step) . '</li>';
+    foreach ( $network_steps as $step ) {
+        $network_steps_html .= '<li>' . htmlspecialchars( $step, ENT_QUOTES ) . '</li>';
     }
     $network_steps_html .= '</ol>';
 
     $network_info_html = '<div class="network-item-details">
         <h3>Data roaming</h3>
-        <p>' . (isset($is_roaming) ? "On" : "Off") . '</p>
+        <p>' . ( isset( $is_roaming ) ? "On" : "Off" ) . '</p>
     </div>
     <div class="network-item-details">
         <h3>APN</h3>
-        <p>' . capitalize($apn_type) . '</p>
+        <p>' . capitalize ($apn_type ) . '</p>
     </div>';
 
     $output = [
@@ -228,6 +228,6 @@ function update_response($json_data, $selected_method, $selected_version = "ios"
     return $output;
 }
 
-function capitalize($str) {
-    return ucwords(strtolower($str));
+function capitalize( $str ) {
+    return ucwords( strtolower( $str ) );
 }
