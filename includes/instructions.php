@@ -72,8 +72,8 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
             <input type="hidden" name="action" value="submit_airalo_settings">
 
             <select id="installation-select" name="installation-select">
-                <option value='installation_via_qr_code' <?php echo $selected_method == 'installation_via_qr_code' ? 'selected' : '' ?>>Installation via QR Code</option>
-                <option value='installation_manual' <?php echo $selected_method == 'installation_manual' ? 'selected' : '' ?>>Installation Manual</option>
+                <option value='installation_via_qr_code' <?php echo $selected_method == 'installation_via_qr_code' ? 'selected' : ''; ?>>Installation via QR Code</option>
+                <option value='installation_manual' <?php echo $selected_method == 'installation_manual' ? 'selected' : ''; ?>>Installation Manual</option>
             </select>
 
             <div class="container">
@@ -134,7 +134,7 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
                     <?php
                     if (!empty($response) && $selected_method == 'installation_via_qr_code') {
                         ?>
-                        <img src="<?php echo esc_html( $response['qrCodeUrl'] ) ?>" alt="QR Code">
+                        <img src="<?php echo esc_html( $response['qrCodeUrl'] ); ?>" alt="QR Code">
                         <?php
                     }
                     ?>

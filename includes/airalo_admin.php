@@ -58,14 +58,14 @@ function airalo_settings_page () {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
-    <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/resetStyle.css' ?></style>
-    <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/pluginStyle.css' ?></style>
+    <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/resetStyle.css'; ?></style>
+    <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/pluginStyle.css'; ?></style>
 
     <div id="airalo-container">
         <div class="airaloPluginHeader">
             <h2 class="airaloPluginTitle"> Airalo Plugin</h2>
             <div class="airaloLogoContainer">
-                <?php require plugin_dir_path( __FILE__ ) . '../assets/images/logo-partner-platform.svg' ?>
+                <?php require plugin_dir_path( __FILE__ ) . '../assets/images/logo-partner-platform.svg'; ?>
             </div>
         </div>
 
@@ -78,13 +78,13 @@ function airalo_settings_page () {
                         <div>
                             <h3 class="actionName">Sync Products</h3>
                             <div>
-                                <span class="airaloChip">Last Sync: <?php echo esc_html( $last_sync ) ?></span>
+                                <span class="airaloChip">Last Sync: <?php echo esc_html( $last_sync ); ?></span>
                             </div>
                             <div>
-                                <span class="airaloChip">Last Successful Sync: <?php echo esc_html( $last_successful_sync ) ?></span>
+                                <span class="airaloChip">Last Successful Sync: <?php echo esc_html( $last_successful_sync ); ?></span>
                             </div>
-                            <div class="<?php echo esc_html( $show_error ) ?>">
-                                <span class="airaloChip">Sync Error:<?php echo esc_html( $error ) ?></span>
+                            <div class="<?php echo esc_html( $show_error ); ?>">
+                                <span class="airaloChip">Sync Error:<?php echo esc_html( $error ); ?></span>
                             </div>
                         </div>
                         <form method="post" action="options.php">
@@ -125,7 +125,7 @@ function airalo_settings_page () {
                                 <label for="airalo_use_sandbox">
                                     Use Sandbox
                                     <span class="switch">
-                                    <input type="checkbox" name="airalo_use_sandbox" <?php echo esc_html( $use_sandbox ) ?> id="airalo_use_sandbox"/>
+                                    <input type="checkbox" name="airalo_use_sandbox" <?php echo esc_html( $use_sandbox ); ?> id="airalo_use_sandbox"/>
                                     <span class="slider round"></span>
                                     </span>
                                 </label>
@@ -134,7 +134,7 @@ function airalo_settings_page () {
                                 <label for="airalo_sync_images">
                                     Sync Images
                                     <span class="switch">
-                                        <input type="checkbox" name="airalo_sync_images" <?php echo esc_html(  $sync_images ) ?> id="airalo_sync_images"/>
+                                        <input type="checkbox" name="airalo_sync_images" <?php echo esc_html(  $sync_images ); ?> id="airalo_sync_images"/>
                                         <span class="slider round"></span>
                                         </span>
                                 </label>
@@ -143,7 +143,7 @@ function airalo_settings_page () {
                             <label for="airalo_sim_name">
                                 Use Airalo Sim Name
                                 <span class="switch">
-                                        <input type="checkbox" name="airalo_sim_name" <?php echo esc_html( $airalo_sim_name ) ?> id="airalo_sim_name"/>
+                                        <input type="checkbox" name="airalo_sim_name" <?php echo esc_html( $airalo_sim_name ); ?> id="airalo_sim_name"/>
                                         <span class="slider round"></span>
                                         </span>
                             </label>
@@ -152,7 +152,7 @@ function airalo_settings_page () {
                                 <label for="airalo_auto_publish">
                                     Auto Publish Product
                                     <span class="switch">
-                                    <input type="checkbox" name="airalo_auto_publish" <?php echo esc_html( $auto_publish ) ?> id="airalo_auto_publish"/>
+                                    <input type="checkbox" name="airalo_auto_publish" <?php echo esc_html( $auto_publish ); ?> id="airalo_auto_publish"/>
                                     <span class="slider round"></span>
                                     </span>
                                 </label>
@@ -161,7 +161,7 @@ function airalo_settings_page () {
                                 <label for="airalo_auto_publish_update">
                                     Auto Publish After Price Update
                                     <span class="switch">
-                                    <input type="checkbox" name="airalo_auto_publish_update" <?php echo esc_html( $auto_publish_after_update ) ?> id="airalo_auto_publish_update"/>
+                                    <input type="checkbox" name="airalo_auto_publish_update" <?php echo esc_html( $auto_publish_after_update ); ?> id="airalo_auto_publish_update"/>
                                     <span class="slider round"></span>
                                     </span>
                                 </label>
@@ -176,13 +176,13 @@ function airalo_settings_page () {
                         <p class="cardTitle">Production Credentials</p>
                             <div>
                                 <label for="airalo_client_id_sandbox">Client Id</label>
-                                <input type="text" name="airalo_client_id" placeholder="Enter ID" value="<?php echo esc_html( $client_id ) ?>"/>
+                                <input type="text" name="airalo_client_id" placeholder="Enter ID" value="<?php echo esc_html( $client_id ); ?>"/>
                             </div>
 
 
                             <div>
                                 <label for="airalo_client_secret_sandbox">Client Secret</label>
-                                <input type="password" name="airalo_client_secret" placeholder="Enter Secret"  value="<?php echo esc_html( $client_secret_encrypted ) ?>" />
+                                <input type="password" name="airalo_client_secret" placeholder="Enter Secret"  value="<?php echo esc_html( $client_secret_encrypted ); ?>" />
                             </div>
                     </div>
 
@@ -191,12 +191,12 @@ function airalo_settings_page () {
 
                             <div>
                                 <label for="airalo_client_id_sandbox">Client Id</label>
-                                <input type="text" name="airalo_client_id_sandbox" placeholder="Enter ID" value="<?php echo esc_html( $sandbox_client_id ) ?>"/>
+                                <input type="text" name="airalo_client_id_sandbox" placeholder="Enter ID" value="<?php echo esc_html( $sandbox_client_id ); ?>"/>
                             </div>
 
                             <div>
                                 <label for="airalo_client_secret_sandbox">Client Secret</label>
-                                <input type="password" name="airalo_client_secret_sandbox" placeholder="Enter Secret"  value="<?php echo esc_html( $client_sandbox_secret_encrypted ) ?>" />
+                                <input type="password" name="airalo_client_secret_sandbox" placeholder="Enter Secret"  value="<?php echo esc_html( $client_sandbox_secret_encrypted ); ?>" />
                             </div>
 
                         <div class="airaloButtonContainer">
