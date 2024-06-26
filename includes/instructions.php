@@ -166,7 +166,7 @@ function call_external_function($iccid, $language) {
         $instructions = new \Airalo\Admin\InstallationInstruction();
         $response = $instructions->handle($iccid, $language);
         return $response;
-    } catch (Exception $e) {
+    } catch ( Exception $e ) {
         echo 'Exception caught: ' . esc_html( $e->getMessage() );
         return false;
     }

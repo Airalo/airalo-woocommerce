@@ -16,7 +16,7 @@ class InstallationInstruction
 
     public function __construct()
     {
-        $this->airalo_client = ( new AiraloClient( new Option ) )->getClient();
+        $this->airalo_client = ( new AiraloClient( new Option() ) )->getClient();
     }
 
 
