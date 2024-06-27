@@ -81,6 +81,8 @@ class OrderDetails {
     }
 
     /**
+     * Shows data usage of sim
+     *
      * @param string $iccids
      * @return void
      */

@@ -38,7 +38,7 @@ function airalo_settings_page () {
     $airalo_sim_name = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::USE_AIRALO_SIM_NAME );
 
     $sync_images = $options->fetch_option( \Airalo\Admin\Settings\Option::SYNC_IMAGES );
-    if ( $sync_images !== 'off' ) {
+    if ( 'off' !== $sync_images ) {
         $sync_images = 'checked';
     } else {
         $sync_images = '';
@@ -244,7 +244,7 @@ function airalo_register_settings () {
 
     if ( isset ( $_POST['save_airalo_settings'] ) ) {
 
-        if ( ! isset( $_POST['airalo_admin_nonce'] ) || ! wp_verify_nonce( $_POST['airalo_admin_nonce'], 'airalo-admin' ) ) {
+        if ( ! isset( $_POST['airalo_admin_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( $_POST['airalo_admin_nonce'] ), 'airalo-admin' ) ) {
             return;
         }
 
