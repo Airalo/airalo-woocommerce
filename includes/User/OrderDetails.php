@@ -59,8 +59,7 @@ class OrderDetails {
 
         foreach ( $iccids as $iccid => $order_lines ) {
             echo '<table class="woocommerce-table woocommerce-table--order-details shop_table order_details">';
-
-            echo '<tr><th>ICCID:</th><td><a href="' . esc_html( home_url( '/?action=airalo_instructions&iccid=' . $iccid .'&p=' . $page_id . '&op=' . $order_id ) ) . '">' . esc_html( $iccid ) . '</a></td></tr>';
+            echo '<tr><th>ICCID:</th><td><a href="' . esc_html( esc_url ( home_url( '/?action_method=airalo_instructions&iccid=' . $iccid . '&rp=' . $page_id . '&op=' . $order_id ) ) ). '">' . esc_html( $iccid ) . '</a></td></tr>';
 
             foreach ( $order_lines as $values ) {
                 list( $title, $val ) = explode( ':', $values );
