@@ -66,3 +66,17 @@ function airalo_check_required_plugins_on_activation() {
         wp_die( 'This plugin requires Woocommerce to be installed and active.' );
     }
 }
+
+add_action( 'init', 'custom_instruction_rewrite_rule' );
+function custom_instruction_rewrite_rule() {
+    add_rewrite_rule( '^$', 'index.php?action=airalo_instructions', 'top' );
+}
+
+add_filter( 'query_vars', 'custom_instruction_query_vars' );
+function custom_instruction_query_vars( $vars ) {
+    $vars[] = 'action_method';
+    $vars[] = 'iccid';
+    $vars[] = 'rp';
+    $vars[] = 'op';
+    return $vars;
+}
