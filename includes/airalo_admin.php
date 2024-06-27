@@ -54,6 +54,8 @@ function airalo_settings_page () {
 
     wp_enqueue_style('airalo-admin-style', 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 
+    $nonce = wp_create_nonce( 'airalo-admin' );
+
     ?>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -101,6 +103,7 @@ function airalo_settings_page () {
             <form method="post" action="options.php">
                 <?php settings_fields('airalo-settings-group'); ?>
                 <?php do_settings_sections('airalo-settings-group'); ?>
+                <input type="hidden" name="airalo_admin_nonce" value="<?php echo esc_attr( $nonce ); ?>">
                 <section>
                     <div class="airaloCard settingsCard">
                         <p class="cardTitle">Settings</p>
@@ -240,6 +243,11 @@ function airalo_register_settings () {
     }
 
     if ( isset ( $_POST['save_airalo_settings'] ) ) {
+
+        if ( ! isset( $_POST['airalo_admin_nonce'] ) || ! wp_verify_nonce( $_POST['airalo_admin_nonce'], 'airalo-admin' ) ) {
+            return;
+        }
+
         save_airalo_settings();
 
         $client_id = $_POST['airalo_client_id'] ? sanitize_text_field( $_POST['airalo_client_id'] ) : null;
