@@ -145,11 +145,7 @@ function render_airalo_form() {
                 ?>
                 <div id="qr-code-container">
                     <?php
-<<<<<<< HEAD
                     if ( !empty($response) && 'installation_via_qr_code' == $selected_method ) {
-=======
-                    if ($selected_method == 'installation_via_qr_code') {
->>>>>>> main
                         ?>
                         <img src="<?php echo esc_html( $response['qrCodeUrl'] ); ?>" alt="QR Code">
                         <?php
