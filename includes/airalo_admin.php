@@ -38,7 +38,7 @@ function airalo_settings_page () {
     $airalo_sim_name = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::USE_AIRALO_SIM_NAME );
 
     $sync_images = $options->fetch_option( \Airalo\Admin\Settings\Option::SYNC_IMAGES );
-    if ( 'off' !== $sync_images ) {
+    if ( $sync_images !== 'off' ) {
         $sync_images = 'checked';
     } else {
         $sync_images = '';
@@ -114,7 +114,7 @@ function airalo_settings_page () {
 
                                             $selected = $language == $key ? 'selected' : '';
 
-                                            echo "<option value=" . esc_html( $key ) ." " . esc_html( $selected ) .">" . esc_html( $value ) . "</option>";
+                                            echo '<option value=' . esc_html( $key ) . ' ' . esc_html( $selected ) . '>' . esc_html( $value ) . '</option>';
                                         }
 
                                         ?>
@@ -230,7 +230,7 @@ function airalo_register_settings () {
         'Example Setting',
         'airalo_settings_field_cb',
         'airalo',
-        'my_custom_plugin_main_section',
+        'my_custom_plugin_main_section'
     );
 
     if ( isset( $_POST['sync_products'] ) ) {
@@ -240,22 +240,22 @@ function airalo_register_settings () {
     if ( isset ( $_POST['save_airalo_settings'] ) ) {
         save_airalo_settings();
 
-        $client_id = $_POST['airalo_client_id'] ?? null;
-        $client_secret = $_POST['airalo_client_secret'] ?? null;
+        $client_id = $_POST['airalo_client_id'] ? sanitize_text_field( $_POST['airalo_client_id'] ) : null;
+        $client_secret = $_POST['airalo_client_secret'] ? sanitize_text_field( $_POST['airalo_client_secret'] ) : null;
         $encrypted_secret = $options->fetch_option( \Airalo\Admin\Settings\Credential::CLIENT_SECRET );
 
-        if  ($client_secret == $encrypted_secret && $encrypted_secret != null ) {
+        if ( $client_secret == $encrypted_secret && null != $encrypted_secret ) {
             $client_secret = null;
         }
 
         save_airalo_credentials(  $client_id, $client_secret );
 
-        $sandbox_client_id = $_POST['airalo_client_id_sandbox'] ?? null;
-        $sandbox_client_secret = $_POST['airalo_client_secret_sandbox'] ?? null;
+        $sandbox_client_id = $_POST['airalo_client_id_sandbox'] ? sanitize_text_field( $_POST['airalo_client_id_sandbox'] ): null;;
+        $sandbox_client_secret = $_POST['airalo_client_secret_sandbox'] ? sanitize_text_field( $_POST['airalo_client_secret_sandbox'] ): null;
 
         $encrypted_sandbox_secret = $options->fetch_option( \Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX );
 
-        if ($sandbox_client_secret == $encrypted_sandbox_secret && $encrypted_sandbox_secret != null) {
+        if ( $sandbox_client_secret == $encrypted_sandbox_secret && null != $encrypted_sandbox_secret ) {
             $sandbox_client_secret = null;
         }
 
@@ -264,12 +264,12 @@ function airalo_register_settings () {
 }
 
 function save_airalo_settings(): void {
-    $auto_publish = $_POST['airalo_auto_publish'] ?? 'off';
-    $auto_publish_after_update = $_POST['airalo_auto_publish_update'] ?? 'off';
-    $use_sandbox = $_POST['airalo_use_sandbox'] ?? 'off';
-    $language = $_POST['airalo_language'] ?? 'en';
-    $sync_images = $_POST['airalo_sync_images'] ?? 'off';
-    $airalo_sim_name = $_POST['airalo_sim_name'] ?? 'off';
+    $auto_publish = $_POST['airalo_auto_publish'] ? sanitize_text_field( $_POST['airalo_auto_publish'] ) : 'off';
+    $auto_publish_after_update = $_POST['airalo_auto_publish_update'] ? sanitize_text_field( $_POST['airalo_auto_publish_update'] ) : 'off';
+    $use_sandbox = $_POST['airalo_use_sandbox'] ? sanitize_text_field( $_POST['airalo_use_sandbox'] ) : 'off';
+    $language = $_POST['airalo_language'] ? sanitize_text_field( $_POST['airalo_language'] ) : 'en';
+    $sync_images = $_POST['airalo_sync_images'] ? sanitize_text_field( $_POST['airalo_sync_images'] ) : 'off';
+    $airalo_sim_name = $_POST['airalo_sim_name'] ? sanitize_text_field( $_POST['airalo_sim_name'] ): 'off';
 
     $options = new \Airalo\Admin\Settings\Option();
 
