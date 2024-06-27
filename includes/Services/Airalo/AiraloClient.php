@@ -6,10 +6,9 @@ use Airalo\Admin\Settings\Credential;
 use Airalo\Admin\Settings\Option;
 use Airalo\Airalo;
 
-class AiraloClient
-{
-    private string $environment = '';
-    private string $language = 'en';
+class AiraloClient {
+    private $environment = '';
+    private $language = 'en';
 
     public function __construct( Option $option ) {
         $this->environment = $option->get_environment();
@@ -29,7 +28,7 @@ class AiraloClient
         }
 
 
-        return new Airalo([
+        return new Airalo( [
             'client_id' => $client_id,
             'client_secret' => $client_secret,
             'env' => $this->environment,
@@ -37,10 +36,10 @@ class AiraloClient
                 'woocommerce-plugin: ' . AIRALO_PLUGIN_VERSION,
                 'Accept-Language: ' . $this->language,
             ],
-        ]);
+        ] );
     }
 
     public function is_sandbox(): bool {
-        return $this->environment == 'sandbox';
+        return 'sandbox' == $this->environment;
     }
 }

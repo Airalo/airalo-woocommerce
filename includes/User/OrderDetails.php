@@ -9,6 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 class OrderDetails {
 
     /**
+     * Takes an order and fetches the iccids from it then parses the data
+     *
      * @param mixed $order
      * @return void
      */
@@ -31,6 +33,8 @@ class OrderDetails {
     }
 
     /**
+     * Fetches metadata from the order to fetch the iccid
+     *
      * @param mixed $order
      * @return WC_Order
      */
@@ -39,6 +43,8 @@ class OrderDetails {
     }
 
     /**
+     * Adds order details table to the order line page.
+     *
      * @param array $iccids
      * @return void
      */
@@ -46,7 +52,8 @@ class OrderDetails {
         echo '<section class="woocommerce-order-details__custom-fields">';
         echo '<h2>' . esc_html( __( 'eSIM Details' ) ) . '</h2>';
 
-        $query_params = wp_parse_args( $_SERVER['QUERY_STRING'] );
+        $query_params = isset ( $_SERVER['QUERY_STRING'] ) ? wp_parse_args( $_SERVER['QUERY_STRING'] ) : [];
+
         $page_id = isset( $query_params['page_id'] ) ? intval( $query_params['page_id'] ) : 0;
         $order_id = isset( $query_params['view-order'] ) ? intval( $query_params['view-order'] ) : 0;
 
@@ -56,11 +63,12 @@ class OrderDetails {
 
             foreach ( $order_lines as $values ) {
                 list( $title, $val ) = explode( ':', $values );
-                if ( $title == 'Package ID' ) {
+
+                if ( 'Package ID' == $title ) {
                     continue;
                 }
 
-                echo "<tr><th>" . esc_html( $title ) . " :</th><td>" . esc_html( $val ) . "</td></tr>";
+                echo '<tr><th>' . esc_html( $title ) . ' :</th><td>' . esc_html($val) . '</td></tr>';
             }
 
             $this->add_data_usage_details( $iccid );
@@ -103,11 +111,11 @@ class OrderDetails {
                 continue;
             }
 
-            if ( $key == 'total' ) {
-                $value = (int)$value / 1000 . ( (int)$value > 1000 ? ' GB' : ' MB' );
+            if ( 'total' == $key ) {
+                $value = (int) $value / 1000 . ( (int)$value > 1000 ? ' GB' : ' MB' );
             }
 
-            if ( $key == 'remaining' ) {
+            if ( 'remaining' == $key ) {
                 $value = (int)$value > 1000
                     ? (int)$value / 1000 . ' GB'
                     : (int)$value . ' MB';

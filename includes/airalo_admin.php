@@ -1,6 +1,6 @@
 <?php
 
-require_once plugin_dir_path( __FILE__ ). '../vendor/autoload.php';
+require_once plugin_dir_path( __FILE__ ) . '../vendor/autoload.php';
 
 use Airalo\Admin\AiraloOrder;
 use Airalo\Admin\OrderValidator;
@@ -52,20 +52,24 @@ function airalo_settings_page () {
 
     $language = $options->fetch_option( \Airalo\Admin\Settings\Option::LANGUAGE );
 
+    wp_enqueue_style('airalo-admin-style', 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+    $nonce = wp_create_nonce( 'airalo-admin' );
+
     ?>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
-    <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/resetStyle.css' ?></style>
-    <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/pluginStyle.css' ?></style>
+    <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/resetStyle.css'; ?></style>
+    <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/pluginStyle.css'; ?></style>
 
     <div id="airalo-container">
         <div class="airaloPluginHeader">
             <h2 class="airaloPluginTitle"> Airalo Plugin</h2>
             <div class="airaloLogoContainer">
-                <?php require plugin_dir_path( __FILE__ ) . '../assets/images/logo-partner-platform.svg' ?>
+                <?php require plugin_dir_path( __FILE__ ) . '../assets/images/logo-partner-platform.svg'; ?>
             </div>
         </div>
 
@@ -78,13 +82,13 @@ function airalo_settings_page () {
                         <div>
                             <h3 class="actionName">Sync Products</h3>
                             <div>
-                                <span class="airaloChip">Last Sync: <?php echo esc_html( $last_sync ) ?></span>
+                                <span class="airaloChip">Last Sync: <?php echo esc_html( $last_sync ); ?></span>
                             </div>
                             <div>
-                                <span class="airaloChip">Last Successful Sync: <?php echo esc_html( $last_successful_sync ) ?></span>
+                                <span class="airaloChip">Last Successful Sync: <?php echo esc_html( $last_successful_sync ); ?></span>
                             </div>
-                            <div class="<?php echo esc_html( $show_error ) ?>">
-                                <span class="airaloChip">Sync Error:<?php echo esc_html( $error ) ?></span>
+                            <div class="<?php echo esc_html( $show_error ); ?>">
+                                <span class="airaloChip">Sync Error:<?php echo esc_html( $error ); ?></span>
                             </div>
                         </div>
                         <form method="post" action="options.php">
@@ -99,6 +103,7 @@ function airalo_settings_page () {
             <form method="post" action="options.php">
                 <?php settings_fields('airalo-settings-group'); ?>
                 <?php do_settings_sections('airalo-settings-group'); ?>
+                <input type="hidden" name="airalo_admin_nonce" value="<?php echo esc_attr( $nonce ); ?>">
                 <section>
                     <div class="airaloCard settingsCard">
                         <p class="cardTitle">Settings</p>
@@ -114,7 +119,7 @@ function airalo_settings_page () {
 
                                             $selected = $language == $key ? 'selected' : '';
 
-                                            echo "<option value=" . esc_html( $key ) ." " . esc_html( $selected ) .">" . esc_html( $value ) . "</option>";
+                                            echo '<option value=' . esc_html( $key ) . ' ' . esc_html( $selected ) . '>' . esc_html( $value ) . '</option>';
                                         }
 
                                         ?>
@@ -125,7 +130,7 @@ function airalo_settings_page () {
                                 <label for="airalo_use_sandbox">
                                     Use Sandbox
                                     <span class="switch">
-                                    <input type="checkbox" name="airalo_use_sandbox" <?php echo esc_html( $use_sandbox ) ?> id="airalo_use_sandbox"/>
+                                    <input type="checkbox" name="airalo_use_sandbox" <?php echo esc_html( $use_sandbox ); ?> id="airalo_use_sandbox"/>
                                     <span class="slider round"></span>
                                     </span>
                                 </label>
@@ -134,7 +139,7 @@ function airalo_settings_page () {
                                 <label for="airalo_sync_images">
                                     Sync Images
                                     <span class="switch">
-                                        <input type="checkbox" name="airalo_sync_images" <?php echo esc_html(  $sync_images ) ?> id="airalo_sync_images"/>
+                                        <input type="checkbox" name="airalo_sync_images" <?php echo esc_html(  $sync_images ); ?> id="airalo_sync_images"/>
                                         <span class="slider round"></span>
                                         </span>
                                 </label>
@@ -143,7 +148,7 @@ function airalo_settings_page () {
                             <label for="airalo_sim_name">
                                 Use Airalo Sim Name
                                 <span class="switch">
-                                        <input type="checkbox" name="airalo_sim_name" <?php echo esc_html( $airalo_sim_name ) ?> id="airalo_sim_name"/>
+                                        <input type="checkbox" name="airalo_sim_name" <?php echo esc_html( $airalo_sim_name ); ?> id="airalo_sim_name"/>
                                         <span class="slider round"></span>
                                         </span>
                             </label>
@@ -152,7 +157,7 @@ function airalo_settings_page () {
                                 <label for="airalo_auto_publish">
                                     Auto Publish Product
                                     <span class="switch">
-                                    <input type="checkbox" name="airalo_auto_publish" <?php echo esc_html( $auto_publish ) ?> id="airalo_auto_publish"/>
+                                    <input type="checkbox" name="airalo_auto_publish" <?php echo esc_html( $auto_publish ); ?> id="airalo_auto_publish"/>
                                     <span class="slider round"></span>
                                     </span>
                                 </label>
@@ -161,7 +166,7 @@ function airalo_settings_page () {
                                 <label for="airalo_auto_publish_update">
                                     Auto Publish After Price Update
                                     <span class="switch">
-                                    <input type="checkbox" name="airalo_auto_publish_update" <?php echo esc_html( $auto_publish_after_update ) ?> id="airalo_auto_publish_update"/>
+                                    <input type="checkbox" name="airalo_auto_publish_update" <?php echo esc_html( $auto_publish_after_update ); ?> id="airalo_auto_publish_update"/>
                                     <span class="slider round"></span>
                                     </span>
                                 </label>
@@ -176,13 +181,13 @@ function airalo_settings_page () {
                         <p class="cardTitle">Production Credentials</p>
                             <div>
                                 <label for="airalo_client_id_sandbox">Client Id</label>
-                                <input type="text" name="airalo_client_id" placeholder="Enter ID" value="<?php echo esc_html( $client_id ) ?>"/>
+                                <input type="text" name="airalo_client_id" placeholder="Enter ID" value="<?php echo esc_html( $client_id ); ?>"/>
                             </div>
 
 
                             <div>
                                 <label for="airalo_client_secret_sandbox">Client Secret</label>
-                                <input type="password" name="airalo_client_secret" placeholder="Enter Secret"  value="<?php echo esc_html( $client_secret_encrypted ) ?>" />
+                                <input type="password" name="airalo_client_secret" placeholder="Enter Secret"  value="<?php echo esc_html( $client_secret_encrypted ); ?>" />
                             </div>
                     </div>
 
@@ -191,12 +196,12 @@ function airalo_settings_page () {
 
                             <div>
                                 <label for="airalo_client_id_sandbox">Client Id</label>
-                                <input type="text" name="airalo_client_id_sandbox" placeholder="Enter ID" value="<?php echo esc_html( $sandbox_client_id ) ?>"/>
+                                <input type="text" name="airalo_client_id_sandbox" placeholder="Enter ID" value="<?php echo esc_html( $sandbox_client_id ); ?>"/>
                             </div>
 
                             <div>
                                 <label for="airalo_client_secret_sandbox">Client Secret</label>
-                                <input type="password" name="airalo_client_secret_sandbox" placeholder="Enter Secret"  value="<?php echo esc_html( $client_sandbox_secret_encrypted ) ?>" />
+                                <input type="password" name="airalo_client_secret_sandbox" placeholder="Enter Secret"  value="<?php echo esc_html( $client_sandbox_secret_encrypted ); ?>" />
                             </div>
 
                         <div class="airaloButtonContainer">
@@ -230,7 +235,7 @@ function airalo_register_settings () {
         'Example Setting',
         'airalo_settings_field_cb',
         'airalo',
-        'my_custom_plugin_main_section',
+        'my_custom_plugin_main_section'
     );
 
     if ( isset( $_POST['sync_products'] ) ) {
@@ -238,24 +243,29 @@ function airalo_register_settings () {
     }
 
     if ( isset ( $_POST['save_airalo_settings'] ) ) {
+
+        if ( ! isset( $_POST['airalo_admin_nonce'] ) || ! wp_verify_nonce( $_POST['airalo_admin_nonce'], 'airalo-admin' ) ) {
+            return;
+        }
+
         save_airalo_settings();
 
-        $client_id = $_POST['airalo_client_id'] ?? null;
-        $client_secret = $_POST['airalo_client_secret'] ?? null;
+        $client_id = $_POST['airalo_client_id'] ? sanitize_text_field( $_POST['airalo_client_id'] ) : null;
+        $client_secret = $_POST['airalo_client_secret'] ? sanitize_text_field( $_POST['airalo_client_secret'] ) : null;
         $encrypted_secret = $options->fetch_option( \Airalo\Admin\Settings\Credential::CLIENT_SECRET );
 
-        if  ($client_secret == $encrypted_secret && $encrypted_secret != null ) {
+        if ( $client_secret == $encrypted_secret && null != $encrypted_secret ) {
             $client_secret = null;
         }
 
         save_airalo_credentials(  $client_id, $client_secret );
 
-        $sandbox_client_id = $_POST['airalo_client_id_sandbox'] ?? null;
-        $sandbox_client_secret = $_POST['airalo_client_secret_sandbox'] ?? null;
+        $sandbox_client_id = $_POST['airalo_client_id_sandbox'] ? sanitize_text_field( $_POST['airalo_client_id_sandbox'] ): null;;
+        $sandbox_client_secret = $_POST['airalo_client_secret_sandbox'] ? sanitize_text_field( $_POST['airalo_client_secret_sandbox'] ): null;
 
         $encrypted_sandbox_secret = $options->fetch_option( \Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX );
 
-        if ($sandbox_client_secret == $encrypted_sandbox_secret && $encrypted_sandbox_secret != null) {
+        if ( $sandbox_client_secret == $encrypted_sandbox_secret && null != $encrypted_sandbox_secret ) {
             $sandbox_client_secret = null;
         }
 
@@ -264,12 +274,12 @@ function airalo_register_settings () {
 }
 
 function save_airalo_settings(): void {
-    $auto_publish = $_POST['airalo_auto_publish'] ?? 'off';
-    $auto_publish_after_update = $_POST['airalo_auto_publish_update'] ?? 'off';
-    $use_sandbox = $_POST['airalo_use_sandbox'] ?? 'off';
-    $language = $_POST['airalo_language'] ?? 'en';
-    $sync_images = $_POST['airalo_sync_images'] ?? 'off';
-    $airalo_sim_name = $_POST['airalo_sim_name'] ?? 'off';
+    $auto_publish = $_POST['airalo_auto_publish'] ? sanitize_text_field( $_POST['airalo_auto_publish'] ) : 'off';
+    $auto_publish_after_update = $_POST['airalo_auto_publish_update'] ? sanitize_text_field( $_POST['airalo_auto_publish_update'] ) : 'off';
+    $use_sandbox = $_POST['airalo_use_sandbox'] ? sanitize_text_field( $_POST['airalo_use_sandbox'] ) : 'off';
+    $language = $_POST['airalo_language'] ? sanitize_text_field( $_POST['airalo_language'] ) : 'en';
+    $sync_images = $_POST['airalo_sync_images'] ? sanitize_text_field( $_POST['airalo_sync_images'] ) : 'off';
+    $airalo_sim_name = $_POST['airalo_sim_name'] ? sanitize_text_field( $_POST['airalo_sim_name'] ): 'off';
 
     $options = new \Airalo\Admin\Settings\Option();
 
@@ -325,7 +335,7 @@ function sync_products_function() {
 add_filter( 'woocommerce_add_to_cart_validation', 'validate_cart_item_quantity', 10, 3 );
 
 function validate_cart_item_quantity( $passed, $ignore_param, $quantity ) {
-    return ( new OrderValidator )->handle( $passed, $quantity );
+    return ( new OrderValidator() )->handle( $passed, $quantity );
 }
 
 add_action( 'woocommerce_thankyou', 'airalo_submit_order', 10, 1 );
@@ -340,12 +350,12 @@ function airalo_submit_order( $order ) {
         return;
     }
 
-    ( new AiraloOrder )->handle( $order );
+    ( new AiraloOrder() )->handle( $order );
 }
 
 // TODO: this will most probably go away or will be refactored because we want on user history to add a link to a new page with instructions
 add_action( 'woocommerce_order_details_after_order_table', 'display_custom_fields_on_user_history' );
 
 function display_custom_fields_on_user_history( $order ) {
-    ( new \Airalo\User\OrderDetails )->handle( $order );
+    ( new \Airalo\User\OrderDetails() )->handle( $order );
 }

@@ -13,13 +13,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class AiraloOrder {
 
-    private Airalo $airalo_client;
+    private $airalo_client;
 
     public function __construct() {
-        $this->airalo_client = ( new AiraloClient( new Option ) )->getClient();
+        $this->airalo_client = ( new AiraloClient( new Option() ) )->getClient();
     }
 
     /**
+     * Sends order call to Airalo through the sdk
+     *
      * @param mixed $order
      * @return void
      */
@@ -37,7 +39,7 @@ class AiraloOrder {
             $failed_packages = [];
 
             foreach ( $result as $slug => $response ) {
-                if ( $response->meta->message != 'success' ) {
+                if ( 'success' != $response->meta->message ) {
                     $failed_packages[$slug] = $response;
 
                     continue;
@@ -47,7 +49,7 @@ class AiraloOrder {
             }
 
             if ( count( $failed_packages ) ) {
-                $wc_order->update_status( 'on-hold', 'There are Airalo package order failures. Response: ' . (string)$result );
+                $wc_order->update_status( 'on-hold', 'There are Airalo package order failures. Response: ' . (string) $result );
             }
 
             Cached::get( function() {
@@ -61,6 +63,8 @@ class AiraloOrder {
     }
 
     /**
+     * Fetches iccids to send as the order payload
+     *
      * @param mixed $order
      * @return array
      */
@@ -83,6 +87,8 @@ class AiraloOrder {
     }
 
     /**
+     * Adds meta data to order
+     *
      * @param mixed $wc_order
      * @param string $slug
      * @param mixed $response

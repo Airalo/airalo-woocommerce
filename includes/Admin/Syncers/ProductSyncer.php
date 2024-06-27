@@ -17,10 +17,10 @@ class ProductSyncer {
     private const AIRALO_MAX_EXECUTION = 600;
 
     public function handle() {
-        ini_set( 'max_execution_time', self::AIRALO_MAX_EXECUTION );
+        set_time_limit( self::AIRALO_MAX_EXECUTION );
         $options = new Option();
 
-        if ( $options->fetch_option( Option::ENVIRONMENT_SWITCHED ) == 'true' ) {
+        if ( 'true' == $options->fetch_option( Option::ENVIRONMENT_SWITCHED ) ) {
             // remove airalo products from the user's page when environment is switched
             $this->remove_all_airalo_products( $options );
         }
@@ -76,7 +76,7 @@ class ProductSyncer {
             $error_message = wp_strip_all_tags( $ex->getMessage() );
             $error = $error_message;
 
-            if  ( stripos( $error_message, 'Airalo SDK initialization failed') !== false ) {
+            if ( stripos( $error_message, 'Airalo SDK initialization failed') !== false ) {
                 $error = 'Airalo SDK initialization failed, please check ' . ucfirst( $environment ) . ' credentials';
             }
 
@@ -151,7 +151,7 @@ class ProductSyncer {
 
                 $labels = [
                     'name' => _x( $taxonomy_name, 'taxonomy general name', 'textdomain' ),
-                    'singular_name' => _x( $taxonomy_name.'_singular', 'taxonomy singular name', 'textdomain' ),
+                    'singular_name' => _x( $taxonomy_name . '_singular', 'taxonomy singular name', 'textdomain' ),
                 ];
 
                 $args = [
@@ -164,7 +164,7 @@ class ProductSyncer {
 
                 register_taxonomy( $taxonomy_name, ['post'], $args );
 
-                $term_name = $taxonomy_name .'_id';
+                $term_name = $taxonomy_name . '_id';
                 $term = get_term_by( 'slug', $term_name,  $taxonomy_name );
 
                 $image_id = get_term_meta( $term->term_id, Term::IMAGE_METADATA_KEY, true );
