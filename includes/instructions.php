@@ -54,6 +54,7 @@ function render_airalo_form( $iccid = '', $language = '', $selected_method = 'in
 
     // Decode response if available
     $response = $encoded_result ? json_decode( $encoded_result, true ) : null;
+    wp_enqueue_style( 'airalo-google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap' );
 
     ?>
     <title>Instructions - WooCommerce </title>
