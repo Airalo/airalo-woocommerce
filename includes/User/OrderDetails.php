@@ -112,11 +112,11 @@ class OrderDetails {
                 continue;
             }
 
-            if ( $key == 'total' ) {
-                $value = (int)$value / 1000 . ( (int)$value > 1000 ? ' GB' : ' MB' );
+            if ( 'total' == $key ) {
+                $value = (int) $value / 1000 . ( (int)$value > 1000 ? ' GB' : ' MB' );
             }
 
-            if ( $key == 'remaining' ) {
+            if ( 'remaining' == $key ) {
                 $value = (int)$value > 1000
                     ? (int)$value / 1000 . ' GB'
                     : (int)$value . ' MB';
