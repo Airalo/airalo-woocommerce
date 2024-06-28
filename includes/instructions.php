@@ -45,7 +45,7 @@ function render_airalo_form() {
     $order_detail_url = home_url( '?page_id=' . $page_id . '&view-order=' . $order_id );
     // Process form submission if POST request
     if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' === $_SERVER['REQUEST_METHOD'] ) {
-        $language = $_POST['language'] ?? 'en';
+        $language = $_POST['language'] ? sanitize_text_field( $_POST['language'] ) : 'en';
         $response = call_external_function($iccid, $language);
 
         if ( ! empty( $response ) ) {
@@ -70,7 +70,6 @@ function render_airalo_form() {
         <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/instructionsStyle.css'; ?></style>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>

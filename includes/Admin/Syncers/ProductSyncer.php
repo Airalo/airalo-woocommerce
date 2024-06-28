@@ -52,7 +52,7 @@ class ProductSyncer {
                 foreach ( $item->operators as $operator ) {
 
                     $image_id = null;
-                    if ( $sync_images == Option::ENABLED ) {
+                    if ( Option::ENABLED == $sync_images ) {
                         $term = new Term();
                         $term = $term->fetch_or_create_image_term( $operator );
                         $image_id = get_term_meta( $term->term_id, Term::IMAGE_METADATA_KEY, true );
@@ -165,7 +165,7 @@ class ProductSyncer {
                 register_taxonomy( $taxonomy_name, ['post'], $args );
 
                 $term_name = $taxonomy_name . '_id';
-                $term = get_term_by( 'slug', $term_name,  $taxonomy_name );
+                $term = get_term_by( 'slug', $term_name, $taxonomy_name );
 
                 $image_id = get_term_meta( $term->term_id, Term::IMAGE_METADATA_KEY, true );
 

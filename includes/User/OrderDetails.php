@@ -52,14 +52,14 @@ class OrderDetails {
         echo '<section class="woocommerce-order-details__custom-fields">';
         echo '<h2>' . esc_html( __( 'eSIM Details' ) ) . '</h2>';
 
-        $query_params = isset ( $_SERVER['QUERY_STRING'] ) ? wp_parse_args( $_SERVER['QUERY_STRING'] ) : [];
+        $query_params = isset ( $_SERVER['QUERY_STRING'] ) ? wp_parse_args( sanitize_text_field( $_SERVER['QUERY_STRING'] ) ) : [];
 
         $page_id = isset( $query_params['page_id'] ) ? intval( $query_params['page_id'] ) : 0;
         $order_id = isset( $query_params['view-order'] ) ? intval( $query_params['view-order'] ) : 0;
 
         foreach ( $iccids as $iccid => $order_lines ) {
             echo '<table class="woocommerce-table woocommerce-table--order-details shop_table order_details">';
-            echo '<tr><th>ICCID:</th><td><a href="' . esc_html( esc_url ( home_url( '/?action_method=airalo_instructions&iccid=' . $iccid . '&rp=' . $page_id . '&op=' . $order_id ) ) ). '">' . esc_html( $iccid ) . '</a></td></tr>';
+            echo '<tr><th>ICCID:</th><td><a href="' . esc_html( esc_url ( home_url( '/?action_method=airalo_instructions&iccid=' . $iccid . '&rp=' . $page_id . '&op=' . $order_id ) ) ) . '">' . esc_html( $iccid ) . '</a></td></tr>';
 
             foreach ( $order_lines as $values ) {
                 list( $title, $val ) = explode( ':', $values );
@@ -77,10 +77,12 @@ class OrderDetails {
         echo '</table>';
         echo '</section>';
 
-        echo '<style>' . file_get_contents( __DIR__ . '/../../assets/css/dataUsageModalStyle.css' ) . '</style>';
+        echo '<style>' . sanitize_text_field( file_get_contents( __DIR__ . '/../../assets/css/dataUsageModalStyle.css' ) ) . '</style>';
     }
 
     /**
+     * Shows data usage of sim
+     *
      * @param string $iccids
      * @return void
      */
@@ -112,17 +114,17 @@ class OrderDetails {
             }
 
             if ( 'total' == $key ) {
-                $value = (int) $value / 1000 . ( (int)$value > 1000 ? ' GB' : ' MB' );
+                $value = (int) $value / 1000 . ( (int) $value > 1000 ? ' GB' : ' MB' );
             }
 
             if ( 'remaining' == $key ) {
-                $value = (int)$value > 1000
-                    ? (int)$value / 1000 . ' GB'
-                    : (int)$value . ' MB';
+                $value = (int) $value > 1000
+                    ? (int) $value / 1000 . ' GB'
+                    : (int) $value . ' MB';
             }
 
             echo '<p>'
-                . esc_html( ucwords( str_replace( '_', ' ', $key ) ) ) . ': ' . '<b>' . esc_html( $value ) . '</b>'
+                . esc_html( ucwords( str_replace( '_', ' ', $key ) ) ) . ': <b>' . esc_html( $value ) . '</b>'
                 . '</p>';
         }
 

@@ -38,7 +38,7 @@ function airalo_settings_page () {
     $airalo_sim_name = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::USE_AIRALO_SIM_NAME );
 
     $sync_images = $options->fetch_option( \Airalo\Admin\Settings\Option::SYNC_IMAGES );
-    if ( $sync_images !== 'off' ) {
+    if ( 'off' !== $sync_images ) {
         $sync_images = 'checked';
     } else {
         $sync_images = '';
@@ -60,7 +60,6 @@ function airalo_settings_page () {
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
     <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/resetStyle.css'; ?></style>
     <style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/pluginStyle.css'; ?></style>
@@ -244,7 +243,7 @@ function airalo_register_settings () {
 
     if ( isset ( $_POST['save_airalo_settings'] ) ) {
 
-        if ( ! isset( $_POST['airalo_admin_nonce'] ) || ! wp_verify_nonce( $_POST['airalo_admin_nonce'], 'airalo-admin' ) ) {
+        if ( ! isset( $_POST['airalo_admin_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( $_POST['airalo_admin_nonce'] ), 'airalo-admin' ) ) {
             return;
         }
 
@@ -260,8 +259,8 @@ function airalo_register_settings () {
 
         save_airalo_credentials(  $client_id, $client_secret );
 
-        $sandbox_client_id = $_POST['airalo_client_id_sandbox'] ? sanitize_text_field( $_POST['airalo_client_id_sandbox'] ): null;;
-        $sandbox_client_secret = $_POST['airalo_client_secret_sandbox'] ? sanitize_text_field( $_POST['airalo_client_secret_sandbox'] ): null;
+        $sandbox_client_id = isset( $_POST['airalo_client_id_sandbox'] ) ? sanitize_text_field( $_POST['airalo_client_id_sandbox'] ): null;
+        $sandbox_client_secret = isset( $_POST['airalo_client_secret_sandbox'] ) ? sanitize_text_field( $_POST['airalo_client_secret_sandbox'] ): null;
 
         $encrypted_sandbox_secret = $options->fetch_option( \Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX );
 
@@ -274,12 +273,12 @@ function airalo_register_settings () {
 }
 
 function save_airalo_settings(): void {
-    $auto_publish = $_POST['airalo_auto_publish'] ? sanitize_text_field( $_POST['airalo_auto_publish'] ) : 'off';
-    $auto_publish_after_update = $_POST['airalo_auto_publish_update'] ? sanitize_text_field( $_POST['airalo_auto_publish_update'] ) : 'off';
-    $use_sandbox = $_POST['airalo_use_sandbox'] ? sanitize_text_field( $_POST['airalo_use_sandbox'] ) : 'off';
-    $language = $_POST['airalo_language'] ? sanitize_text_field( $_POST['airalo_language'] ) : 'en';
-    $sync_images = $_POST['airalo_sync_images'] ? sanitize_text_field( $_POST['airalo_sync_images'] ) : 'off';
-    $airalo_sim_name = $_POST['airalo_sim_name'] ? sanitize_text_field( $_POST['airalo_sim_name'] ): 'off';
+    $auto_publish = isset( $_POST['airalo_auto_publish'] ) ? sanitize_text_field( $_POST['airalo_auto_publish'] ) : 'off';
+    $auto_publish_after_update = isset( $_POST['airalo_auto_publish_update'] ) ? sanitize_text_field( $_POST['airalo_auto_publish_update'] ) : 'off';
+    $use_sandbox = isset( $_POST['airalo_use_sandbox'] ) ? sanitize_text_field( $_POST['airalo_use_sandbox'] ) : 'off';
+    $language = isset( $_POST['airalo_language'] ) ? sanitize_text_field( $_POST['airalo_language'] ) : 'en';
+    $sync_images = isset( $_POST['airalo_sync_images'] ) ? sanitize_text_field( $_POST['airalo_sync_images'] ) : 'off';
+    $airalo_sim_name = isset( $_POST['airalo_sim_name'] ) ? sanitize_text_field( $_POST['airalo_sim_name'] ): 'off';
 
     $options = new \Airalo\Admin\Settings\Option();
 
