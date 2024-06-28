@@ -52,7 +52,7 @@ class OrderDetails {
         echo '<section class="woocommerce-order-details__custom-fields">';
         echo '<h2>' . esc_html( __( 'eSIM Details' ) ) . '</h2>';
 
-        $query_params = isset ( $_SERVER['QUERY_STRING'] ) ? wp_parse_args( $_SERVER['QUERY_STRING'] ) : [];
+        $query_params = isset ( $_SERVER['QUERY_STRING'] ) ? wp_parse_args( sanitize_text_field( $_SERVER['QUERY_STRING'] ) ) : [];
 
         $page_id = isset( $query_params['page_id'] ) ? intval( $query_params['page_id'] ) : 0;
         $order_id = isset( $query_params['view-order'] ) ? intval( $query_params['view-order'] ) : 0;
