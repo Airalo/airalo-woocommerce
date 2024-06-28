@@ -77,7 +77,7 @@ class OrderDetails {
         echo '</table>';
         echo '</section>';
 
-        echo '<style>' . sanitize_text_field( file_get_contents( __DIR__ . '/../../assets/css/dataUsageModalStyle.css' ) ) . '</style>';
+        echo '<style>' . esc_attr( file_get_contents( __DIR__ . '/../../assets/css/dataUsageModalStyle.css' ) ) . '</style>';
     }
 
     /**
