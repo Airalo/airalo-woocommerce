@@ -259,8 +259,8 @@ function airalo_register_settings () {
 
         save_airalo_credentials(  $client_id, $client_secret );
 
-        $sandbox_client_id = $_POST['airalo_client_id_sandbox'] ? sanitize_text_field( $_POST['airalo_client_id_sandbox'] ): null;;
-        $sandbox_client_secret = $_POST['airalo_client_secret_sandbox'] ? sanitize_text_field( $_POST['airalo_client_secret_sandbox'] ): null;
+        $sandbox_client_id = isset( $_POST['airalo_client_id_sandbox'] ) ? sanitize_text_field( $_POST['airalo_client_id_sandbox'] ): null;
+        $sandbox_client_secret = isset( $_POST['airalo_client_secret_sandbox'] ) ? sanitize_text_field( $_POST['airalo_client_secret_sandbox'] ): null;
 
         $encrypted_sandbox_secret = $options->fetch_option( \Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX );
 
@@ -273,12 +273,12 @@ function airalo_register_settings () {
 }
 
 function save_airalo_settings(): void {
-    $auto_publish = $_POST['airalo_auto_publish'] ? sanitize_text_field( $_POST['airalo_auto_publish'] ) : 'off';
-    $auto_publish_after_update = $_POST['airalo_auto_publish_update'] ? sanitize_text_field( $_POST['airalo_auto_publish_update'] ) : 'off';
-    $use_sandbox = $_POST['airalo_use_sandbox'] ? sanitize_text_field( $_POST['airalo_use_sandbox'] ) : 'off';
-    $language = $_POST['airalo_language'] ? sanitize_text_field( $_POST['airalo_language'] ) : 'en';
-    $sync_images = $_POST['airalo_sync_images'] ? sanitize_text_field( $_POST['airalo_sync_images'] ) : 'off';
-    $airalo_sim_name = $_POST['airalo_sim_name'] ? sanitize_text_field( $_POST['airalo_sim_name'] ): 'off';
+    $auto_publish = isset( $_POST['airalo_auto_publish'] ) ? sanitize_text_field( $_POST['airalo_auto_publish'] ) : 'off';
+    $auto_publish_after_update = isset( $_POST['airalo_auto_publish_update'] ) ? sanitize_text_field( $_POST['airalo_auto_publish_update'] ) : 'off';
+    $use_sandbox = isset( $_POST['airalo_use_sandbox'] ) ? sanitize_text_field( $_POST['airalo_use_sandbox'] ) : 'off';
+    $language = isset( $_POST['airalo_language'] ) ? sanitize_text_field( $_POST['airalo_language'] ) : 'en';
+    $sync_images = isset( $_POST['airalo_sync_images'] ) ? sanitize_text_field( $_POST['airalo_sync_images'] ) : 'off';
+    $airalo_sim_name = isset( $_POST['airalo_sim_name'] ) ? sanitize_text_field( $_POST['airalo_sim_name'] ): 'off';
 
     $options = new \Airalo\Admin\Settings\Option();
 
