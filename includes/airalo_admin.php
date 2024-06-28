@@ -249,8 +249,8 @@ function airalo_register_settings () {
 
         save_airalo_settings();
 
-        $client_id = $_POST['airalo_client_id'] ? sanitize_text_field( $_POST['airalo_client_id'] ) : null;
-        $client_secret = $_POST['airalo_client_secret'] ? sanitize_text_field( $_POST['airalo_client_secret'] ) : null;
+        $client_id = isset ( $_POST['airalo_client_id'] ) ? sanitize_text_field( $_POST['airalo_client_id'] ) : null;
+        $client_secret = isset ( $_POST['airalo_client_secret'] ) ? sanitize_text_field( $_POST['airalo_client_secret'] ) : null;
         $encrypted_secret = $options->fetch_option( \Airalo\Admin\Settings\Credential::CLIENT_SECRET );
 
         if ( $client_secret == $encrypted_secret && null != $encrypted_secret ) {
