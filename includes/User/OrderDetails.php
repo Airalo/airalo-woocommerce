@@ -2,11 +2,22 @@
 
 namespace Airalo\User;
 
+use Airalo\Admin\Settings\Option;
+use Airalo\Services\Airalo\AiraloClient;
+
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
 class OrderDetails {
+
+    /** @var \Airalo\Airalo  */
+    private $airalo_client;
+
+    public function __construct()
+    {
+        $this->airalo_client = (new AiraloClient(new Option()))->getClient();
+    }
 
     /**
      * Takes an order and fetches the iccids from it then parses the data
@@ -89,18 +100,8 @@ class OrderDetails {
     private function add_data_usage_details( $iccid ) {
         echo '<tr><td colspan="2"><button class="wp-block-button wp-block-button__link" onclick="document.getElementById(\'usageModal-' . esc_attr( $iccid ) . '\').style.display=\'block\'">Show Usage</button></td></tr>';
 
-        // TODO: call SDK foreach ICCID to get usage details and remove this
-        $usage_data = json_decode('{
-            "remaining": 960,
-            "total": 2560,
-            "expired_at": "2024-07-18 14:09:00",
-            "is_unlimited": false,
-            "status": "ACTIVE",
-            "remaining_voice": 0,
-            "remaining_text": 0,
-            "total_voice": 0,
-            "total_text": 0
-        }', true);
+        $usage_data = $this->airalo_client->simUsage($iccid);
+        $usage_data = $usage_data->data;
 
         echo '<div id="usageModal-' . esc_attr( $iccid ) . '" class="usage-modal">';
         echo '<div class="modal-content">';
