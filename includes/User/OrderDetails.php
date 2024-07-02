@@ -100,8 +100,8 @@ class OrderDetails {
     private function add_data_usage_details( $iccid ) {
         echo '<tr><td colspan="2"><button class="wp-block-button wp-block-button__link" onclick="document.getElementById(\'usageModal-' . esc_attr( $iccid ) . '\').style.display=\'block\'">Show Usage</button></td></tr>';
 
-        $usage_data = $this->airalo_client->simUsage($iccid);
-        $usage_data = $usage_data->data;
+        $data = $this->airalo_client->simUsage($iccid);
+        $usage_data = $data ? $data->data : null;
 
         echo '<div id="usageModal-' . esc_attr( $iccid ) . '" class="usage-modal">';
         echo '<div class="modal-content">';
@@ -109,24 +109,28 @@ class OrderDetails {
         echo '<h2>Usage Details for ICCID: ' . esc_html( $iccid ) . '</h2>';
         echo '<hr>';
 
-        foreach ( $usage_data as $key => $value ) {
-            if ( ! $value ) {
-                continue;
-            }
+        if (!$usage_data) {
+            echo '<p>Data usage for the eSIM is currently not available. Please try it again later</p>';
+        } else {
+            foreach ( $usage_data as $key => $value ) {
+                if ( ! $value ) {
+                    continue;
+                }
 
-            if ( 'total' == $key ) {
-                $value = (int) $value / 1000 . ( (int) $value > 1000 ? ' GB' : ' MB' );
-            }
+                if ( 'total' == $key ) {
+                    $value = (int) $value / 1000 . ( (int) $value > 1000 ? ' GB' : ' MB' );
+                }
 
-            if ( 'remaining' == $key ) {
-                $value = (int) $value > 1000
-                    ? (int) $value / 1000 . ' GB'
-                    : (int) $value . ' MB';
-            }
+                if ( 'remaining' == $key ) {
+                    $value = (int) $value > 1000
+                        ? (int) $value / 1000 . ' GB'
+                        : (int) $value . ' MB';
+                }
 
-            echo '<p>'
-                . esc_html( ucwords( str_replace( '_', ' ', $key ) ) ) . ': <b>' . esc_html( $value ) . '</b>'
-                . '</p>';
+                echo '<p>'
+                    . esc_html( ucwords( str_replace( '_', ' ', $key ) ) ) . ': <b>' . esc_html( $value ) . '</b>'
+                    . '</p>';
+            }
         }
 
         echo '</div></div>';
