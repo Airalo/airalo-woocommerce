@@ -14,9 +14,8 @@ class OrderDetails {
     /** @var \Airalo\Airalo  */
     private $airalo_client;
 
-    public function __construct()
-    {
-        $this->airalo_client = (new AiraloClient(new Option()))->getClient();
+    public function __construct() {
+        $this->airalo_client = ( new AiraloClient( new Option() ) )->getClient();
     }
 
     /**
@@ -109,28 +108,32 @@ class OrderDetails {
         echo '<h2>Usage Details for ICCID: ' . esc_html( $iccid ) . '</h2>';
         echo '<hr>';
 
-        if (!$usage_data) {
+        if ( !$usage_data ) {
             echo '<p>Data usage for the eSIM is currently not available. Please try it again later</p>';
-        } else {
-            foreach ( $usage_data as $key => $value ) {
-                if ( ! $value ) {
-                    continue;
-                }
 
-                if ( 'total' == $key ) {
-                    $value = (int) $value / 1000 . ( (int) $value > 1000 ? ' GB' : ' MB' );
-                }
+            echo '</div></div>';
 
-                if ( 'remaining' == $key ) {
-                    $value = (int) $value > 1000
-                        ? (int) $value / 1000 . ' GB'
-                        : (int) $value . ' MB';
-                }
-
-                echo '<p>'
-                    . esc_html( ucwords( str_replace( '_', ' ', $key ) ) ) . ': <b>' . esc_html( $value ) . '</b>'
-                    . '</p>';
+            return;
+        }
+        
+        foreach ( $usage_data as $key => $value ) {
+            if ( ! $value ) {
+                continue;
             }
+
+            if ( 'total' == $key ) {
+                $value = (int) $value / 1000 . ( (int) $value > 1000 ? ' GB' : ' MB' );
+            }
+
+            if ( 'remaining' == $key ) {
+                $value = (int) $value > 1000
+                    ? (int) $value / 1000 . ' GB'
+                    : (int) $value . ' MB';
+            }
+
+            echo '<p>'
+                . esc_html( ucwords( str_replace( '_', ' ', $key ) ) ) . ': <b>' . esc_html( $value ) . '</b>'
+                . '</p>';
         }
 
         echo '</div></div>';
