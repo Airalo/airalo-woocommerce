@@ -15,9 +15,9 @@ class AiraloOrder {
 
     private $airalo_client;
 
-    public function __construct() {
-        $this->airalo_client = ( new AiraloClient( new Option() ) )->getClient();
-    }
+	public function __construct() {
+		$this->airalo_client = ( new AiraloClient( new Option() ) )->getClient();
+	}
 
     /**
      * Sends order call to Airalo through the sdk
