@@ -7,35 +7,35 @@ use Airalo\Admin\Settings\Option;
 use Airalo\Airalo;
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 class InstallationInstruction {
-    private $airalo_client;
+	private $airalo_client;
 
-    public function __construct() {
-        $this->airalo_client = ( new AiraloClient( new Option() ) )->getClient();
-    }
+	public function __construct() {
+		$this->airalo_client = ( new AiraloClient( new Option() ) )->getClient();
+	}
 
 
-    /**
-     * Fetches sim instructions
-     *
-     * @param mixed $iccid
-     * @param string $language
-     * @return void
-     */
-    public function handle( $iccid, $language ) {
-        try {
+	/**
+	 * Fetches sim instructions
+	 *
+	 * @param mixed $iccid
+	 * @param string $language
+	 * @return void
+	 */
+	public function handle( $iccid, $language ) {
+		try {
 
-            if ( '' == $language ) {
-                $language = 'en';
-            }
+			if ( '' == $language ) {
+				$language = 'en';
+			}
 
-            $result = $this->airalo_client->getSimInstructions( $iccid, $language );
-            return $result;
-        } catch ( \Exception $ex ) {
-            error_log( $ex->getMessage() );
-        }
-    }
+			$result = $this->airalo_client->getSimInstructions( $iccid, $language );
+			return $result;
+		} catch ( \Exception $ex ) {
+			error_log( $ex->getMessage() );
+		}
+	}
 }
