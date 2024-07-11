@@ -349,6 +349,15 @@ function airalo_submit_order( $order ) {
 		return;
 	}
 
+	$items = $order->get_items();
+	$order_items = new \Airalo\Admin\OrderItem( $items );
+	$airalo_order_items = $order_items->get_airalo_order_items();
+
+	// skip if no airalo order items
+	if ( empty( $airalo_order_items ) ) {
+		return;
+	}
+
 	( new AiraloOrder() )->handle( $order );
 }
 
