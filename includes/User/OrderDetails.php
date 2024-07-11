@@ -11,13 +11,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class OrderDetails {
 
-	/** @var \Airalo\Airalo  */
-	private $airalo_client;
-
-	public function __construct() {
-		$this->airalo_client = ( new AiraloClient( new Option() ) )->getClient();
-	}
-
 	/**
 	 * Takes an order and fetches the iccids from it then parses the data
 	 *
@@ -99,7 +92,8 @@ class OrderDetails {
 	private function add_data_usage_details( $iccid ) {
 		echo '<tr><td colspan="2"><button class="wp-block-button wp-block-button__link" onclick="document.getElementById(\'usageModal-' . esc_attr( $iccid ) . '\').style.display=\'block\'">Show Usage</button></td></tr>';
 
-		$data = $this->airalo_client->simUsage( $iccid );
+        	$airalo_client = ( new AiraloClient( new Option() ) )->getClient();
+		$data = $airalo_client->simUsage( $iccid );
 		$usage_data = $data ? $data->data : null;
 
 		echo '<div id="usageModal-' . esc_attr( $iccid ) . '" class="usage-modal">';
