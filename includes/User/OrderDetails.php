@@ -92,7 +92,7 @@ class OrderDetails {
 	private function add_data_usage_details( $iccid ) {
 		echo '<tr><td colspan="2"><button class="wp-block-button wp-block-button__link" onclick="document.getElementById(\'usageModal-' . esc_attr( $iccid ) . '\').style.display=\'block\'">Show Usage</button></td></tr>';
 
-        $airalo_client = ( new AiraloClient( new Option() ) )->getClient();
+        	$airalo_client = ( new AiraloClient( new Option() ) )->getClient();
 		$data = $airalo_client->simUsage( $iccid );
 		$usage_data = $data ? $data->data : null;
 
