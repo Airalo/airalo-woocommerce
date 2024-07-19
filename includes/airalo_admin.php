@@ -361,6 +361,28 @@ function airalo_submit_order( $order ) {
 	( new AiraloOrder() )->handle( $order );
 }
 
+add_action( 'woocommerce_order_status_completed', 'admin_order_on_status' );
+add_action( 'woocommerce_order_status_processing', 'admin_order_on_status' );
+
+function admin_order_on_status( $order_id ) {
+	$order = wc_get_order( $order_id );
+
+	$created_via = $order->get_created_via();
+
+	if ( $created_via != 'admin' ) {
+		return;
+	}
+
+	if ( Cached::get( function () {
+		// do nothing, just check if cache for this order exists
+	}, $order->get_id() )
+	) {
+		return;
+	}
+
+	( new AiraloOrder() )->handle( $order );
+}
+
 // TODO: this will most probably go away or will be refactored because we want on user history to add a link to a new page with instructions
 add_action( 'woocommerce_order_details_after_order_table', 'display_custom_fields_on_user_history' );
 
