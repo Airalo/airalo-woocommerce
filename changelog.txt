@@ -5,3 +5,6 @@
 
 2024-07-22 - version 1.0.1
 * Support order creation on admin page on statuses: Processing, Completed
+
+2024-07-24 - version 1.0.4
+* Support all Airalo languages
