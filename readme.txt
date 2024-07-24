@@ -46,3 +46,6 @@ The Airalo Plugin for eSIM Integration is designed to seamlessly sync eSIM packa
 
 = 1.0.1 =
 * Support order creation on admin page on statuses: Processing, Completed
+
+= 1.0.2 =
+* Support all Airalo languages
