@@ -16,7 +16,7 @@ class MySimsDetails {
             return;
         }
 
-        $customer_orders = $this->get_all_user_orders(get_current_user_id() );
+        $customer_orders = $this->get_all_user_orders( get_current_user_id() );
 
         $sims_details = [];
     
@@ -24,7 +24,7 @@ class MySimsDetails {
             $order_meta = $customer_order->get_meta_data();
     
             foreach ( $order_meta as $meta ) {
-                if ( !$this->is_iccid( $meta->key ) ) {
+                if ( ! $this->is_iccid( $meta->key ) ) {
                     continue;
                 }
 
