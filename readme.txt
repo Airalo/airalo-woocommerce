@@ -1,9 +1,9 @@
 === Airalo ===
-Contributors: amaaloufairalo, isikiyski, mhraza123
+Contributors: amaaloufairalo, isikiyski, mhraza123, fatihtzn
 Tags: esim, woocommerce
 Requires at least: 6.4
 Tested up to: 6.5.3
-Stable tag: 1.0.1
+Stable tag: 1.0.0
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -43,9 +43,3 @@ The Airalo Plugin for eSIM Integration is designed to seamlessly sync eSIM packa
 **Airalo**
 
 * Initial release.
-
-= 1.0.1 =
-* Support order creation on admin page on statuses: Processing, Completed
-
-= 1.0.2 =
-* Support all Airalo languages

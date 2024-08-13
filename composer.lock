@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "airalo/sdk",
-            "version": "1.0.9",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Airalo/airalo-php-sdk.git",
-                "reference": "1c60bba9d27e18baeacf9986853d12a4b50f9bc0"
+                "reference": "581e4291bb37e30b0f1a8a8e3a44a15ff8b84f52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Airalo/airalo-php-sdk/zipball/1c60bba9d27e18baeacf9986853d12a4b50f9bc0",
-                "reference": "1c60bba9d27e18baeacf9986853d12a4b50f9bc0",
+                "url": "https://api.github.com/repos/Airalo/airalo-php-sdk/zipball/581e4291bb37e30b0f1a8a8e3a44a15ff8b84f52",
+                "reference": "581e4291bb37e30b0f1a8a8e3a44a15ff8b84f52",
                 "shasum": ""
             },
             "require": {
@@ -38,9 +38,9 @@
             "description": "Airalo's Partner API PHP SDK",
             "support": {
                 "issues": "https://github.com/Airalo/airalo-php-sdk/issues",
-                "source": "https://github.com/Airalo/airalo-php-sdk/tree/v1.0.8"
+                "source": "https://github.com/Airalo/airalo-php-sdk/tree/1.1.0"
             },
-            "time": "2024-07-23T12:46:27+00:00"
+            "time": "2024-08-12T10:00:42+00:00"
         },
         {
             "name": "doctrine/deprecations",
