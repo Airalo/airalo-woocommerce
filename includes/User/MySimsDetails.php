@@ -2,6 +2,9 @@
 
 namespace Airalo\User;
 
+use Airalo\Admin\Settings\Option;
+use Airalo\Services\Airalo\AiraloClient;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -9,16 +12,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 class MySimsDetails {
 
 	/**
-	 * @return string
+	 * @return array
 	 */
-	public function handle() {
+	public function get_all_user_order_details() {
         if ( !is_user_logged_in() ) {
             return;
         }
 
         $customer_orders = $this->get_all_user_orders( get_current_user_id() );
 
-        $sims_details = [];
+        $sims_details = $iccids = [];
     
         foreach ( $customer_orders as $customer_order ) {
             $order_meta = $customer_order->get_meta_data();
@@ -42,6 +45,8 @@ class MySimsDetails {
                     $this->parse_sim_name_and_coverage( $meta_key, $meta_field, $sim_name, $coverage );
                 }
 
+                $iccids[] = $iccid;
+
                 $sims_details[] = [
                     'sim_name' => $sim_name,
                     'coverage' => $coverage,
@@ -50,8 +55,23 @@ class MySimsDetails {
             }
         }
     
-        return json_encode( $sims_details );
+        return $sims_details;
 	}
+
+        /**
+     * @param string $iccid
+     * @param array $sim_detail
+     * @return void
+     */
+    public function append_usage_details_to_iccid( string $iccid, array &$sim_detail ) {
+        $airalo_client = ( new AiraloClient( new Option() ) )->getClient();
+        $usage = $airalo_client->simUsage( $iccid );
+
+        $sim_detail['total'] = $usage->data->total ?? null;
+        $sim_detail['remaining'] = $usage->data->remaining ?? null;
+        $sim_detail['status'] = $usage->data->status ?? null;
+        $sim_detail['expired_at'] = $usage->data->expired_at ?? null;
+    }
 
     /**
      * @param mixed $val
@@ -76,6 +96,8 @@ class MySimsDetails {
 
         return wc_get_orders([
             'customer_id' => $user_id,
+            'orderby' => 'date',
+            'order' => 'DESC',
             'status' => $statuses,
             'limit' => $limit,
         ]);

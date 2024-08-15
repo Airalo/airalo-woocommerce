@@ -23,12 +23,13 @@
 
 defined( 'ABSPATH' ) || exit;
 
-const AIRALO_PLUGIN_VERSION = '1.0.2';
+const AIRALO_PLUGIN_VERSION = '1.0.0';
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once plugin_dir_path( __FILE__ ) . '/includes/airalo_admin.php';
 require_once plugin_dir_path( __FILE__ ) . '/includes/airalo_schedule.php';
 require_once plugin_dir_path( __FILE__ ) . '/includes/instructions.php';
+require_once plugin_dir_path( __FILE__ ) . '/includes/my_esim.php';
 
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'plugin_action_links' );
 

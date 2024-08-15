@@ -9,6 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * @Deprecated
+ */
 class OrderDetails {
 
 	/**
