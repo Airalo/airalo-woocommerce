@@ -11,6 +11,9 @@
 .link-clear {
     text-decoration: none;
 }
+.link-clear:focus {
+    color: transparent;
+}
 .left-menu {
     border: 1px solid #B9B9B9;
 }

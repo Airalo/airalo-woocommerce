@@ -96,7 +96,7 @@ function get_installation_form_content() {
       return;
     }
 
-    //var_dump( $response->data );
+    //var_dump( json_encode($response->data) );
 
     return '<div class="qr-code-right">
                 <div class="qr-code-right-item">
@@ -183,7 +183,11 @@ function main() {
     $current_url_path = strtok( $_SERVER["REQUEST_URI"], '&' );
 
     foreach ( $all_orders_details as $esim ) {
-        $sim_name_class = "esim-list-title active";
+        $iccid = $_GET['iccid'];
+        $sim_name_class = "esim-list-title";
+        if ( $iccid == $esim['iccid'] ) {
+            $sim_name_class .= " active";
+        }
 
         $sim_name_element = '<p class="' . $sim_name_class . '">' . $esim['sim_name'] . '</p>';
 
@@ -213,18 +217,6 @@ function main() {
                             <label for="list-input2" class="title">Installation</label>
                             <div class="desc">
                                 ' . get_qr_and_manual_tabs() . '
-                            </div>
-                        </li>
-                        <li>
-                            <input type="checkbox" class="list-checkbox" id="list-input3" />
-                            <label for="list-input3" class="title">Top-up</label>
-                            <div class="desc">
-                                <div>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet
-                                    aperiam autem neque nulla, explicabo pariatur quas, quis facere
-                                    magnam inventore praesentium temporibus laudantium. Iure illo saepe
-                                    earum at labore. Ducimus?
-                                </div>
                             </div>
                         </li>
                     </ul>
