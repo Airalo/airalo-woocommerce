@@ -16,6 +16,10 @@ function get_usage_data($defaultIccid) {
         }
     }
 
+    if ( empty( $data_usage_item ) ) {
+        wp_die( 'You are not authorized to view this page.', 'Forbidden', 403 );
+    }
+
     if ( $data_usage_item['remaining'] > 0 && $data_usage_item['total'] > 0 ) {
         $remaining_data = round( ( $data_usage_item['remaining'] / 1024 ), 2 );
         $remaining_percentage = ( $remaining_data / ( $data_usage_item['total'] / 1024 ) ) * 100;
