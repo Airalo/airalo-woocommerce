@@ -46,6 +46,12 @@ add_action( 'admin_init', 'airalo_check_required_plugins' );
 add_action( 'admin_notices', 'airalo_required_plugin_notice' );
 register_activation_hook( __FILE__, 'airalo_check_required_plugins_on_activation' );
 
+add_action( 'before_woocommerce_init', function() {
+    if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+    }
+} );
+
 function airalo_check_required_plugins() {
 	if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
 		add_action( 'admin_notices', 'airalo_required_plugin_notice' );
