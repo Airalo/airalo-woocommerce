@@ -1,7 +1,33 @@
+@media only screen and (max-width: 768px) {
+    .wrapper {
+        width: 768px;
+        grid-template-columns: 100% !important;
+    }
+    .installation-manual-wrapper,
+    .qr-code-wrapper {
+        grid-template-columns: 1fr !important;
+    }
+}
+@media only screen and (max-width: 1024px) {
+    .installation-manual-wrapper,
+    .qr-code-wrapper {
+        grid-template-columns: 1fr !important;
+    }
+    .vertical-divider {
+        height: 1px !important;
+        width: 100% !important;
+    }
+}
+@media only screen and (min-width: 1024px) {
+    .wrapper {
+        min-width: 1024px;
+        grid-template-columns: 25% 75% !important;
+    }
+}
 .wrapper {
-    max-width: 1275px !important;
+    max-width: fit-content !important;
     display: grid;
-    grid-template-columns: 20% 80%;
+    grid-template-columns: 25% 75%;
     grid-auto-rows: minmax(100px, auto);
     background: #DBDBDB;
 }
@@ -105,7 +131,7 @@
     margin: 16px;
 }
 .list-checkbox:checked + .title + .desc {
-    max-height: 1000px;
+    max-height: 100%;
 }
 
 .usage-wrapper-items {
@@ -191,7 +217,15 @@
 .installation-manual-left-content * {
     word-break: break-all;
 }
-
+.installation-manual-smdp-activation {
+    display: grid;
+    gap: 16px;
+}
+.installation-instruction-card-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
 .select-wrapper {
     position: relative;
 }
@@ -396,4 +430,8 @@
 
 .tabs__radio:checked + .tabs__label + .tabs__content {
     display: initial;
+}
+
+.none {
+    display: none !important;
 }

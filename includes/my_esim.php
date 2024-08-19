@@ -1,10 +1,10 @@
 <?php
 
-function get_usage_data() {
+function get_usage_data($defaultIccid) {
     $details_client = new \Airalo\User\MySimsDetails();
 
     $all_orders_details = $details_client->get_all_user_order_details();
-    $current_iccid = $_GET['iccid'] ?? null;
+    $current_iccid = $_GET['iccid'] ?? $defaultIccid;
 
     $data_usage_item = [];
 
@@ -76,39 +76,18 @@ function get_usage_data() {
             </div>';
 }
 
-function get_installation_form_content() {
-    $static_instruction = file_get_contents( __DIR__ . '/instructions.json' );
-    $json_data = json_decode( $static_instruction, true );
-
-    $iccid = $_GET['iccid'] ?? null;
-    if ( ! $iccid ) {
-        return;
-    }
-
-    $language = ( new \Airalo\Admin\Settings\Option() )->fetch_option( \Airalo\Admin\Settings\Option::LANGUAGE );
-
-    try {
-      $instructions = new \Airalo\Admin\InstallationInstruction();
-      $response = $instructions->handle( $iccid, $language );
-    } catch ( Exception $e ) {
-      echo 'Error loading installation instructions. Please try again later.';
-
-      return;
-    }
-
-    //var_dump( json_encode($response->data) );
-
+function get_installation_form_content($type) {
     return '<div class="qr-code-right">
                 <div class="qr-code-right-item">
                     <p class="trail-body-3">Select platform *</p>
                     <div class="select-wrapper">
-                        <select class="select" name="platform" id="select-platform">
+                        <select class="select" name="platform" id="'.$type.'-select-platform" onchange="'.$type.'CheckPlatform(this.value)">
                             <option value="ios">IOS Device</option>
                             <option value="android">Android</option>
                         </select>
                     </div>
                 </div>
-                <div class="qr-code-right-item">
+                <div class="qr-code-right-item none">
                     <p class="trail-body-3">Select device *</p>
                     <div class="select-wrapper">
                         <select class="select" name="device" id="select-device">
@@ -125,49 +104,80 @@ function get_installation_form_content() {
                             <p class="trail-body-2">The validity period starts when the eSIM connects to any supported network/s.</p>
                         </div>
                         <div class="installation-instruction-card-content">
-                            <span>Step 1: Install eSIM</p>
+                            <ul class="installation-instruction-card-list" id="' . $type . '-installation-instruction-steps"></ul>
                         </div>
                     </div>
                 </div>
             </div>';
 }
 
-function get_qr_and_manual_tabs() {
-    $manualSMDPAddress = "h3a.prod.ondemandconnectivity.com";
-    $manualActivationCode = "73F48817E08D21A023283E2B1677934C6071C31DF9873A91A562294A0F8471FF";
+function get_qr_and_manual_tabs($defaultIccid) {
+    //$static_instruction = file_get_contents( __DIR__ . '/instructions.json' );
+    //$json_data = json_decode( $static_instruction, true );
 
-    return '
+    $iccid = $_GET['iccid'] ?? $defaultIccid;
+    if ( ! $iccid ) {
+        return;
+    }
+
+    $language = ( new \Airalo\Admin\Settings\Option() )->fetch_option( \Airalo\Admin\Settings\Option::LANGUAGE );
+
+    try {
+      $instructions = new \Airalo\Admin\InstallationInstruction();
+      $response = $instructions->handle( $iccid, $language );
+    } catch ( Exception $e ) {
+      echo 'Error loading installation instructions. Please try again later.';
+
+      return;
+    }
+
+    $iosData = $response->data->instructions->ios[0];
+    $androidData = $response->data->instructions->android[0];
+
+    $setScriptValues = '<script>
+        var iosData = ' . json_encode( $iosData ) . ';
+        var androidData = ' . json_encode( $androidData ) . ';
+        
+        var iosInstallationQrSteps = ' . json_encode( $iosData->installation_via_qr_code->steps ) . ';
+        var iosInstallationManualSteps = ' . json_encode( $iosData->installation_manual->steps ) . ';
+        var androidInstallationQrSteps = ' . json_encode( $androidData->installation_via_qr_code->steps ) . ';
+        var androidInstallationManualSteps = ' . json_encode( $androidData->installation_manual->steps ) . ';
+        
+        var iosQrCodeUrl = ' . json_encode( $iosData->installation_via_qr_code->qr_code_url ) . ';
+        var androidQrCodeUrl = ' . json_encode( $androidData->installation_via_qr_code->qr_code_url ) . ';
+        
+        var iosManualSMDPAddressAndActivationCode = ' . json_encode( $iosData->installation_manual->smdp_address_and_activation_code ) . ';
+        var androidManualSMDPAddressAndActivationCode = ' . json_encode( $androidData->installation_manual->smdp_address_and_activation_code ) . ';
+    </script>';
+
+    return $setScriptValues . '
         <div class="qr-and-manual-wrapper">
             <div class="tabs">
-                <input type="radio" class="tabs__radio" name="tabs-example" id="tab1" checked>
+                <input type="radio" class="tabs__radio" name="installation-type" id="tab1" checked>
                 <label for="tab1" class="tabs__label">QR code</label>
                 <div class="tabs__content">
                     <div class="qr-code-wrapper">
                         <div class="qr-code-second-layer">
                             <div class="qr-code-first-layer">
-                                <img src="https://www.svgrepo.com/show/194568/qr-code.svg" width="170" height="165" />
+                                <img src="https://sandbox.airalo.com/qr?expires=1810056551&id=184759&signature=c81ed50882501d4deb2e5cc19edf40ba2ccf04a5f7f6d7f1d461524c9b7d47ea?test=true" width="170" height="165" id="qrCodeUrl"  alt="qr-code"/>
                             </div>
                         </div>
                         <div class="vertical-divider"></div>
-                        ' . get_installation_form_content() . '
+                        ' . get_installation_form_content("qr") . '
                     </div>
                 </div>
-                <input type="radio" class="tabs__radio" name="tabs-example" id="tab2">
+                <input type="radio" class="tabs__radio" name="installation-type" id="tab2">
                 <label for="tab2" class="tabs__label">Manual</label>
                 <div class="tabs__content">
                     <div class="installation-manual-wrapper">
                         <div class="installation-manual-left-content">
-                            <div>
-                                <p class="trail-title-5">SM-DP+ Address</p>
-                                <p class="trail-body-2">' . $manualSMDPAddress . '</p>
-                            </div>
-                            <div>
-                                <p class="trail-title-5">Activation code</p>
-                                <p class="trail-body-2">' . $manualActivationCode . '</p>
+                            <div class="installation-manual-smdp-activation">
+                                <p class="trail-title-5">SM-DP+ Address and Activation code</p>
+                                <p class="trail-body-2" id="manualSMDPAddressAndActivationCode"></p>
                             </div>
                         </div>
                         <div class="vertical-divider"></div>
-                        ' . get_installation_form_content() . '
+                        ' . get_installation_form_content("manual") . '
                     </div>
                 </div>
             </div>
@@ -175,15 +185,18 @@ function get_qr_and_manual_tabs() {
 }
 
 function main() {
-    echo '<style>' . esc_attr( file_get_contents( __DIR__ . '/../assets/css/myEsimPage.css' ) ) . '</style>';
+    echo '<style>' . esc_attr( file_get_contents(__DIR__ . '/../assets/css/myEsimPageStyle.css') ) . '</style>';
+    wp_enqueue_script( 'my-esim-page', plugin_dir_url(__FILE__) . '../includes/airalo-js/my_esim_page.js', array(), '1.0.0', true );
 
     $all_orders_details = ( new \Airalo\User\MySimsDetails() )->get_all_user_order_details();
+
+    $iccid = $_GET['iccid'] ?? $all_orders_details[0]['iccid'];
 
     $esim_list = [];
     $current_url_path = strtok( $_SERVER["REQUEST_URI"], '&' );
 
     foreach ( $all_orders_details as $esim ) {
-        $iccid = $_GET['iccid'];
+        //$iccid = $_GET['iccid'];
         $sim_name_class = "esim-list-title";
         if ( $iccid == $esim['iccid'] ) {
             $sim_name_class .= " active";
@@ -209,14 +222,14 @@ function main() {
                             <input type="checkbox" class="list-checkbox" id="list-input1" />
                             <label for="list-input1" class="title">Usage</label>
                             <div class="desc">
-                            ' . get_usage_data() . '
+                            ' . get_usage_data($iccid) . '
                             </div>
                         </li>
                         <li>
                             <input type="checkbox" class="list-checkbox" id="list-input2" />
                             <label for="list-input2" class="title">Installation</label>
                             <div class="desc">
-                                ' . get_qr_and_manual_tabs() . '
+                                ' . get_qr_and_manual_tabs($iccid) . '
                             </div>
                         </li>
                     </ul>
