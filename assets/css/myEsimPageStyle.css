@@ -1,5 +1,5 @@
 @media only screen and (max-width: 768px) {
-    .wrapper {
+    .my-esim-page-wrapper {
         width: 768px;
         grid-template-columns: 100% !important;
     }
@@ -18,27 +18,21 @@
         width: 100% !important;
     }
 }
-@media only screen and (min-width: 1024px) {
-    .wrapper {
-        min-width: 1024px;
-        grid-template-columns: 25% 75% !important;
-    }
-}
-.wrapper {
+.my-esim-page-wrapper {
     max-width: fit-content !important;
     display: grid;
     grid-template-columns: 25% 75%;
     grid-auto-rows: minmax(100px, auto);
     background: #DBDBDB;
 }
-.wrapper p {
+.my-esim-page-wrapper p {
     margin: 0;
 }
 .link-clear {
-    text-decoration: none;
+    text-decoration: none !important;
 }
 .link-clear:focus {
-    color: transparent;
+    color: transparent !important;
 }
 .left-menu {
     border: 1px solid #B9B9B9;
@@ -79,18 +73,18 @@
     background: #EE434E !important;
 }
 
-.list {
+.my-esims-page-content-list {
     list-style: none;
     padding: 0;
     margin: 0;
 }
-.list > li {
+.my-esims-page-content-list > li {
     padding: 0;
 }
-.list-checkbox {
-    display: none;
+.my-esims-page-content-list-checkbox {
+    display: none !important;
 }
-.title {
+.my-esims-page-list-title {
     padding: 16px;
     border: 1px solid #B9B9B9;
     cursor: pointer;
@@ -105,7 +99,7 @@
     position: relative;
     user-select: none;
 }
-.title:after {
+.my-esims-page-list-title:after {
     content: url('../images/icon-chevron-close.svg');
     position: absolute;
     top: 50%;
@@ -119,18 +113,18 @@
     border-width: 2px 2px 0 0;
     border-color: #111928;
 }
-.list-checkbox:checked + .title:after {
+.my-esims-page-content-list-checkbox:checked + .my-esims-page-list-title:after {
     transform: rotate(135deg) translate(0%, 100%);
 }
-.desc {
+.my-esims-page-list-desc {
     max-height: 0;
     overflow: hidden;
     transition: 0.5s;
 }
-.desc > div {
+.my-esims-page-list-desc > div {
     margin: 16px;
 }
-.list-checkbox:checked + .title + .desc {
+.my-esims-page-content-list-checkbox:checked + .my-esims-page-list-title + .my-esims-page-list-desc {
     max-height: 100%;
 }
 
@@ -304,7 +298,7 @@
     border: 1px solid #B1B1B1 !important;
     background: transparent;
 }
-.list-checkbox:checked + .data-usage-previous-packages-title  {
+.my-esims-page-content-list-checkbox:checked + .data-usage-previous-packages-title  {
     margin-bottom: -16px !important;
     border-bottom: 0 !important;
 }
@@ -399,36 +393,36 @@
     color: #1A56DB !important;
 }
 
-.tabs {
+.my-esim-page-tabs {
     display: flex;
     flex-wrap: wrap;
     transition: 0.5s;
 }
 
-.tabs__label {
+.my-esim-page-tabs_label {
     padding: 16px;
     cursor: pointer;
-    user-select: none;
+    user-select: none !important;
 }
 
-.tabs__radio {
-    display: none;
+.my-esim-page-tabs-radio {
+    display: none !important;
 }
 
-.tabs__content {
+.my-esim-page-tabs_content {
     order: 1;
     margin: 16px;
     width: 100%;
     display: none;
 }
 
-.tabs__radio:checked + .tabs__label {
+.my-esim-page-tabs-radio:checked + .my-esim-page-tabs_label {
     font-weight: bold;
     color: #C81E1E;
     border-bottom: 2px solid #C81E1E;
 }
 
-.tabs__radio:checked + .tabs__label + .tabs__content {
+.my-esim-page-tabs-radio:checked + .my-esim-page-tabs_label + .my-esim-page-tabs_content {
     display: initial;
 }
 

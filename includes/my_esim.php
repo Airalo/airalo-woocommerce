@@ -156,10 +156,10 @@ function get_qr_and_manual_tabs($defaultIccid) {
 
     return $setScriptValues . '
         <div class="qr-and-manual-wrapper">
-            <div class="tabs">
-                <input type="radio" class="tabs__radio" name="installation-type" id="tab1" checked>
-                <label for="tab1" class="tabs__label">QR code</label>
-                <div class="tabs__content">
+            <div class="my-esim-page-tabs">
+                <input type="radio" class="my-esim-page-tabs-radio" name="installation-type" id="my-esim-page-tab-qr" checked>
+                <label for="my-esim-page-tab-qr" class="my-esim-page-tabs_label">QR code</label>
+                <div class="my-esim-page-tabs_content">
                     <div class="qr-code-wrapper">
                         <div class="qr-code-second-layer">
                             <div class="qr-code-first-layer">
@@ -170,9 +170,9 @@ function get_qr_and_manual_tabs($defaultIccid) {
                         ' . get_installation_form_content("qr") . '
                     </div>
                 </div>
-                <input type="radio" class="tabs__radio" name="installation-type" id="tab2">
-                <label for="tab2" class="tabs__label">Manual</label>
-                <div class="tabs__content">
+                <input type="radio" class="my-esim-page-tabs-radio" name="installation-type" id="my-esim-page-tab-manual">
+                <label for="my-esim-page-tab-manual" class="my-esim-page-tabs_label">Manual</label>
+                <div class="my-esim-page-tabs_content">
                     <div class="installation-manual-wrapper">
                         <div class="installation-manual-left-content">
                             <div class="installation-manual-smdp-activation">
@@ -211,7 +211,7 @@ function main() {
         $esim_list[] = '<a class="esim-list-link link-clear" href="' . $current_url_path . '&iccid=' . $esim['iccid'] . '">' . $sim_name_element . '</a>';
     }
 
-    return '<div class="wrapper">
+    return '<div class="my-esim-page-wrapper">
                 <div class="left-menu">
                     <div>
                         <p class="left-menu-title">Available eSIMs</p>
@@ -220,19 +220,19 @@ function main() {
                         </div>
                     </div>
                 </div>
-                <div class="content">
-                    <ul class="list">
+                <div class="my-esims-page-content">
+                    <ul class="my-esims-page-content-list">
                         <li>
-                            <input type="checkbox" class="list-checkbox" id="list-input1" />
-                            <label for="list-input1" class="title">Usage</label>
-                            <div class="desc">
+                            <input type="checkbox" class="my-esims-page-content-list-checkbox" id="my-esims-page-list-usage" />
+                            <label for="my-esims-page-list-usage" class="my-esims-page-list-title">Usage</label>
+                            <div class="my-esims-page-list-desc">
                             ' . get_usage_data($iccid) . '
                             </div>
                         </li>
                         <li>
-                            <input type="checkbox" class="list-checkbox" id="list-input2" />
-                            <label for="list-input2" class="title">Installation</label>
-                            <div class="desc">
+                            <input type="checkbox" class="my-esims-page-content-list-checkbox" id="my-esims-page-list-installation" />
+                            <label for="my-esims-page-list-installation" class="my-esims-page-list-title">Installation</label>
+                            <div class="my-esims-page-list-desc">
                                 ' . get_qr_and_manual_tabs($iccid) . '
                             </div>
                         </li>
