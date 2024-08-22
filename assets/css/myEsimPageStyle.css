@@ -183,16 +183,6 @@
     border-bottom: 1px solid #D1D5DB;
     padding-bottom: 16px;
 }
-.installation-instruction-card-title:before {
-    content: url('../images/icon-chevron-close.svg');
-    background-image: url('https://www.tutorialspoint.com/html5/src/svg/extensions/imagelib/smiley.svg');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    display: inline-flex;
-    width: 24px;
-    height: 24px;
-}
 
 .installation-manual-left-content {
     display: grid;
