@@ -119,6 +119,9 @@ class AiraloOrder {
 					'Data: ' . $response->data->data,
 					'Minutes: ' . ( $response->data->voice ? $response->data->voice : 'N/A' ),
 					'SMS: ' . ( $response->data->text ? $response->data->text : 'N/A' ),
+					'QR code link: ' . $sim->qrcode_url ?? 'N/A',
+					'Manual installations: ' . '`' . $response->data->manual_installation . '`' ?? 'N/A',
+					'Apple direct installation link: ' . $sim->direct_apple_installation_url ?? 'N/A',
 				]));
 
 				$wc_order->save();
