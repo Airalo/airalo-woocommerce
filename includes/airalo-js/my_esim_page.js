@@ -38,5 +38,5 @@ function onLoad(platform) {
     qrCheckPlatform(platform);
     manualCheckPlatform(platform);
 }
-
 onLoad('ios');
+document.getElementById('my-esims-page-list-usage').click()
