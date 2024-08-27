@@ -216,22 +216,22 @@ function main() {
                 <div class="left-menu">
                     <div>
                         <p class="left-menu-title">Available eSIMs</p>
-                        <div class="esims-list">
+                        <div class="esims-list" id="esims-list">
                             ' . implode('', $esim_list) . '
                         </div>
                     </div>
                 </div>
                 <div class="my-esims-page-content">
-                    <ul class="my-esims-page-content-list">
+                    <ul class="my-esims-page-content-list" id="my-esims-page-content-list">
                         <li>
-                            <input type="checkbox" class="my-esims-page-content-list-checkbox" id="my-esims-page-list-usage" />
+                            <input type="checkbox" class="my-esims-page-content-list-checkbox" name="usage-content" id="my-esims-page-list-usage" />
                             <label for="my-esims-page-list-usage" class="my-esims-page-list-title">Usage</label>
                             <div class="my-esims-page-list-desc">
                             ' . get_usage_data($iccid) . '
                             </div>
                         </li>
                         <li>
-                            <input type="checkbox" class="my-esims-page-content-list-checkbox" id="my-esims-page-list-installation" />
+                            <input type="checkbox" class="my-esims-page-content-list-checkbox" name="installation-content" id="my-esims-page-list-installation" />
                             <label for="my-esims-page-list-installation" class="my-esims-page-list-title">Installation</label>
                             <div class="my-esims-page-list-desc">
                                 ' . get_qr_and_manual_tabs($iccid) . '
