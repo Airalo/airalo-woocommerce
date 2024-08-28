@@ -3,7 +3,7 @@
 namespace Airalo\User;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+    exit;
 }
 
 class MySimsPageBuilder {
