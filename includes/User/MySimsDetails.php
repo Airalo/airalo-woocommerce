@@ -14,7 +14,7 @@ class MySimsDetails {
 	/**
 	 * @return array
 	 */
-	public function get_all_user_order_details() {
+    public function get_all_user_order_details() {
         if ( !is_user_logged_in() ) {
             return;
         }
