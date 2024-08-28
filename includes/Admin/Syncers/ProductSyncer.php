@@ -74,11 +74,7 @@ class ProductSyncer {
 			$options->insert_option( Option::LAST_SUCCESSFUL_SYNC, gmdate( 'Y-m-d H:i:s' ) );
 		} catch ( \Exception $ex ) {
 			$error_message = wp_strip_all_tags( $ex->getMessage() );
-			$error = $error_message;
-
-			if ( stripos( $error_message, 'Airalo SDK initialization failed') !== false ) {
-				$error = 'Airalo SDK initialization failed, please check ' . ucfirst( $environment ) . ' credentials';
-			}
+			$error = " failed due to: `$error_message` on `$environment` environment";
 
 			error_log( $ex->getMessage() );
 		}
