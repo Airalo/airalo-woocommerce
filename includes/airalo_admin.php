@@ -382,9 +382,3 @@ function admin_order_on_status( $order_id ) {
 
 	( new AiraloOrder() )->handle( $order );
 }
-
-//add_action( 'woocommerce_order_details_after_order_table', 'display_custom_fields_on_user_history' );
-
-// function display_custom_fields_on_user_history( $order ) {
-// 	( new \Airalo\User\OrderDetails() )->handle( $order );
-// }
