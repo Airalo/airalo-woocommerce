@@ -15,7 +15,7 @@ class MySimsDetails {
 	 * @return array
 	 */
     public function get_all_user_order_details() {
-        if ( !is_user_logged_in() ) {
+        if ( ! is_user_logged_in() ) {
             return;
         }
 
@@ -111,7 +111,7 @@ class MySimsDetails {
      * @return void
      */
     private function parse_sim_name_and_coverage( $meta_key, $meta_field, &$sim_name, &$coverage ) {
-        if ( !$meta_key || !$meta_field ) {
+        if ( ! $meta_key || ! $meta_field ) {
             return;
         }
 
