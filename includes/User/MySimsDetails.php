@@ -56,7 +56,7 @@ class MySimsDetails {
         }
     
         return $sims_details;
-	}
+    }
 
         /**
      * @param string $iccid
