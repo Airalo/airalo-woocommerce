@@ -1,0 +1,421 @@
+@media only screen and (max-width: 768px) {
+    .my-esim-page-wrapper {
+        width: 768px;
+        grid-template-columns: 100% !important;
+    }
+    .installation-manual-wrapper,
+    .qr-code-wrapper {
+        grid-template-columns: 1fr !important;
+    }
+}
+@media only screen and (max-width: 1024px) {
+    .installation-manual-wrapper,
+    .qr-code-wrapper {
+        grid-template-columns: 1fr !important;
+    }
+    .vertical-divider {
+        height: 1px !important;
+        width: 100% !important;
+    }
+}
+.my-esim-page-wrapper {
+    max-width: fit-content !important;
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-auto-rows: minmax(100px, auto);
+    background: #DBDBDB;
+}
+.my-esim-page-wrapper p {
+    margin: 0;
+}
+.link-clear {
+    text-decoration: none !important;
+}
+.link-clear:focus {
+    color: transparent !important;
+}
+.left-menu {
+    border: 1px solid #B9B9B9;
+}
+.left-menu-title {
+    color: #000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: -0.016px;
+    padding: 16px;
+}
+
+.esims-list {
+    display: grid;
+    background: #F9F9F9;
+    max-height: 450px;
+    overflow-x: scroll;
+}
+.esim-list-title {
+    padding: 16px;
+    color: #000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: -0.016px;
+    cursor: pointer;
+    user-select: none;
+}
+.esim-list-link:nth-child(2n) .esim-list-title {
+    background: #EFEFEF;
+}
+.esim-list-title:hover,
+.esim-list-title.active {
+    color: #fff;
+    background: #EE434E !important;
+}
+
+.my-esims-page-content-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.my-esims-page-content-list > li {
+    padding: 0;
+}
+.my-esims-page-content-list-checkbox {
+    display: none !important;
+}
+.my-esims-page-list-title {
+    padding: 16px;
+    border: 1px solid #B9B9B9;
+    cursor: pointer;
+    display: block;
+    background: #CECECE;
+    color: #111928;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    letter-spacing: -0.016px;
+    position: relative;
+    user-select: none;
+}
+.my-esims-page-list-title:after {
+    content: url('../images/icon-chevron-close.svg');
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: rotate(-45deg) translate(-50%, -50%);
+    display: inline-block;
+    vertical-align: top;
+    width: 14px;
+    height: 14px;
+    border-style: solid;
+    border-width: 2px 2px 0 0;
+    border-color: #111928;
+}
+.my-esims-page-content-list-checkbox:checked + .my-esims-page-list-title:after {
+    transform: rotate(135deg) translate(0%, 100%);
+}
+.my-esims-page-list-desc {
+    max-height: 0;
+    overflow: hidden;
+    transition: 0.5s;
+}
+.my-esims-page-list-desc > div {
+    margin: 16px;
+}
+.my-esims-page-content-list-checkbox:checked + .my-esims-page-list-title + .my-esims-page-list-desc {
+    max-height: 100%;
+}
+
+.usage-wrapper-items {
+    display: grid;
+    gap: 16px;
+    margin: 16px 8px;
+    padding: 16px;
+    border: 1px solid #B1B1B1;
+}
+
+.qr-code-wrapper,
+.installation-manual-wrapper {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1fr 1px 1fr;
+}
+.qr-code-second-layer {
+    max-width: 250px;
+    height: fit-content;
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid #D1D5DB;
+    background: #F9FAFB;
+    display: grid;
+    align-self: center;
+    justify-self: center;
+}
+.qr-code-first-layer {
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #D1D5DB;
+    background: #FFF;
+    text-align: center;
+}
+.qr-code-right {
+    display: grid;
+    gap: 16px;
+    align-content: flex-start;
+}
+.qr-code-right-item {
+    display: grid;
+    gap: 12px;
+}
+.qr-code-installation-instructions {
+    display: grid;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid #D1D5DB;
+    background: #F9FAFB;
+}
+.installation-instruction-card-title {
+    display: flex;
+    gap: 16px;
+    border-bottom: 1px solid #D1D5DB;
+    padding-bottom: 16px;
+}
+
+.installation-manual-left-content {
+    display: grid;
+    gap: 16px;
+    width: 280px;
+    height: 200px;
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 16px;
+    border: 1px solid #D1D5DB;
+    background: #F9FAFB;
+    justify-self: center;
+    align-self: center;
+}
+.installation-manual-left-content * {
+    word-break: break-all;
+}
+.installation-manual-smdp-activation {
+    display: grid;
+    gap: 16px;
+}
+.installation-instruction-card-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.select-wrapper {
+    position: relative;
+}
+.select {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 44px;
+    min-height: 44px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #D1D5DB;
+    appearance: none;
+}
+.select-wrapper:after {
+    content: url('../images/icon-chevron-close.svg');
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: rotate(135deg) translate(0%, 100%);
+    display: inline-block;
+    vertical-align: top;
+    width: 10px;
+    height: 10px;
+    border-style: solid;
+    border-width: 2px 2px 0 0;
+    border-color: #111928;
+}
+.qr-and-manual-wrapper {
+    padding: 16px;
+}
+
+.data-usage-packages-wrapper {
+    display: grid;
+    gap: 24px;
+    margin: 16px 8px;
+    padding: 16px;
+    border: 1px solid #B1B1B1;
+}
+.data-usage-package-title {
+    display: flex;
+    justify-content: space-between;
+}
+.data-usage-package-title-badge {
+    background: #EDEBFE;
+    color: #6C2BD9 !important;
+}
+.data-usage-package-date-status {
+    background: #E1EFFE;
+    color: #1A56DB !important;
+}
+.data-usage-packages-date-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+.data-usage-package-date-right,
+.data-usage-package-date-left {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+.data-usage-package-date {
+    display: grid;
+}
+.data-usage-package-remaining-data {
+    display: grid;
+    gap: 4px;
+}
+.data-usage-package-remaining-data-title {
+    display: flex;
+    justify-content: space-between;
+}
+.data-usage-previous-packages-title {
+    margin: 16px 8px;
+    padding: 16px;
+    border: 1px solid #B1B1B1 !important;
+    background: transparent;
+}
+.my-esims-page-content-list-checkbox:checked + .data-usage-previous-packages-title  {
+    margin-bottom: -16px !important;
+    border-bottom: 0 !important;
+}
+.data-usage-previous-packages-desc {
+    transition: 0.1s;
+}
+.data-usage-previous-packages-desc .data-usage-packages-wrapper {
+    border-top: 0 !important;
+}
+.data-usage-previous-packages-date-wrapper {
+    display: grid;
+    gap: 48px;
+    margin: 16px 8px;
+    padding: 16px;
+    border: 1px solid #B1B1B1;
+}
+
+.progress-bar {
+    width: 100%;
+    background-color: #F3F4F6;
+    padding: 0;
+    border-radius: 3px;
+}
+
+.progress-bar-fill {
+    display: block;
+    height: 6px;
+    background-color: #C81E1E;
+    border-radius: 3px;
+    transition: width 500ms ease-in-out;
+}
+
+.vertical-divider {
+    width: 1px;
+    height: 448px;
+    background: #D1D5DB;
+}
+
+.trail-title-4 {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 18px;
+    color: #111928;
+}
+
+.trail-title-5 {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    color: #C81E1E;
+}
+
+.trail-body-2 {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px;
+    color: #374151;
+}
+
+.trail-body-3 {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    color: #374151;
+}
+
+.trail-caption {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    color: #374151;
+}
+
+.trail-badge {
+    display: flex;
+    padding: 8px;
+    align-items: flex-start;
+    gap: 8px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 10px;
+}
+
+.trail-color-title-highlight {
+    color: #1A56DB !important;
+}
+
+.my-esim-page-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    transition: 0.5s;
+}
+
+.my-esim-page-tabs_label {
+    padding: 16px;
+    cursor: pointer;
+    user-select: none !important;
+}
+
+.my-esim-page-tabs-radio {
+    display: none !important;
+}
+
+.my-esim-page-tabs_content {
+    order: 1;
+    margin: 16px;
+    width: 100%;
+    display: none;
+}
+
+.my-esim-page-tabs-radio:checked + .my-esim-page-tabs_label {
+    font-weight: bold;
+    color: #C81E1E;
+    border-bottom: 2px solid #C81E1E;
+}
+
+.my-esim-page-tabs-radio:checked + .my-esim-page-tabs_label + .my-esim-page-tabs_content {
+    display: initial;
+}
+
+.none {
+    display: none !important;
+}

@@ -1,0 +1,8 @@
+{
+    "autoload": {
+        "psr-4": {"Airalo\\": "includes/"}
+    },
+    "require": {
+        "airalo/sdk": "^1.0"
+    }
+}
