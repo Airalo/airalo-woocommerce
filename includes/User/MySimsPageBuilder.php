@@ -12,7 +12,6 @@ class MySimsPageBuilder {
      * @return string
      */
     public function build_html() {
-        //echo '<style>' . esc_attr( file_get_contents( __DIR__ . '/../../assets/css/myEsimPageStyle.css' ) ) . '</style>';
         wp_enqueue_script( 'my-esim-page', plugin_dir_url( __FILE__ ) . '../../includes/airalo-js/my_esim_page.js', [], '1.0.0', true );
 
         $all_orders_details = ( new \Airalo\User\MySimsDetails() )->get_all_user_order_details();
