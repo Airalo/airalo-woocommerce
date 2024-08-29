@@ -30,7 +30,7 @@ class MySimsPageBuilder {
 
             $sim_name_element = '<p class="' . $sim_name_class . '">' . $esim['sim_name'] . '</p>';
 
-            if ( substr( $current_url_path, -1 ) == '/' ) {
+            if ( strpos( $current_url_path, '?' ) === false ) {
                 $current_url_path = rtrim( $current_url_path, '/' );
                 $iccid_slug = '?iccid=' . $esim['iccid'];
             } else {
