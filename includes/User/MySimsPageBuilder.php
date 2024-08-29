@@ -31,7 +31,14 @@ class MySimsPageBuilder {
 
             $sim_name_element = '<p class="' . $sim_name_class . '">' . $esim['sim_name'] . '</p>';
 
-            $esim_list[] = '<a class="esim-list-link link-clear" href="' . $current_url_path . '&iccid=' . $esim['iccid'] . '">' . $sim_name_element . '</a>';
+            if ( substr( $current_url_path, -1 ) == '/' ) {
+                $current_url_path = rtrim( $current_url_path, '/' );
+                $iccid_slug = '?iccid=' . $esim['iccid'];
+            } else {
+                $iccid_slug = '&iccid=' . $esim['iccid'];
+            }
+
+            $esim_list[] = '<a class="esim-list-link link-clear" href="' . $current_url_path . $iccid_slug . '">' . $sim_name_element . '</a>';
         }
 
         return '<div class="my-esim-page-wrapper">
