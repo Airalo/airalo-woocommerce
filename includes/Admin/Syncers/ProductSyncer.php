@@ -147,11 +147,11 @@ class ProductSyncer {
 
 				$labels = [
 				    'name'=> sprintf(
-				        _x( '%s', 'taxonomy general name', 'plugin-slug' ),
+				        _x( '%s', 'taxonomy general name', 'airalo' ),
 				        esc_html( $taxonomy_name )
                     ),
                     'singular_name' => sprintf(
-                        _x( '%s_singular', 'taxonomy singular name', 'plugin-slug' ),
+                        _x( '%s_singular', 'taxonomy singular name', 'airalo' ),
                         esc_html( $taxonomy_name )
                     ),
                 ];
