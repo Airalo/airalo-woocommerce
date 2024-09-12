@@ -32,8 +32,8 @@ class Term {
 
 	private function create_image_taxonomy( $operator, string $name, string $term_name ) {
 		$labels = [
-			'name' => _x( $name, 'taxonomy general name', 'textdomain' ),
-			'singular_name' => _x( $name . '_singular', 'taxonomy singular name', 'textdomain' ),
+			'name' => _x( $name, 'taxonomy general name', 'airalo' ),
+			'singular_name' => _x( $name . '_singular', 'taxonomy singular name', 'airalo' ),
 		];
 
 		$args = [
