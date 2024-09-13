@@ -30,9 +30,9 @@ require_once plugin_dir_path( __FILE__ ) . '/includes/airalo_admin.php';
 require_once plugin_dir_path( __FILE__ ) . '/includes/airalo_schedule.php';
 require_once plugin_dir_path( __FILE__ ) . '/includes/my_esim.php';
 
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'plugin_action_links' );
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'airalo_plugin_action_links' );
 
-function plugin_action_links( $links ) {
+function airalo_plugin_action_links( $links ) {
 	if ( ! is_plugin_active( 'airalo-woocommerce/airalo.php' ) ) {
 		return $links;
 	}
@@ -73,13 +73,13 @@ function airalo_check_required_plugins_on_activation() {
 	}
 }
 
-add_action( 'init', 'custom_instruction_rewrite_rule' );
-function custom_instruction_rewrite_rule() {
+add_action( 'init', 'airalo_custom_instruction_rewrite_rule' );
+function airalo_custom_instruction_rewrite_rule() {
 	add_rewrite_rule( '^$', 'index.php?action=airalo_instructions', 'top' );
 }
 
-add_filter( 'query_vars', 'custom_instruction_query_vars' );
-function custom_instruction_query_vars( $vars ) {
+add_filter( 'query_vars', 'airalo_custom_instruction_query_vars' );
+function airalo_custom_instruction_query_vars( $vars ) {
 	$vars[] = 'action_method';
 	$vars[] = 'iccid';
 	$vars[] = 'rp';

@@ -1,14 +1,13 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+    exit; // Exit if accessed directly
+}
 
 require_once plugin_dir_path( __FILE__ ) . '../vendor/autoload.php';
 
 use Airalo\Admin\AiraloOrder;
 use Airalo\Admin\OrderValidator;
 use Airalo\Helpers\Cached;
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
 
 add_action( 'admin_menu', 'airalo_menu' );
 
@@ -238,7 +237,7 @@ function airalo_register_settings () {
 	);
 
 	if ( isset( $_POST['sync_products'] ) ) {
-		do_action( 'sync_products' );
+		do_action( 'airalo_sync_products' );
 	}
 
 	if ( isset ( $_POST['save_airalo_settings'] ) ) {
@@ -247,7 +246,7 @@ function airalo_register_settings () {
 			return;
 		}
 
-		save_airalo_settings();
+		airalo_save_settings();
 
 		$client_id = isset ( $_POST['airalo_client_id'] ) ? sanitize_text_field( $_POST['airalo_client_id'] ) : null;
 		$client_secret = isset ( $_POST['airalo_client_secret'] ) ? sanitize_text_field( $_POST['airalo_client_secret'] ) : null;
@@ -257,7 +256,7 @@ function airalo_register_settings () {
 			$client_secret = null;
 		}
 
-		save_airalo_credentials(  $client_id, $client_secret );
+		airalo_save_credentials(  $client_id, $client_secret );
 
 		$sandbox_client_id = isset( $_POST['airalo_client_id_sandbox'] ) ? sanitize_text_field( $_POST['airalo_client_id_sandbox'] ): null;
 		$sandbox_client_secret = isset( $_POST['airalo_client_secret_sandbox'] ) ? sanitize_text_field( $_POST['airalo_client_secret_sandbox'] ): null;
@@ -268,11 +267,11 @@ function airalo_register_settings () {
 			$sandbox_client_secret = null;
 		}
 
-		save_airalo_credentials( $sandbox_client_id, $sandbox_client_secret, true );
+		airalo_save_credentials( $sandbox_client_id, $sandbox_client_secret, true );
 	}
 }
 
-function save_airalo_settings(): void {
+function airalo_save_settings(): void {
 	$auto_publish = isset( $_POST['airalo_auto_publish'] ) ? sanitize_text_field( $_POST['airalo_auto_publish'] ) : 'off';
 	$auto_publish_after_update = isset( $_POST['airalo_auto_publish_update'] ) ? sanitize_text_field( $_POST['airalo_auto_publish_update'] ) : 'off';
 	$use_sandbox = isset( $_POST['airalo_use_sandbox'] ) ? sanitize_text_field( $_POST['airalo_use_sandbox'] ) : 'off';
@@ -295,7 +294,7 @@ function save_airalo_settings(): void {
 	$options->insert_option( \Airalo\Admin\Settings\Option::USE_AIRALO_SIM_NAME, $airalo_sim_name );
 }
 
-function save_airalo_credentials($clientId, $clientSecret, $isSandbox = false): void {
+function airalo_save_credentials( $clientId, $clientSecret, $isSandbox = false ): void {
 	$clientIdCredential = \Airalo\Admin\Settings\Credential::CLIENT_ID;
 	$clientSecretCredential = \Airalo\Admin\Settings\Credential::CLIENT_SECRET;
 
@@ -324,16 +323,16 @@ function airalo_settings_field_cb() {
 	echo '<p>Settings</p>';
 }
 
-add_action( 'sync_products', 'sync_products_function', 10, 2 );
+add_action( 'airalo_sync_products', 'airalo_sync_products_function', 10, 2 );
 
-function sync_products_function() {
+function airalo_sync_products_function() {
 	$product_syncer = new \Airalo\Admin\Syncers\ProductSyncer();
 	$product_syncer->handle();
 }
 
-add_filter( 'woocommerce_add_to_cart_validation', 'validate_cart_item_quantity', 10, 3 );
+add_filter( 'woocommerce_add_to_cart_validation', 'airalo_validate_cart_item_quantity', 10, 3 );
 
-function validate_cart_item_quantity( $passed, $ignore_param, $quantity ) {
+function airalo_validate_cart_item_quantity( $passed, $ignore_param, $quantity ) {
 	return ( new OrderValidator() )->handle( $passed, $quantity );
 }
 
@@ -361,10 +360,10 @@ function airalo_submit_order( $order ) {
 	( new AiraloOrder() )->handle( $order );
 }
 
-add_action( 'woocommerce_order_status_completed', 'admin_order_on_status' );
-add_action( 'woocommerce_order_status_processing', 'admin_order_on_status' );
+add_action( 'woocommerce_order_status_completed', 'airalo_admin_order_on_status' );
+add_action( 'woocommerce_order_status_processing', 'airalo_admin_order_on_status' );
 
-function admin_order_on_status( $order_id ) {
+function airalo_admin_order_on_status( $order_id ) {
 	$order = wc_get_order( $order_id );
 
 	$created_via = $order->get_created_via();
