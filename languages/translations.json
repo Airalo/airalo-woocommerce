@@ -18,7 +18,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ Address and Activation code",
     "my.esims.installation": "Installation",
     "my.esims.package.valid": "Valid",
-    "my.esims.package.data": "Data"
+    "my.esims.package.data": "Data",
+    "my.esims.package.day": "Day",
+    "my.esims.package.days": "Days"
   },
   "es-ES": {
     "my.esims.available.esims": "eSIMs disponibles",
@@ -39,7 +41,9 @@
     "my.esims.installation.manual.sm.dp.activation": "Dirección SM-DP+ y código de activación",
     "my.esims.installation": "Instalación",
     "my.esims.package.valid": "Válido",
-    "my.esims.package.data": "Datos"
+    "my.esims.package.data": "Datos",
+    "my.esims.package.day": "Día",
+    "my.esims.package.days": "Días"
   },
   "sq": {
     "my.esims.available.esims": "eSIM të disponueshme",
@@ -60,7 +64,9 @@
     "my.esims.installation.manual.sm.dp.activation": "Adresa SM-DP+ dhe kodi i aktivizimit",
     "my.esims.installation": "Instalimi",
     "my.esims.package.valid": "E vlefshme",
-    "my.esims.package.data": "Të dhëna"
+    "my.esims.package.data": "Të dhëna",
+    "my.esims.package.day": "Dita",
+    "my.esims.package.days": "Ditët"
   },
   "ar": {
     "my.esims.available.esims": "eSIMs المتاحة",
@@ -81,7 +87,9 @@
     "my.esims.installation.manual.sm.dp.activation": "عنوان SM-DP+ ورمز التفعيل",
     "my.esims.installation": "التثبيت",
     "my.esims.package.valid": "صالح",
-    "my.esims.package.data": "بيانات"
+    "my.esims.package.data": "بيانات",
+    "my.esims.package.day": "يوم",
+    "my.esims.package.days": "أيام"
   },
   "hy-AM": {
     "my.esims.available.esims": "Հասանելի eSIM-ներ",
@@ -102,7 +110,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ հասցե և ակտիվացման կոդ",
     "my.esims.installation": "Տեղադրում",
     "my.esims.package.valid": "Գործող",
-    "my.esims.package.data": "Տվյալներ"
+    "my.esims.package.data": "Տվյալներ",
+    "my.esims.package.day": "Օր",
+    "my.esims.package.days": "Օրեր"
   },
   "az": {
     "my.esims.available.esims": "Mövcud eSIM-lər",
@@ -123,7 +133,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ Ünvanı və Aktivasiya kodu",
     "my.esims.installation": "Quraşdırma",
     "my.esims.package.valid": "Keçərli",
-    "my.esims.package.data": "Məlumat"
+    "my.esims.package.data": "Məlumat",
+    "my.esims.package.day": "Gün",
+    "my.esims.package.days": "Gün"
   },
   "bg": {
     "my.esims.available.esims": "Налични eSIM карти",
@@ -144,7 +156,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ адрес и код за активиране",
     "my.esims.installation": "Инсталация",
     "my.esims.package.valid": "Валиден",
-    "my.esims.package.data": "Данни"
+    "my.esims.package.data": "Данни",
+    "my.esims.package.day": "Ден",
+    "my.esims.package.days": "Дни"
   },
   "zh-CN": {
     "my.esims.available.esims": "可用 eSIM",
@@ -165,7 +179,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ 地址和激活码",
     "my.esims.installation": "安装",
     "my.esims.package.valid": "有效",
-    "my.esims.package.data": "数据"
+    "my.esims.package.data": "数据",
+    "my.esims.package.day": "天",
+    "my.esims.package.days": "天"
   },
   "zh-TW": {
     "my.esims.available.esims": "可用 eSIM",
@@ -186,7 +202,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ 地址和啟用碼",
     "my.esims.installation": "安裝",
     "my.esims.package.valid": "有效",
-    "my.esims.package.data": "數據"
+    "my.esims.package.data": "數據",
+    "my.esims.package.day": "天",
+    "my.esims.package.days": "天"
   },
   "hr": {
     "my.esims.available.esims": "Dostupni eSIM-ovi",
@@ -207,7 +225,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ adresa i aktivacijski kod",
     "my.esims.installation": "Instalacija",
     "my.esims.package.valid": "Valjan",
-    "my.esims.package.data": "Podaci"
+    "my.esims.package.data": "Podaci",
+    "my.esims.package.day": "Dan",
+    "my.esims.package.days": "Dani"
   },
   "cs": {
     "my.esims.available.esims": "Dostupné eSIM",
@@ -228,7 +248,9 @@
     "my.esims.installation.manual.sm.dp.activation": "Adresa SM-DP+ a aktivační kód",
     "my.esims.installation": "Instalace",
     "my.esims.package.valid": "Platné",
-    "my.esims.package.data": "Data"
+    "my.esims.package.data": "Data",
+    "my.esims.package.day": "Den",
+    "my.esims.package.days": "Dny"
   },
   "da": {
     "my.esims.available.esims": "Tilgængelige eSIMs",
@@ -249,7 +271,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ adresse og aktiveringskode",
     "my.esims.installation": "Installation",
     "my.esims.package.valid": "Gyldig",
-    "my.esims.package.data": "Data"
+    "my.esims.package.data": "Data",
+    "my.esims.package.day": "Dag",
+    "my.esims.package.days": "Dage"
   },
   "nl": {
     "my.esims.available.esims": "Beschikbare eSIMs",
@@ -270,7 +294,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ adres en activeringscode",
     "my.esims.installation": "Installatie",
     "my.esims.package.valid": "Geldig",
-    "my.esims.package.data": "Gegevens"
+    "my.esims.package.data": "Gegevens",
+    "my.esims.package.day": "Dag",
+    "my.esims.package.days": "Dagen"
   },
   "et": {
     "my.esims.available.esims": "Saadaval eSIM-id",
@@ -291,7 +317,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ aadress ja aktiveerimiskood",
     "my.esims.installation": "Paigaldus",
     "my.esims.package.valid": "Kehtiv",
-    "my.esims.package.data": "Andmed"
+    "my.esims.package.data": "Andmed",
+    "my.esims.package.day": "Päev",
+    "my.esims.package.days": "Päeva"
   },
   "fil": {
     "my.esims.available.esims": "Magagamit na eSIMs",
@@ -312,7 +340,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ Address at Activation code",
     "my.esims.installation": "Pag-install",
     "my.esims.package.valid": "Balido",
-    "my.esims.package.data": "Data"
+    "my.esims.package.data": "Data",
+    "my.esims.package.day": "Araw",
+    "my.esims.package.days": "Araw"
   },
   "fi": {
     "my.esims.available.esims": "Saatavilla olevat eSIMit",
@@ -333,7 +363,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ -osoite ja aktivointikoodi",
     "my.esims.installation": "Asennus",
     "my.esims.package.valid": "Voimassa",
-    "my.esims.package.data": "Tietoja"
+    "my.esims.package.data": "Tietoja",
+    "my.esims.package.day": "Päivä",
+    "my.esims.package.days": "Päivää"
   },
   "fr": {
     "my.esims.available.esims": "eSIMs disponibles",
@@ -354,7 +386,9 @@
     "my.esims.installation.manual.sm.dp.activation": "Adresse SM-DP+ et code d'activation",
     "my.esims.installation": "Installation",
     "my.esims.package.valid": "Valide",
-    "my.esims.package.data": "Données"
+    "my.esims.package.data": "Données",
+    "my.esims.package.day": "Jour",
+    "my.esims.package.days": "Jours"
   },
   "ka": {
     "my.esims.available.esims": "მისაწვდომი eSIM-ები",
@@ -375,7 +409,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ მისამართი და აქტივაციის კოდი",
     "my.esims.installation": "ინსტალაცია",
     "my.esims.package.valid": "მიღებული",
-    "my.esims.package.data": "მონაცემები"
+    "my.esims.package.data": "მონაცემები",
+    "my.esims.package.day": "დღე",
+    "my.esims.package.days": "დღე"
   },
   "de": {
     "my.esims.available.esims": "Verfügbare eSIMs",
@@ -396,7 +432,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ Adresse und Aktivierungscode",
     "my.esims.installation": "Installation",
     "my.esims.package.valid": "Gültig",
-    "my.esims.package.data": "Daten"
+    "my.esims.package.data": "Daten",
+    "my.esims.package.day": "Tag",
+    "my.esims.package.days": "Tage"
   },
   "el": {
     "my.esims.available.esims": "Διαθέσιμα eSIM",
@@ -417,7 +455,9 @@
     "my.esims.installation.manual.sm.dp.activation": "Διεύθυνση SM-DP+ και κωδικός ενεργοποίησης",
     "my.esims.installation": "Εγκατάσταση",
     "my.esims.package.valid": "Ικανός",
-    "my.esims.package.data": "Δεδομένα"
+    "my.esims.package.data": "Δεδομένα",
+    "my.esims.package.day": "Ημέρα",
+    "my.esims.package.days": "Ημέρες"
   },
   "hun": {
     "my.esims.available.esims": "Elérhető eSIM-ek",
@@ -438,7 +478,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ cím és aktiváló kód",
     "my.esims.installation": "Telepítés",
     "my.esims.package.valid": "Érvényes",
-    "my.esims.package.data": "Adatok"
+    "my.esims.package.data": "Adatok",
+    "my.esims.package.day": "Nap",
+    "my.esims.package.days": "Napok"
   },
   "it": {
     "my.esims.available.esims": "eSIM disponibili",
@@ -459,7 +501,9 @@
     "my.esims.installation.manual.sm.dp.activation": "Indirizzo SM-DP+ e codice di attivazione",
     "my.esims.installation": "Installazione",
     "my.esims.package.valid": "Valido",
-    "my.esims.package.data": "Dati"
+    "my.esims.package.data": "Dati",
+    "my.esims.package.day": "Giorno",
+    "my.esims.package.days": "Giorni"
   },
   "ja": {
     "my.esims.available.esims": "利用可能なeSIM",
@@ -480,7 +524,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+アドレスとアクティベーションコード",
     "my.esims.installation": "インストール",
     "my.esims.package.valid": "有効",
-    "my.esims.package.data": "データ"
+    "my.esims.package.data": "データ",
+    "my.esims.package.day": "日",
+    "my.esims.package.days": "日"
   },
   "ko": {
     "my.esims.available.esims": "사용 가능한 eSIM",
@@ -501,7 +547,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ 주소 및 활성화 코드",
     "my.esims.installation": "설치",
     "my.esims.package.valid": "유효",
-    "my.esims.package.data": "데이터"
+    "my.esims.package.data": "데이터",
+    "my.esims.package.day": "일",
+    "my.esims.package.days": "일"
   },
   "lv": {
     "my.esims.available.esims": "Pieejamie eSIM",
@@ -522,7 +570,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ adrese un aktivācijas kods",
     "my.esims.installation": "Instalēšana",
     "my.esims.package.valid": "Derīgs",
-    "my.esims.package.data": "Dati"
+    "my.esims.package.data": "Dati",
+    "my.esims.package.day": "Diena",
+    "my.esims.package.days": "Dienas"
   },
   "lt": {
     "my.esims.available.esims": "Pasiekiami eSIM",
@@ -543,7 +593,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ adresas ir aktyvavimo kodas",
     "my.esims.installation": "Įdiegimas",
     "my.esims.package.valid": "Galioja",
-    "my.esims.package.data": "Duomenys"
+    "my.esims.package.data": "Duomenys",
+    "my.esims.package.day": "Diena",
+    "my.esims.package.days": "Dienos"
   },
   "mk": {
     "my.esims.available.esims": "Достапни eSIM",
@@ -564,7 +616,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ адреса и код за активирање",
     "my.esims.installation": "Инсталација",
     "my.esims.package.valid": "Важи",
-    "my.esims.package.data": "Податоци"
+    "my.esims.package.data": "Податоци",
+    "my.esims.package.day": "Ден",
+    "my.esims.package.days": "Денови"
   },
   "nb": {
     "my.esims.available.esims": "Tilgjengelige eSIMs",
@@ -585,7 +639,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ adresse og aktiveringskode",
     "my.esims.installation": "Installasjon",
     "my.esims.package.valid": "Gyldig",
-    "my.esims.package.data": "Data"
+    "my.esims.package.data": "Data",
+    "my.esims.package.day": "Dag",
+    "my.esims.package.days": "Dager"
   },
   "pl": {
     "my.esims.available.esims": "Dostępne eSIM",
@@ -606,7 +662,9 @@
     "my.esims.installation.manual.sm.dp.activation": "Adres SM-DP+ i kod aktywacyjny",
     "my.esims.installation": "Instalacja",
     "my.esims.package.valid": "Ważny",
-    "my.esims.package.data": "Dane"
+    "my.esims.package.data": "Dane",
+    "my.esims.package.day": "Dzień",
+    "my.esims.package.days": "Dni"
   },
   "pt": {
     "my.esims.available.esims": "eSIMs disponíveis",
@@ -627,7 +685,9 @@
     "my.esims.installation.manual.sm.dp.activation": "Endereço SM-DP+ e código de ativação",
     "my.esims.installation": "Instalação",
     "my.esims.package.valid": "Válido",
-    "my.esims.package.data": "Dados"
+    "my.esims.package.data": "Dados",
+    "my.esims.package.day": "Dia",
+    "my.esims.package.days": "Dias"
   },
   "ro": {
     "my.esims.available.esims": "eSIM-uri disponibile",
@@ -648,7 +708,9 @@
     "my.esims.installation.manual.sm.dp.activation": "Adresă SM-DP+ și cod de activare",
     "my.esims.installation": "Instalare",
     "my.esims.package.valid": "Valabil",
-    "my.esims.package.data": "Date"
+    "my.esims.package.data": "Date",
+    "my.esims.package.day": "Zi",
+    "my.esims.package.days": "Zile"
   },
   "ru": {
     "my.esims.available.esims": "Доступные eSIM",
@@ -669,7 +731,9 @@
     "my.esims.installation.manual.sm.dp.activation": "Адрес SM-DP+ и код активации",
     "my.esims.installation": "Установка",
     "my.esims.package.valid": "Действителен",
-    "my.esims.package.data": "Данные"
+    "my.esims.package.data": "Данные",
+    "my.esims.package.day": "День",
+    "my.esims.package.days": "Дни"
   },
   "sk": {
     "my.esims.available.esims": "Dostupné eSIM",
@@ -690,7 +754,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ adresa a aktivačný kód",
     "my.esims.installation": "Inštalácia",
     "my.esims.package.valid": "Platný",
-    "my.esims.package.data": "Dáta"
+    "my.esims.package.data": "Dáta",
+    "my.esims.package.day": "Deň",
+    "my.esims.package.days": "Dni"
   },
   "sl": {
     "my.esims.available.esims": "Razpoložljive eSIM",
@@ -711,7 +777,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ naslov in koda za aktivacijo",
     "my.esims.installation": "Namestitev",
     "my.esims.package.valid": "Veljaven",
-    "my.esims.package.data": "Podatki"
+    "my.esims.package.data": "Podatki",
+    "my.esims.package.day": "Dan",
+    "my.esims.package.days": "Dnevi"
   },
   "sv": {
     "my.esims.available.esims": "Tillgängliga eSIM",
@@ -732,7 +800,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ adress och aktiveringskod",
     "my.esims.installation": "Installation",
     "my.esims.package.valid": "Giltig",
-    "my.esims.package.data": "Data"
+    "my.esims.package.data": "Data",
+    "my.esims.package.day": "Dag",
+    "my.esims.package.days": "Dagar"
   },
   "tr": {
     "my.esims.available.esims": "Mevcut eSIM'ler",
@@ -753,7 +823,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ adresi ve aktivasyon kodu",
     "my.esims.installation": "Kurulum",
     "my.esims.package.valid": "Geçerli",
-    "my.esims.package.data": "Veri"
+    "my.esims.package.data": "Veri",
+    "my.esims.package.day": "Gün",
+    "my.esims.package.days": "Günler"
   },
   "uk": {
     "my.esims.available.esims": "Доступні eSIM",
@@ -774,7 +846,9 @@
     "my.esims.installation.manual.sm.dp.activation": "Адреса SM-DP+ і код активації",
     "my.esims.installation": "Встановлення",
     "my.esims.package.valid": "Дійсний",
-    "my.esims.package.data": "Дані"
+    "my.esims.package.data": "Дані",
+    "my.esims.package.day": "День",
+    "my.esims.package.days": "Дні"
   },
   "zh": {
     "my.esims.available.esims": "可用 eSIM",
@@ -795,7 +869,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ 地址和激活码",
     "my.esims.installation": "安装",
     "my.esims.package.valid": "有效",
-    "my.esims.package.data": "数据"
+    "my.esims.package.data": "数据",
+    "my.esims.package.day": "天",
+    "my.esims.package.days": "天"
   },
   "he": {
     "my.esims.available.esims": "eSIMs זמינים",
@@ -816,7 +892,9 @@
     "my.esims.installation.manual.sm.dp.activation": "כתובת SM-DP+ וקוד הפעלה",
     "my.esims.installation": "התקנה",
     "my.esims.package.valid": "תוקף",
-    "my.esims.package.data": "נתונים"
+    "my.esims.package.data": "נתונים",
+    "my.esims.package.day": "יום",
+    "my.esims.package.days": "ימים"
   },
   "hi": {
     "my.esims.available.esims": "उपलब्ध eSIMs",
@@ -837,7 +915,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ पता और सक्रियण कोड",
     "my.esims.installation": "स्थापना",
     "my.esims.package.valid": "वैध",
-    "my.esims.package.data": "डेटा"
+    "my.esims.package.data": "डेटा",
+    "my.esims.package.day": "दिन",
+    "my.esims.package.days": "दिन"
   },
   "kmr": {
     "my.esims.available.esims": "eSIMs yên amade",
@@ -858,7 +938,9 @@
     "my.esims.installation.manual.sm.dp.activation": "Navnîşana SM-DP+ û kodê aktîvasyonê",
     "my.esims.installation": "Installasyon",
     "my.esims.package.valid": "Pêwîst",
-    "my.esims.package.data": "Daneyên"
+    "my.esims.package.data": "Daneyên",
+    "my.esims.package.day": "Roj",
+    "my.esims.package.days": "Roj"
   },
   "ky": {
     "my.esims.available.esims": "Жакында eSIMдер",
@@ -879,7 +961,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ дареги жана активация коддору",
     "my.esims.installation": "Орнотуу",
     "my.esims.package.valid": "Жарактуу",
-    "my.esims.package.data": "Маалымат"
+    "my.esims.package.data": "Маалымат",
+    "my.esims.package.day": "Күн",
+    "my.esims.package.days": "Күндөр"
   },
   "ms": {
     "my.esims.available.esims": "eSIM Tersedia",
@@ -900,7 +984,9 @@
     "my.esims.installation.manual.sm.dp.activation": "Alamat SM-DP+ dan kod pengaktifan",
     "my.esims.installation": "Pemasangan",
     "my.esims.package.valid": "Sah",
-    "my.esims.package.data": "Data"
+    "my.esims.package.data": "Data",
+    "my.esims.package.day": "Hari",
+    "my.esims.package.days": "Hari"
   },
   "pt-BR": {
     "my.esims.available.esims": "eSIMs disponíveis",
@@ -921,7 +1007,9 @@
     "my.esims.installation.manual.sm.dp.activation": "Endereço SM-DP+ e código de ativação",
     "my.esims.installation": "Instalação",
     "my.esims.package.valid": "Válido",
-    "my.esims.package.data": "Dados"
+    "my.esims.package.data": "Dados",
+    "my.esims.package.day": "Dia",
+    "my.esims.package.days": "Dias"
   },
   "pt-PT": {
     "my.esims.available.esims": "eSIMs disponíveis",
@@ -942,7 +1030,9 @@
     "my.esims.installation.manual.sm.dp.activation": "Endereço SM-DP+ e código de ativação",
     "my.esims.installation": "Instalação",
     "my.esims.package.valid": "Válido",
-    "my.esims.package.data": "Dados"
+    "my.esims.package.data": "Dados",
+    "my.esims.package.day": "Dia",
+    "my.esims.package.days": "Dias"
   },
   "sr-CS": {
     "my.esims.available.esims": "Dostupni eSIM-ovi",
@@ -963,7 +1053,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ adresa i aktivacioni kod",
     "my.esims.installation": "Instalacija",
     "my.esims.package.valid": "Važeći",
-    "my.esims.package.data": "Podaci"
+    "my.esims.package.data": "Podaci",
+    "my.esims.package.day": "Dan",
+    "my.esims.package.days": "Dani"
   },
   "es-419": {
     "my.esims.available.esims": "eSIMs disponibles",
@@ -984,7 +1076,9 @@
     "my.esims.installation.manual.sm.dp.activation": "Dirección SM-DP+ y código de activación",
     "my.esims.installation": "Instalación",
     "my.esims.package.valid": "Válido",
-    "my.esims.package.data": "Datos"
+    "my.esims.package.data": "Datos",
+    "my.esims.package.day": "Día",
+    "my.esims.package.days": "Días"
   },
   "sv-SE": {
     "my.esims.available.esims": "Tillgängliga eSIM",
@@ -1005,7 +1099,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ adress och aktiveringskod",
     "my.esims.installation": "Installation",
     "my.esims.package.valid": "Giltig",
-    "my.esims.package.data": "Data"
+    "my.esims.package.data": "Data",
+    "my.esims.package.day": "Dag",
+    "my.esims.package.days": "Dagar"
   },
   "tl": {
     "my.esims.available.esims": "Mga Magagamit na eSIM",
@@ -1026,7 +1122,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ Address at Activation Code",
     "my.esims.installation": "Pag-install",
     "my.esims.package.valid": "Bisa",
-    "my.esims.package.data": "Data"
+    "my.esims.package.data": "Data",
+    "my.esims.package.day": "Araw",
+    "my.esims.package.days": "Araw"
   },
   "th": {
     "my.esims.available.esims": "eSIM ที่มีอยู่",
@@ -1047,7 +1145,9 @@
     "my.esims.installation.manual.sm.dp.activation": "ที่อยู่ SM-DP+ และรหัสการเปิดใช้งาน",
     "my.esims.installation": "การติดตั้ง",
     "my.esims.package.valid": "ถูกต้อง",
-    "my.esims.package.data": "ข้อมูล"
+    "my.esims.package.data": "ข้อมูล",
+    "my.esims.package.day": "วัน",
+    "my.esims.package.days": "วัน"
   },
   "ur-PK": {
     "my.esims.available.esims": "دستیاب eSIMs",
@@ -1068,7 +1168,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ پتہ اور ایکٹیویشن کوڈ",
     "my.esims.installation": "انسٹالیشن",
     "my.esims.package.valid": "معتبر",
-    "my.esims.package.data": "ڈیٹا"
+    "my.esims.package.data": "ڈیٹا",
+    "my.esims.package.day": "دن",
+    "my.esims.package.days": "دن"
   },
   "uz": {
     "my.esims.available.esims": "Mavjud eSIMlar",
@@ -1089,7 +1191,9 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ manzili va faollashtirish kodi",
     "my.esims.installation": "O'rnatish",
     "my.esims.package.valid": "Amaldagi",
-    "my.esims.package.data": "Ma'lumot"
+    "my.esims.package.data": "Ma'lumot",
+    "my.esims.package.day": "Kun",
+    "my.esims.package.days": "Kunlar"
   },
   "vi": {
     "my.esims.available.esims": "eSIM có sẵn",
@@ -1110,7 +1214,9 @@
     "my.esims.installation.manual.sm.dp.activation": "Địa chỉ SM-DP+ và mã kích hoạt",
     "my.esims.installation": "Cài đặt",
     "my.esims.package.valid": "Có hiệu lực",
-    "my.esims.package.data": "Dữ liệu"
+    "my.esims.package.data": "Dữ liệu",
+    "my.esims.package.day": "Ngày",
+    "my.esims.package.days": "Ngày"
   },
   "vls-BE": {
     "my.esims.available.esims": "Beschikbare eSIMs",
@@ -1131,6 +1237,8 @@
     "my.esims.installation.manual.sm.dp.activation": "SM-DP+ adres en activeringscode",
     "my.esims.installation": "Installatie",
     "my.esims.package.valid": "Geldig",
-    "my.esims.package.data": "Data"
+    "my.esims.package.data": "Data",
+    "my.esims.package.day": "Dag",
+    "my.esims.package.days": "Dagen"
   }
 }

@@ -14,9 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 class AiraloOrder {
 
 	private $airalo_client;
+	private $translations;
 
 	public function __construct() {
 		$this->airalo_client = ( new AiraloClient( new Option() ) )->getClient();
+
+		$language = ( new \Airalo\Admin\Settings\Option() )->fetch_option( \Airalo\Admin\Settings\Option::LANGUAGE );
+        $translations = file_get_contents( __DIR__ . '../../../languages/translations.json' );
+        $translations = json_decode( $translations, true );
+        $this->translations = $translations[$language];
 	}
 
 	/**
@@ -112,10 +118,12 @@ class AiraloOrder {
 			$sims = $response->data->sims ?? [];
 
 			foreach ($sims as $sim) {
+				$days_key = 'my.esims.package.' . ( $response->data->validity == 1 ? 'day' : 'days' );
+
 				$wc_order->add_meta_data( $sim->iccid, implode(PHP_EOL, [
 					'Coverage: ' . $package_data['location'],
 					'Package ID: ' . $package_data['package_id'],
-					'Validity: ' . $response->data->validity . ' days',
+					'Validity: ' . $response->data->validity . ' ' . $this->translations[$days_key],
 					'Data: ' . $response->data->data,
 					'Minutes: ' . ( $response->data->voice ? $response->data->voice : 'N/A' ),
 					'SMS: ' . ( $response->data->text ? $response->data->text : 'N/A' ),

@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class MySimsPageBuilder {
+
     private $translations;
     private $language_texts;
 
