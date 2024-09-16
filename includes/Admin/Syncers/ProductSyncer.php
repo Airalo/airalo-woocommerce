@@ -146,9 +146,15 @@ class ProductSyncer {
 				$taxonomy_name = Term::IMAGE_NAME_PREFIX . $product->get_attribute( 'operator_id' );
 
 				$labels = [
-					'name' => _x( $taxonomy_name, 'taxonomy general name', 'textdomain' ),
-					'singular_name' => _x( $taxonomy_name . '_singular', 'taxonomy singular name', 'textdomain' ),
-				];
+				    'name'=> sprintf(
+				        _x( '%s', 'taxonomy general name', 'airalo' ),
+				        esc_html( $taxonomy_name )
+                    ),
+                    'singular_name' => sprintf(
+                        _x( '%s_singular', 'taxonomy singular name', 'airalo' ),
+                        esc_html( $taxonomy_name )
+                    ),
+                ];
 
 				$args = [
 					'labels' => $labels,
