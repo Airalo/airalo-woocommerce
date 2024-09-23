@@ -60,9 +60,9 @@ class MySimsPageBuilder {
 
         return '<style>' . esc_attr( file_get_contents( __DIR__ . '/../../assets/css/myEsimPageStyle.css' ) ) . '</style>' .
             '<div class="my-esim-page-wrapper">
-                    <div class="left-menu">
+                    <div class="my-esims-left-menu">
                         <div>
-                            <p class="left-menu-title">' . $this->t('my.esims.available.esims') . '</p>
+                            <p class="my-esims-left-menu-title">' . $this->t('my.esims.available.esims') . '</p>
                             <div class="esims-list" id="esims-list">
                                 ' . implode( '', $esim_list ) . '
                             </div>
@@ -152,11 +152,11 @@ class MySimsPageBuilder {
                     </div>
                     <div class="data-usage-package-date-right">
                         <div>
-                            <p class="trail-title-5 trail-color-title-highlight">' . $this->t('my.esims.package.valid') . '</p>
+                            <p class="trail-title-5">' . $this->t('my.esims.package.valid') . '</p>
                             <p class="trail-body-2">' . implode( ' ', [$validity_and_data[1], $validity_and_data[2]] ) . '</p>
                         </div>
                         <div>
-                            <p class="trail-title-5 trail-color-title-highlight">' . $this->t('my.esims.package.data') . '</p>
+                            <p class="trail-title-5">' . $this->t('my.esims.package.data') . '</p>
                             <p class="trail-body-2">' . implode( ' ', [$validity_and_data[3], $validity_and_data[4]] ) . '</p>
                         </div>
                     </div>
