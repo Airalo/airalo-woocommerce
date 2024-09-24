@@ -17,12 +17,12 @@ class MySimsPageBuilder {
         $this->translations = json_decode( $translations, true );
         $this->language_texts = $this->translations[$language];
 
-        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+        $this->enqueue_assets();
     }
 
     public function enqueue_assets() {
         wp_enqueue_style( 'my-esim-page-style', plugin_dir_url( __FILE__ ) . '../../assets/css/myEsimPageStyle.css', [], '1.0.0' );
-        wp_enqueue_script( 'my-esim-page-script', plugin_dir_url( __FILE__ ) . '../../includes/airalo-js/my_esim_page.js', [], '1.0.0', true );
+        wp_enqueue_script( 'my-esim-page-script', plugin_dir_url( __FILE__ ) . '../airalo-js/my_esim_page.js', [], '1.0.0', true );
     }
 
     /**
@@ -66,7 +66,7 @@ class MySimsPageBuilder {
         return '<div class="my-esim-page-wrapper">
                     <div class="left-menu">
                         <div>
-                            <p class="left-menu-title">' . $this->t('my.esims.available.esims') . '</p>
+                            <p class="left-menu-title">' . $this->t( 'my.esims.available.esims' ) . '</p>
                             <div class="esims-list" id="esims-list">
                                 ' . implode( '', $esim_list ) . '
                             </div>
@@ -184,16 +184,16 @@ class MySimsPageBuilder {
     private function get_installation_form_content( string $type ) {
         return '<div class="qr-code-right">
                     <div class="qr-code-right-item">
-                        <p class="trail-body-3">' . $this->t('my.esims.select-platform') . '</p>
+                        <p class="trail-body-3">' . $this->t( 'my.esims.select-platform' ) . '</p>
                         <div class="select-wrapper">
                             <select class="select" name="platform" id="' . $type . '-select-platform" onchange="' . $type . 'CheckPlatform(this.value)">
-                                <option value="ios">' . $this->t('my.esims.ios-device') . '</option>
-                                <option value="android">' . $this->t('my.esims.android') . '</option>
+                                <option value="ios">' . $this->t( 'my.esims.ios-device' ) . '</option>
+                                <option value="android">' . $this->t( 'my.esims.android' ) . '</option>
                             </select>
                         </div>
                     </div>
                     <div class="qr-code-right-item none">
-                        <p class="trail-body-3">' . $this->t('my.esims.select-device') . '</p>
+                        <p class="trail-body-3">' . $this->t( 'my.esims.select-device' ) . '</p>
                         <div class="select-wrapper">
                             <select class="select" name="device" id="select-device">
                                 <option value="ios-17">iOS 17</option>
@@ -203,11 +203,11 @@ class MySimsPageBuilder {
                         </div>
                     </div>
                     <div class="qr-code-right-item">
-                        <p class="trail-title-4">' . $this->t('my.esims.installation-instructions') . '</p>
+                        <p class="trail-title-4">' . $this->t( 'my.esims.installation-instructions' ) . '</p>
                         <div class="qr-code-installation-instructions">
                             <div class="installation-instruction-card-title">
                                 <img alt="airalo-instruction-check" width="24" height="24"  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjUiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNSAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IkNoYW5nZSB0byI+CjxwYXRoIGlkPSJjb250ZW50IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTEyLjUgMy43NUM3Ljk0MzY1IDMuNzUgNC4yNSA3LjQ0MzY1IDQuMjUgMTJDNC4yNSAxNi41NTYzIDcuOTQzNjUgMjAuMjUgMTIuNSAyMC4yNUMxNy4wNTYzIDIwLjI1IDIwLjc1IDE2LjU1NjMgMjAuNzUgMTJDMjAuNzUgNy40NDM2NSAxNy4wNTYzIDMuNzUgMTIuNSAzLjc1Wk0yLjc1IDEyQzIuNzUgNi42MTUyMiA3LjExNTIyIDIuMjUgMTIuNSAyLjI1QzE3Ljg4NDggMi4yNSAyMi4yNSA2LjYxNTIyIDIyLjI1IDEyQzIyLjI1IDE3LjM4NDggMTcuODg0OCAyMS43NSAxMi41IDIxLjc1QzcuMTE1MjIgMjEuNzUgMi43NSAxNy4zODQ4IDIuNzUgMTJaTTE1LjkzNTkgOS4xMzk3QzE2LjI3MyA5LjM4MDQ2IDE2LjM1MTEgOS44NDg4NyAxNi4xMTAzIDEwLjE4NTlMMTIuMzYwMyAxNS40MzU5QzEyLjIzMjIgMTUuNjE1MyAxMi4wMzE2IDE1LjcyOTMgMTEuODExOSAxNS43NDc0QzExLjU5MjEgMTUuNzY1NiAxMS4zNzU2IDE1LjY4NjIgMTEuMjE5NyAxNS41MzAzTDguOTY5NjcgMTMuMjgwM0M4LjY3Njc4IDEyLjk4NzQgOC42NzY3OCAxMi41MTI2IDguOTY5NjcgMTIuMjE5N0M5LjI2MjU2IDExLjkyNjggOS43Mzc0NCAxMS45MjY4IDEwLjAzMDMgMTIuMjE5N0wxMS42NTQzIDEzLjg0MzZMMTQuODg5NyA5LjMxNDA3QzE1LjEzMDUgOC45NzcwMSAxNS41OTg5IDguODk4OTQgMTUuOTM1OSA5LjEzOTdaIiBmaWxsPSIjMTExOTI4Ii8+CjwvZz4KPC9zdmc+Cg==">
-                                <p class="trail-body-2">' . $this->t('my.esims.installation.instructions.description') . '</p>
+                                <p class="trail-body-2">' . $this->t( 'my.esims.installation.instructions.description' ) . '</p>
                             </div>
                             <div class="installation-instruction-card-content">
                                 <ul class="installation-instruction-card-list" id="' . $type . '-installation-instruction-steps"></ul>
@@ -273,12 +273,12 @@ class MySimsPageBuilder {
                         </div>
                     </div>
                     <input type="radio" class="my-esim-page-tabs-radio" name="installation-type" id="my-esim-page-tab-manual">
-                    <label for="my-esim-page-tab-manual" class="my-esim-page-tabs_label">' . $this->t('my.esims.installation.instructions.manual') . '</label>
+                    <label for="my-esim-page-tab-manual" class="my-esim-page-tabs_label">' . $this->t( 'my.esims.installation.instructions.manual' ) . '</label>
                     <div class="my-esim-page-tabs_content">
                         <div class="installation-manual-wrapper">
                             <div class="installation-manual-left-content">
                                 <div class="installation-manual-smdp-activation">
-                                    <p class="trail-title-5">' . $this->t('my.esims.installation.manual.sm.dp.activation') . '</p>
+                                    <p class="trail-title-5">' . $this->t( 'my.esims.installation.manual.sm.dp.activation' ) . '</p>
                                     <p class="trail-body-2" id="manualSMDPAddressAndActivationCode"></p>
                                 </div>
                             </div>
