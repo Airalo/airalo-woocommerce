@@ -16,6 +16,13 @@ class MySimsPageBuilder {
         $translations = file_get_contents( __DIR__ . '../../../languages/translations.json' );
         $this->translations = json_decode( $translations, true );
         $this->language_texts = $this->translations[$language];
+
+        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_assets' ] );
+    }
+
+    public function enqueue_assets() {
+        wp_enqueue_style( 'my-esim-page-style', plugin_dir_url( __FILE__ ) . '../../assets/css/myEsimPageStyle.css', [], '1.0.0' );
+        wp_enqueue_script( 'my-esim-page-script', plugin_dir_url( __FILE__ ) . '../../includes/airalo-js/my_esim_page.js', [], '1.0.0', true );
     }
 
     /**
@@ -30,14 +37,12 @@ class MySimsPageBuilder {
      * @return string
      */
     public function build_html() {
-        wp_enqueue_script( 'my-esim-page', plugin_dir_url( __FILE__ ) . '../../includes/airalo-js/my_esim_page.js', [], '1.0.0', true );
-
         $all_orders_details = ( new \Airalo\User\MySimsDetails() )->get_all_user_order_details();
 
-        $iccid = $_GET['iccid'] ?? $all_orders_details[0]['iccid'];
+        $iccid = isset( $_GET['iccid'] ) ? sanitize_text_field( $_GET['iccid'] ) : $all_orders_details[0]['iccid'];
 
         $esim_list = [];
-        $current_url_path = strtok( $_SERVER["REQUEST_URI"], '&' );
+        $current_url_path = esc_url_raw( strtok( $_SERVER["REQUEST_URI"], '&' ) );
 
         foreach ( $all_orders_details as $esim ) {
             $sim_name_class = "esim-list-title";
@@ -58,8 +63,7 @@ class MySimsPageBuilder {
             $esim_list[] = '<a class="esim-list-link link-clear" href="' . $current_url_path . $iccid_slug . '">' . $sim_name_element . '</a>';
         }
 
-        return '<style>' . esc_attr( file_get_contents( __DIR__ . '/../../assets/css/myEsimPageStyle.css' ) ) . '</style>' .
-            '<div class="my-esim-page-wrapper">
+        return '<div class="my-esim-page-wrapper">
                     <div class="left-menu">
                         <div>
                             <p class="left-menu-title">' . $this->t('my.esims.available.esims') . '</p>
@@ -97,7 +101,7 @@ class MySimsPageBuilder {
         $details_client = new \Airalo\User\MySimsDetails();
 
         $all_orders_details = $details_client->get_all_user_order_details();
-        $current_iccid = $_GET['iccid'] ?? $default_iccid;
+        $current_iccid = isset( $_GET['iccid'] ) ? sanitize_text_field( $_GET['iccid'] ) : $default_iccid;
 
         $data_usage_item = [];
 
@@ -218,7 +222,7 @@ class MySimsPageBuilder {
      * @return string
      */
     private function get_qr_and_manual_tabs( string $default_iccid ) {
-        $iccid = $_GET['iccid'] ?? $default_iccid;
+        $iccid = isset( $_GET['iccid'] ) ? sanitize_text_field( $_GET['iccid'] ) : $default_iccid;
         if ( ! $iccid ) {
             return;
         }
@@ -237,23 +241,22 @@ class MySimsPageBuilder {
         $ios_data = $response->data->instructions->ios[0];
         $android_data = $response->data->instructions->android[0];
 
-        $set_script_values = '<script>
-            var iosData = ' . json_encode( $ios_data ) . ';
-            var androidData = ' . json_encode( $android_data ) . ';
-            
-            var iosInstallationQrSteps = ' . json_encode( $ios_data->installation_via_qr_code->steps ) . ';
-            var iosInstallationManualSteps = ' . json_encode( $ios_data->installation_manual->steps ) . ';
-            var androidInstallationQrSteps = ' . json_encode( $android_data->installation_via_qr_code->steps ) . ';
-            var androidInstallationManualSteps = ' . json_encode( $android_data->installation_manual->steps ) . ';
-            
-            var iosQrCodeUrl = ' . json_encode( $ios_data->installation_via_qr_code->qr_code_url ) . ';
-            var androidQrCodeUrl = ' . json_encode( $android_data->installation_via_qr_code->qr_code_url ) . ';
-            
-            var iosManualSMDPAddressAndActivationCode = ' . json_encode( $ios_data->installation_manual->smdp_address_and_activation_code ) . ';
-            var androidManualSMDPAddressAndActivationCode = ' . json_encode( $android_data->installation_manual->smdp_address_and_activation_code ) . ';
-        </script>';
+        $localize_data = [
+            'iosData' => $ios_data,
+            'androidData' => $android_data,
+            'iosInstallationQrSteps' => $ios_data->installation_via_qr_code->steps,
+            'androidInstallationQrSteps' => $android_data->installation_via_qr_code->steps,
+            'iosInstallationManualSteps' => $ios_data->installation_manual->steps,
+            'androidInstallationManualSteps' => $android_data->installation_manual->steps,
+            'iosQrCodeUrl' => $ios_data->installation_via_qr_code->qr_code_url,
+            'androidQrCodeUrl' => $android_data->installation_via_qr_code->qr_code_url,
+            'iosManualSMDPAddressAndActivationCode' => $ios_data->installation_manual->smdp_address_and_activation_code,
+            'androidManualSMDPAddressAndActivationCode' => $android_data->installation_manual->smdp_address_and_activation_code,
+        ];
 
-        return $set_script_values . '
+        wp_localize_script( 'my-esim-page-script', 'myEsimData', $localize_data );
+
+        return '
             <div class="qr-and-manual-wrapper">
                 <div class="my-esim-page-tabs">
                     <input type="radio" class="my-esim-page-tabs-radio" name="installation-type" id="my-esim-page-tab-qr" checked>

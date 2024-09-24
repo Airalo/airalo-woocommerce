@@ -10,4 +10,4 @@ function airalo_main() {
     return ( new \Airalo\User\MySimsPageBuilder() )->build_html();
 }
 
-add_shortcode( 'woocommerce_my_esim', 'airalo_main' );
+add_shortcode( 'airalo_woocommerce_my_esim', 'airalo_main' );
