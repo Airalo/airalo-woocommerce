@@ -25,15 +25,15 @@ class Term {
 		// Taxonomies are stored in memory while terms are stored in db
 		// every time sync runs we have to create 1 taxonomy per operator
 		// to be able to fetch the term connected to it
-		$this->create_image_taxonomy( $operator, $taxonomy_name, $term_name );
+		$this->create_image_taxonomy( $operator, $term_name );
 
 		return get_term_by( 'slug', $term_name, $taxonomy_name );
 	}
 
-	private function create_image_taxonomy( $operator, string $name, string $term_name ) {
+	private function create_image_taxonomy( $operator, string $term_name ) {
 		$labels = [
-			'name' => _x( $name, 'taxonomy general name', 'airalo' ),
-			'singular_name' => _x( $name . '_singular', 'taxonomy singular name', 'airalo' ),
+			'name' => _x( self::IMAGE_NAME_PREFIX . $operator->id, 'taxonomy general name', 'airalo' ),
+			'singular_name' => _x( self::IMAGE_NAME_PREFIX . $operator->id . '_singular', 'taxonomy singular name', 'airalo' ),
 		];
 
 		$args = [
@@ -41,10 +41,10 @@ class Term {
 			'show_ui' => true,
 			'show_admin_column' => true,
 			'query_var' => true,
-			'rewrite' => [ 'slug' => $name ],
+			'rewrite' => [ 'slug' => self::IMAGE_NAME_PREFIX . $operator->id ],
 		];
 
-		$taxonomy = register_taxonomy( $name, ['post'], $args );
+		$taxonomy = register_taxonomy( self::IMAGE_NAME_PREFIX . $operator->id, ['post'], $args );
 
 		$this->add_term_to_taxonomy( $taxonomy, $term_name, 'image_id', $operator );
 
