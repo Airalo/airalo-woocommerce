@@ -3,7 +3,7 @@ Contributors: amaaloufairalo, isikiyski, mhraza123, fatihtzn
 Tags: esim, woocommerce
 Requires at least: 6.4
 Tested up to: 6.5.3
-Stable tag: 1.0.0
+Stable tag: 1.0.2
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -35,6 +35,9 @@ The Airalo Plugin for eSIM Integration is designed to seamlessly sync eSIM packa
 - **Configure Credentials**: Navigate to the plugin settings and enter your Airalo Partner API credentials to establish a connection with our platform.
 - **Configure Product Sync Options**: Set up synchronization preferences to control how Airalo eSIM packages are imported and displayed in your WooCommerce store.
 - **Automatic Order Handling**: The plugin will automatically handle order submissions to our Partner REST API endpoint when an order is marked as paid.
+
+== 3rd party services ==
+This plugins uses airalo qr generator to generate qr codes
 
 == Changelog ==
 
