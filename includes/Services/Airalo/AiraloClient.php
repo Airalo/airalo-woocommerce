@@ -10,6 +10,8 @@ class AiraloClient {
 	private $environment = '';
 	private $language = 'en';
 
+    public const SOURCE_WOOCOMMERCE_PLUGIN = 3;
+
 	public function __construct( Option $option ) {
 		$this->environment = $option->get_environment();
 		$this->language = $option->fetch_option( Option::LANGUAGE ) ?? $this->language;
@@ -36,6 +38,7 @@ class AiraloClient {
 				'woocommerce-plugin: ' . AIRALO_PLUGIN_VERSION,
 				'Accept-Language: ' . $this->language,
 			],
+            'source' => self::SOURCE_WOOCOMMERCE_PLUGIN,
 		] );
 	}
 
