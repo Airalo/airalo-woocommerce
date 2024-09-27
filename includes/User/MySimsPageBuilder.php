@@ -22,7 +22,7 @@ class MySimsPageBuilder {
 
     public function enqueue_assets() {
         wp_enqueue_style( 'my-esim-page-style', plugin_dir_url( __FILE__ ) . '../../assets/css/myEsimPageStyle.css', [], AIRALO_PLUGIN_VERSION );
-        wp_enqueue_script( 'my-esim-page-script', plugin_dir_url( __FILE__ ) . '../airalo-js/my_esim_page.js', [],AIRALO_PLUGIN_VERSION, true );
+        wp_enqueue_script( 'my-esim-page-script', plugin_dir_url( __FILE__ ) . '../airalo-js/my_esim_page.js', [], AIRALO_PLUGIN_VERSION, true );
     }
 
     /**
