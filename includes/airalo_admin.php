@@ -16,7 +16,7 @@ function airalo_enqueue_admin_styles() {
         'airalo-reset-style',
         plugin_dir_url( __FILE__ ) . '../assets/css/resetStyle.css',
         [],
-        '1.0.0'
+        AIRALO_PLUGIN_VERSION
     );
 
     // Enqueue main plugin styles
@@ -24,7 +24,7 @@ function airalo_enqueue_admin_styles() {
         'airalo-plugin-style',
         plugin_dir_url( __FILE__ ) . '../assets/css/pluginStyle.css',
         [],
-        '1.0.0'
+        AIRALO_PLUGIN_VERSION
     );
 }
 
