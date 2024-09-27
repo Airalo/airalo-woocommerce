@@ -3,7 +3,7 @@ Contributors: amaaloufairalo, isikiyski, mhraza123, fatihtzn
 Tags: esim, woocommerce
 Requires at least: 6.4
 Tested up to: 6.5.3
-Stable tag: 1.0.2
+Stable tag: 1.0.4
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -38,11 +38,3 @@ The Airalo Plugin for eSIM Integration is designed to seamlessly sync eSIM packa
 
 == 3rd party services ==
 This plugins uses airalo qr generator to generate qr codes
-
-== Changelog ==
-
-= 1.0.0 =
-
-**Airalo**
-
-* Initial release.

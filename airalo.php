@@ -23,7 +23,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-const AIRALO_PLUGIN_VERSION = '1.0.0';
+const AIRALO_PLUGIN_VERSION = '1.0.4';
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once plugin_dir_path( __FILE__ ) . '/includes/airalo_admin.php';
