@@ -8,3 +8,6 @@
 
 2024-07-24 - version 1.0.4
 * Support all Airalo languages
+
+2024-10-02 - version 1.0.5
+* Update Airalo SDK to latest version
