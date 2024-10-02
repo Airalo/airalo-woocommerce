@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "airalo/sdk",
-            "version": "1.1.2",
-            "version_normalized": "1.1.2.0",
+            "version": "1.1.3",
+            "version_normalized": "1.1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Airalo/airalo-php-sdk.git",
-                "reference": "921bfb32266ee2d30bf2f8ecb72f89708cf86983"
+                "reference": "579889b7562dfde757353dc251c8d9d642eb3913"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Airalo/airalo-php-sdk/zipball/921bfb32266ee2d30bf2f8ecb72f89708cf86983",
-                "reference": "921bfb32266ee2d30bf2f8ecb72f89708cf86983",
+                "url": "https://api.github.com/repos/Airalo/airalo-php-sdk/zipball/579889b7562dfde757353dc251c8d9d642eb3913",
+                "reference": "579889b7562dfde757353dc251c8d9d642eb3913",
                 "shasum": ""
             },
             "require": {
@@ -22,7 +22,7 @@
                 "phpstan/phpstan": "^1.10",
                 "phpunit/phpunit": "9.5"
             },
-            "time": "2024-09-17T08:42:18+00:00",
+            "time": "2024-10-02T08:01:27+00:00",
             "type": "project",
             "installation-source": "dist",
             "autoload": {
@@ -35,11 +35,11 @@
             "description": "Airalo's Partner API PHP SDK",
             "support": {
                 "issues": "https://github.com/Airalo/airalo-php-sdk/issues",
-                "source": "https://github.com/Airalo/airalo-php-sdk/tree/1.1.2"
+                "source": "https://github.com/Airalo/airalo-php-sdk/tree/1.1.3"
             },
             "install-path": "../airalo/sdk"
         }
     ],
-    "dev": false,
+    "dev": true,
     "dev-package-names": []
 }
