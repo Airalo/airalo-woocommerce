@@ -35,7 +35,7 @@ class Term {
 			'name' => sprintf(
 				_x( 'airalo_operator_image_%s', 'taxonomy general name', 'airalo' ),
 				esc_html( $operator->id )
-            ),
+			),
 			'singular_name' => sprintf(
 				_x( 'airalo_operator_image_%s_singular', 'taxonomy singular name', 'airalo' ),
 				esc_html( $operator->id )
