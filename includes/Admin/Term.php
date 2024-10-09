@@ -31,14 +31,18 @@ class Term {
 	}
 
 	private function create_image_taxonomy( $operator, string $term_name ) {
+		$operator_id = esc_html( $operator->id );
+
 		$labels = [
-			'name' => sprintf(
-				_x( 'airalo_operator_image_%s', 'taxonomy general name', 'airalo' ),
-				esc_html( $operator->id )
+			'name' => _x(
+				sprintf( 'airalo_operator_image_%s', $operator_id ),
+				'taxonomy general name',
+				'airalo'
 			),
-			'singular_name' => sprintf(
-				_x( 'airalo_operator_image_%s_singular', 'taxonomy singular name', 'airalo' ),
-				esc_html( $operator->id )
+			'singular_name' => _x(
+				sprintf( 'airalo_operator_image_%s_singular', $operator_id ),
+				'taxonomy singular name',
+				'airalo'
 			),
 		];
 
@@ -47,10 +51,10 @@ class Term {
 			'show_ui' => true,
 			'show_admin_column' => true,
 			'query_var' => true,
-			'rewrite' => [ 'slug' => self::IMAGE_NAME_PREFIX . $operator->id ],
+			'rewrite' => [ 'slug' => self::IMAGE_NAME_PREFIX . $operator_id ],
 		];
 
-		$taxonomy = register_taxonomy( self::IMAGE_NAME_PREFIX . $operator->id, ['post'], $args );
+		$taxonomy = register_taxonomy( self::IMAGE_NAME_PREFIX . $operator_id, ['post'], $args );
 
 		$this->add_term_to_taxonomy( $taxonomy, $term_name, 'image_id', $operator );
 
