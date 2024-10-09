@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Term {
 
-	const IMAGE_NAME_PREFIX = 'operator_image_';
+	const IMAGE_NAME_PREFIX = 'airalo_operator_image_';
 	const IMAGE_METADATA_KEY = 'image_id';
 
 	public function fetch_or_create_image_term( $operator ) {
@@ -31,9 +31,19 @@ class Term {
 	}
 
 	private function create_image_taxonomy( $operator, string $term_name ) {
+		$operator_id = esc_html( $operator->id );
+
 		$labels = [
-			'name' => _x( self::IMAGE_NAME_PREFIX . $operator->id, 'taxonomy general name', 'airalo' ),
-			'singular_name' => _x( self::IMAGE_NAME_PREFIX . $operator->id . '_singular', 'taxonomy singular name', 'airalo' ),
+			'name' => _x(
+				sprintf( 'airalo_operator_image_%s', $operator_id ),
+				'taxonomy general name',
+				'airalo'
+			),
+			'singular_name' => _x(
+				sprintf( 'airalo_operator_image_%s_singular', $operator_id ),
+				'taxonomy singular name',
+				'airalo'
+			),
 		];
 
 		$args = [
@@ -41,10 +51,10 @@ class Term {
 			'show_ui' => true,
 			'show_admin_column' => true,
 			'query_var' => true,
-			'rewrite' => [ 'slug' => self::IMAGE_NAME_PREFIX . $operator->id ],
+			'rewrite' => [ 'slug' => self::IMAGE_NAME_PREFIX . $operator_id ],
 		];
 
-		$taxonomy = register_taxonomy( self::IMAGE_NAME_PREFIX . $operator->id, ['post'], $args );
+		$taxonomy = register_taxonomy( self::IMAGE_NAME_PREFIX . $operator_id, ['post'], $args );
 
 		$this->add_term_to_taxonomy( $taxonomy, $term_name, 'image_id', $operator );
 
