@@ -32,8 +32,14 @@ class Term {
 
 	private function create_image_taxonomy( $operator, string $term_name ) {
 		$labels = [
-			'name' => _x( self::IMAGE_NAME_PREFIX . $operator->id, 'taxonomy general name', 'airalo' ),
-			'singular_name' => _x( self::IMAGE_NAME_PREFIX . $operator->id . '_singular', 'taxonomy singular name', 'airalo' ),
+			'name' => sprintf(
+				_x( 'airalo_operator_image_%s', 'taxonomy general name', 'airalo' ),
+				esc_html( $operator->id )
+            ),
+			'singular_name' => sprintf(
+				_x( 'airalo_operator_image_%s_singular', 'taxonomy singular name', 'airalo' ),
+				esc_html( $operator->id )
+			),
 		];
 
 		$args = [
