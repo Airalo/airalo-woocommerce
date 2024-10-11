@@ -37,4 +37,8 @@ The Airalo Plugin for eSIM Integration is designed to seamlessly sync eSIM packa
 - **Automatic Order Handling**: The plugin will automatically handle order submissions to our Partner REST API endpoint when an order is marked as paid.
 
 == 3rd party services ==
-This plugins uses airalo qr generator to generate qr codes
+- Airalo PHP SDK: https://packagist.org/packages/airalo/sdk, https://github.com/Airalo/airalo-php-sdk; SDK built on top of Airalo's REST API
+- Airalo Sandbox/Production REST API: sandbox.airalo.com and partner.airalo.com; used for QR code image dummy placeholders
+link to our QR code service (My eSIM)
+    - Privacy policy link: https://www.airalo.com/more-info/privacy-policy
+    - Platform link: https://partners.airalo.com/
