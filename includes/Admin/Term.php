@@ -34,16 +34,14 @@ class Term {
 		$operator_id = esc_html( $operator->id );
 
 		$labels = [
-			'name' => _x(
-				sprintf( 'airalo_operator_image_%s', $operator_id ),
-				'taxonomy general name',
-				'airalo'
+			'name' => sprintf(
+				_x( 'airalo_operator_image_%s', 'taxonomy general name', 'airalo' ),
+				$operator_id
 			),
-			'singular_name' => _x(
-				sprintf( 'airalo_operator_image_%s_singular', $operator_id ),
-				'taxonomy singular name',
-				'airalo'
-			),
+			'singular_name' => sprintf(
+				_x( 'airalo_operator_image_%s_singular', 'taxonomy singular name', 'airalo' ),
+				$operator_id
+ 			),
 		];
 
 		$args = [
