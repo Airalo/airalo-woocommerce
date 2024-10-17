@@ -2,7 +2,6 @@
 
 /**
  * Plugin Name: Airalo
- * Plugin URI: https://wordpress.org/plugins/airalo
  * Description: The Airalo plugin allows you to seamlessly sync our products with your store.
  * Version: 1.0.5
  * Author: Airalo
