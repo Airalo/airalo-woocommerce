@@ -36,6 +36,12 @@ The Airalo Plugin for eSIM Integration is designed to seamlessly sync eSIM packa
 - **Configure Product Sync Options**: Set up synchronization preferences to control how Airalo eSIM packages are imported and displayed in your WooCommerce store.
 - **Automatic Order Handling**: The plugin will automatically handle order submissions to our Partner REST API endpoint when an order is marked as paid.
 
+== My eSIMs Page ==
+- We’ve introduced the **My eSIMs page**, which provides an overview of eSIMs purchased by your customers if they are registered in your shop.
+- Your users can now access their eSIMs, view installation instructions along with the QR code and all relevant details (including direct installation when accessing from iOS 17+), and monitor their eSIM data usage at any time.
+
+To implement the **My eSIMs page**, you need to **create a new page in WordPress and insert the provided shortcode [airalo_woocommerce_my_esim]**. The plugin takes care of the rest. Once you have saved and published your new page, you can add it to your menu to make it visible to your customers. This page can also be referenced in your WooCommerce email templates.
+
 == 3rd party services ==
 - Airalo PHP SDK: https://packagist.org/packages/airalo/sdk, https://github.com/Airalo/airalo-php-sdk; SDK built on top of Airalo's REST API
 - Airalo Sandbox/Production REST API: sandbox.airalo.com and partner.airalo.com; used for QR code image dummy placeholders
