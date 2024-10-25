@@ -39,6 +39,10 @@ class MySimsPageBuilder {
     public function build_html() {
         $all_orders_details = ( new \Airalo\User\MySimsDetails() )->get_all_user_order_details();
 
+        if ( empty( $all_orders_details ) ) {
+            return '<div><p>You have no eSIM purchases yet.</p></div>';
+        }
+
         $iccid = isset( $_GET['iccid'] ) ? sanitize_text_field( $_GET['iccid'] ) : $all_orders_details[0]['iccid'];
 
         $esim_list = [];
