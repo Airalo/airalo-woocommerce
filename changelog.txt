@@ -11,3 +11,6 @@
 
 2024-10-02 - version 1.0.5
 * Update Airalo SDK to latest version
+
+2024-10-02 - version 1.0.6
+* Fix myESIM page

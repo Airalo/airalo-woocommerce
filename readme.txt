@@ -3,7 +3,7 @@ Contributors: amaaloufairalo, isikiyski, mhraza123, fatihtzn
 Tags: esim, woocommerce
 Requires at least: 6.5.3
 Tested up to: 6.6.2
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -21,13 +21,20 @@ The Airalo Plugin for eSIM Integration is designed to seamlessly sync eSIM packa
 - **Order Submission**: Once an order is paid, the plugin submits the order details to our Partner REST API endpoint, ensuring efficient processing and fulfilment.
 - **Easy Configuration**: Setup credentials and configure product sync options within the WooCommerce admin panel, making the integration process straightforward and user-friendly.
 
+== Account Creation ==
+
+- We'll be onboarding you onto the Airalo Partner Platform to provide you with access to the API credentials needed for the Airalo WooCommerce plugin.
+- Once your company is created, you'll receive an email to set up your password. This will enable you to sign in to the Airalo Partner Platform and securely retrieve your API credentials.
+- Not a partner yet? sign up here: https://partners.airalo.com/sign-up
+
 == Installation ==
-- ** Navigate to the plugin section in your admin dashboard **
-- ** Click on "Add New Plugin" **
-- ** Search for "Airalo" **
-- ** Click the "Install Now" button **
-- ** Navigate to the "Installed Plugins Page" **
-- ** Click on "Activate" **
+
+- Navigate to the plugin section in your admin dashboard
+- Click on "Add New Plugin"
+- Search for "Airalo"
+- Click the "Install Now" button
+- Navigate to the "Installed Plugins Page"
+- Click on "Activate"
 
 == Usage ==
 
