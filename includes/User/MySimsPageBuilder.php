@@ -39,6 +39,10 @@ class MySimsPageBuilder {
     public function build_html() {
         $all_orders_details = ( new \Airalo\User\MySimsDetails() )->get_all_user_order_details();
 
+        if ( empty( $all_orders_details ) ) {
+            return '<div><p>' . $this->t( 'my.esims.no.esims' ) . '</p></div>';
+        }
+
         $iccid = isset( $_GET['iccid'] ) ? sanitize_text_field( $_GET['iccid'] ) : $all_orders_details[0]['iccid'];
 
         $esim_list = [];
@@ -76,14 +80,14 @@ class MySimsPageBuilder {
                         <ul class="my-esims-page-content-list" id="my-esims-page-content-list">
                             <li>
                                 <input type="checkbox" class="my-esims-page-content-list-checkbox" name="usage-content" id="my-esims-page-list-usage" />
-                                <label for="my-esims-page-list-usage" class="my-esims-page-list-title">' . $this->t('my.esims.usage') . '</label>
+                                <label for="my-esims-page-list-usage" class="my-esims-page-list-title">' . $this->t( 'my.esims.usage' ) . '</label>
                                 <div class="my-esims-page-list-desc">
                                 ' . $this->get_usage_data( $iccid ) . '
                                 </div>
                             </li>
                             <li>
                                 <input type="checkbox" class="my-esims-page-content-list-checkbox" name="installation-content" id="my-esims-page-list-installation" />
-                                <label for="my-esims-page-list-installation" class="my-esims-page-list-title">' . $this->t('my.esims.installation') . '</label>
+                                <label for="my-esims-page-list-installation" class="my-esims-page-list-title">' . $this->t( 'my.esims.installation' ) . '</label>
                                 <div class="my-esims-page-list-desc">
                                     ' . $this->get_qr_and_manual_tabs( $iccid ) . '
                                 </div>
