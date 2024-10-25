@@ -20,7 +20,8 @@
     "my.esims.package.valid": "Valid",
     "my.esims.package.data": "Data",
     "my.esims.package.day": "Day",
-    "my.esims.package.days": "Days"
+    "my.esims.package.days": "Days",
+    "my.esims.no.esims": "You have no eSIM purchases yet."
   },
   "es-ES": {
     "my.esims.available.esims": "eSIMs disponibles",
@@ -43,7 +44,8 @@
     "my.esims.package.valid": "Válido",
     "my.esims.package.data": "Datos",
     "my.esims.package.day": "Día",
-    "my.esims.package.days": "Días"
+    "my.esims.package.days": "Días",
+    "my.esims.no.esims": "Aún no has comprado ninguna eSIM."
   },
   "sq": {
     "my.esims.available.esims": "eSIM të disponueshme",
@@ -66,7 +68,8 @@
     "my.esims.package.valid": "E vlefshme",
     "my.esims.package.data": "Të dhëna",
     "my.esims.package.day": "Dita",
-    "my.esims.package.days": "Ditët"
+    "my.esims.package.days": "Ditët",
+    "my.esims.no.esims": "Ende nuk keni blerë asnjë eSIM."
   },
   "ar": {
     "my.esims.available.esims": "eSIMs المتاحة",
@@ -89,7 +92,8 @@
     "my.esims.package.valid": "صالح",
     "my.esims.package.data": "بيانات",
     "my.esims.package.day": "يوم",
-    "my.esims.package.days": "أيام"
+    "my.esims.package.days": "أيام",
+    "my.esims.no.esims": "لم تقم بشراء أي eSIM بعد."
   },
   "hy-AM": {
     "my.esims.available.esims": "Հասանելի eSIM-ներ",
@@ -112,7 +116,8 @@
     "my.esims.package.valid": "Գործող",
     "my.esims.package.data": "Տվյալներ",
     "my.esims.package.day": "Օր",
-    "my.esims.package.days": "Օրեր"
+    "my.esims.package.days": "Օրեր",
+    "my.esims.no.esims": "Դուք դեռ չեք գնում որևէ eSIM:"
   },
   "az": {
     "my.esims.available.esims": "Mövcud eSIM-lər",
@@ -135,7 +140,8 @@
     "my.esims.package.valid": "Keçərli",
     "my.esims.package.data": "Məlumat",
     "my.esims.package.day": "Gün",
-    "my.esims.package.days": "Gün"
+    "my.esims.package.days": "Gün",
+    "my.esims.no.esims": "Siz hələ eSIM alış-verişi etməmisiniz."
   },
   "bg": {
     "my.esims.available.esims": "Налични eSIM карти",
@@ -158,7 +164,8 @@
     "my.esims.package.valid": "Валиден",
     "my.esims.package.data": "Данни",
     "my.esims.package.day": "Ден",
-    "my.esims.package.days": "Дни"
+    "my.esims.package.days": "Дни",
+    "my.esims.no.esims": "Все още нямате закупени eSIM карти."
   },
   "zh-CN": {
     "my.esims.available.esims": "可用 eSIM",
@@ -181,7 +188,8 @@
     "my.esims.package.valid": "有效",
     "my.esims.package.data": "数据",
     "my.esims.package.day": "天",
-    "my.esims.package.days": "天"
+    "my.esims.package.days": "天",
+    "my.esims.no.esims": "您尚未购买任何 eSIM。"
   },
   "zh-TW": {
     "my.esims.available.esims": "可用 eSIM",
@@ -204,7 +212,8 @@
     "my.esims.package.valid": "有效",
     "my.esims.package.data": "數據",
     "my.esims.package.day": "天",
-    "my.esims.package.days": "天"
+    "my.esims.package.days": "天",
+    "my.esims.no.esims": "您尚未購買任何 eSIM。"
   },
   "hr": {
     "my.esims.available.esims": "Dostupni eSIM-ovi",
@@ -227,7 +236,8 @@
     "my.esims.package.valid": "Valjan",
     "my.esims.package.data": "Podaci",
     "my.esims.package.day": "Dan",
-    "my.esims.package.days": "Dani"
+    "my.esims.package.days": "Dani",
+    "my.esims.no.esims": "Još niste kupili nijedan eSIM."
   },
   "cs": {
     "my.esims.available.esims": "Dostupné eSIM",
@@ -250,7 +260,8 @@
     "my.esims.package.valid": "Platné",
     "my.esims.package.data": "Data",
     "my.esims.package.day": "Den",
-    "my.esims.package.days": "Dny"
+    "my.esims.package.days": "Dny",
+    "my.esims.no.esims": "Zatím jste nekoupili žádný eSIM."
   },
   "da": {
     "my.esims.available.esims": "Tilgængelige eSIMs",
@@ -273,7 +284,8 @@
     "my.esims.package.valid": "Gyldig",
     "my.esims.package.data": "Data",
     "my.esims.package.day": "Dag",
-    "my.esims.package.days": "Dage"
+    "my.esims.package.days": "Dage",
+    "my.esims.no.esims": "Du har endnu ikke købt nogen eSIM."
   },
   "nl": {
     "my.esims.available.esims": "Beschikbare eSIMs",
@@ -296,7 +308,8 @@
     "my.esims.package.valid": "Geldig",
     "my.esims.package.data": "Gegevens",
     "my.esims.package.day": "Dag",
-    "my.esims.package.days": "Dagen"
+    "my.esims.package.days": "Dagen",
+    "my.esims.no.esims": "Je hebt nog geen eSIM-aankopen."
   },
   "et": {
     "my.esims.available.esims": "Saadaval eSIM-id",
@@ -319,7 +332,8 @@
     "my.esims.package.valid": "Kehtiv",
     "my.esims.package.data": "Andmed",
     "my.esims.package.day": "Päev",
-    "my.esims.package.days": "Päeva"
+    "my.esims.package.days": "Päeva",
+    "my.esims.no.esims": "Teil pole veel eSIM-ostusid."
   },
   "fil": {
     "my.esims.available.esims": "Magagamit na eSIMs",
@@ -342,7 +356,8 @@
     "my.esims.package.valid": "Balido",
     "my.esims.package.data": "Data",
     "my.esims.package.day": "Araw",
-    "my.esims.package.days": "Araw"
+    "my.esims.package.days": "Araw",
+    "my.esims.no.esims": "Wala ka pang biniling eSIM."
   },
   "fi": {
     "my.esims.available.esims": "Saatavilla olevat eSIMit",
@@ -365,7 +380,8 @@
     "my.esims.package.valid": "Voimassa",
     "my.esims.package.data": "Tietoja",
     "my.esims.package.day": "Päivä",
-    "my.esims.package.days": "Päivää"
+    "my.esims.package.days": "Päivää",
+    "my.esims.no.esims": "Sinulla ei ole vielä eSIM-ostoja."
   },
   "fr": {
     "my.esims.available.esims": "eSIMs disponibles",
@@ -388,7 +404,8 @@
     "my.esims.package.valid": "Valide",
     "my.esims.package.data": "Données",
     "my.esims.package.day": "Jour",
-    "my.esims.package.days": "Jours"
+    "my.esims.package.days": "Jours",
+    "my.esims.no.esims": "Vous n'avez pas encore acheté d'eSIM."
   },
   "ka": {
     "my.esims.available.esims": "მისაწვდომი eSIM-ები",
@@ -411,7 +428,8 @@
     "my.esims.package.valid": "მიღებული",
     "my.esims.package.data": "მონაცემები",
     "my.esims.package.day": "დღე",
-    "my.esims.package.days": "დღე"
+    "my.esims.package.days": "დღე",
+    "my.esims.no.esims": "ჯერ არ გაქვთ შესყიდვილი eSIM-ები."
   },
   "de": {
     "my.esims.available.esims": "Verfügbare eSIMs",
@@ -434,7 +452,8 @@
     "my.esims.package.valid": "Gültig",
     "my.esims.package.data": "Daten",
     "my.esims.package.day": "Tag",
-    "my.esims.package.days": "Tage"
+    "my.esims.package.days": "Tage",
+    "my.esims.no.esims": "Sie haben noch keine eSIMs gekauft."
   },
   "el": {
     "my.esims.available.esims": "Διαθέσιμα eSIM",
@@ -457,7 +476,8 @@
     "my.esims.package.valid": "Ικανός",
     "my.esims.package.data": "Δεδομένα",
     "my.esims.package.day": "Ημέρα",
-    "my.esims.package.days": "Ημέρες"
+    "my.esims.package.days": "Ημέρες",
+    "my.esims.no.esims": "Δεν έχετε αγοράσει ακόμη καμία eSIM."
   },
   "hun": {
     "my.esims.available.esims": "Elérhető eSIM-ek",
@@ -480,7 +500,8 @@
     "my.esims.package.valid": "Érvényes",
     "my.esims.package.data": "Adatok",
     "my.esims.package.day": "Nap",
-    "my.esims.package.days": "Napok"
+    "my.esims.package.days": "Napok",
+    "my.esims.no.esims": "Még nem vásárolt eSIM-et."
   },
   "it": {
     "my.esims.available.esims": "eSIM disponibili",
@@ -503,7 +524,8 @@
     "my.esims.package.valid": "Valido",
     "my.esims.package.data": "Dati",
     "my.esims.package.day": "Giorno",
-    "my.esims.package.days": "Giorni"
+    "my.esims.package.days": "Giorni",
+    "my.esims.no.esims": "Non hai ancora acquistato alcuna eSIM."
   },
   "ja": {
     "my.esims.available.esims": "利用可能なeSIM",
@@ -526,7 +548,8 @@
     "my.esims.package.valid": "有効",
     "my.esims.package.data": "データ",
     "my.esims.package.day": "日",
-    "my.esims.package.days": "日"
+    "my.esims.package.days": "日",
+    "my.esims.no.esims": "まだeSIMを購入していません。"
   },
   "ko": {
     "my.esims.available.esims": "사용 가능한 eSIM",
@@ -549,7 +572,8 @@
     "my.esims.package.valid": "유효",
     "my.esims.package.data": "데이터",
     "my.esims.package.day": "일",
-    "my.esims.package.days": "일"
+    "my.esims.package.days": "일",
+    "my.esims.no.esims": "아직 eSIM을 구매하지 않았습니다."
   },
   "lv": {
     "my.esims.available.esims": "Pieejamie eSIM",
@@ -572,7 +596,8 @@
     "my.esims.package.valid": "Derīgs",
     "my.esims.package.data": "Dati",
     "my.esims.package.day": "Diena",
-    "my.esims.package.days": "Dienas"
+    "my.esims.package.days": "Dienas",
+    "my.esims.no.esims": "Jūs vēl neesat iegādājies nevienu eSIM."
   },
   "lt": {
     "my.esims.available.esims": "Pasiekiami eSIM",
@@ -595,7 +620,8 @@
     "my.esims.package.valid": "Galioja",
     "my.esims.package.data": "Duomenys",
     "my.esims.package.day": "Diena",
-    "my.esims.package.days": "Dienos"
+    "my.esims.package.days": "Dienos",
+    "my.esims.no.esims": "Dar neįsigijote jokių eSIM."
   },
   "mk": {
     "my.esims.available.esims": "Достапни eSIM",
@@ -618,7 +644,8 @@
     "my.esims.package.valid": "Важи",
     "my.esims.package.data": "Податоци",
     "my.esims.package.day": "Ден",
-    "my.esims.package.days": "Денови"
+    "my.esims.package.days": "Денови",
+    "my.esims.no.esims": "Сè уште немате купено ниту едно eSIM."
   },
   "nb": {
     "my.esims.available.esims": "Tilgjengelige eSIMs",
@@ -641,7 +668,8 @@
     "my.esims.package.valid": "Gyldig",
     "my.esims.package.data": "Data",
     "my.esims.package.day": "Dag",
-    "my.esims.package.days": "Dager"
+    "my.esims.package.days": "Dager",
+    "my.esims.no.esims": "Du har ennå ikke kjøpt noen eSIM."
   },
   "pl": {
     "my.esims.available.esims": "Dostępne eSIM",
@@ -664,7 +692,8 @@
     "my.esims.package.valid": "Ważny",
     "my.esims.package.data": "Dane",
     "my.esims.package.day": "Dzień",
-    "my.esims.package.days": "Dni"
+    "my.esims.package.days": "Dni",
+    "my.esims.no.esims": "Nie zakupiłeś jeszcze żadnej eSIM."
   },
   "pt": {
     "my.esims.available.esims": "eSIMs disponíveis",
@@ -687,7 +716,8 @@
     "my.esims.package.valid": "Válido",
     "my.esims.package.data": "Dados",
     "my.esims.package.day": "Dia",
-    "my.esims.package.days": "Dias"
+    "my.esims.package.days": "Dias",
+    "my.esims.no.esims": "Ainda não comprou nenhum eSIM."
   },
   "ro": {
     "my.esims.available.esims": "eSIM-uri disponibile",
@@ -710,7 +740,8 @@
     "my.esims.package.valid": "Valabil",
     "my.esims.package.data": "Date",
     "my.esims.package.day": "Zi",
-    "my.esims.package.days": "Zile"
+    "my.esims.package.days": "Zile",
+    "my.esims.no.esims": "Nu ați cumpărat încă niciun eSIM."
   },
   "ru": {
     "my.esims.available.esims": "Доступные eSIM",
@@ -733,7 +764,8 @@
     "my.esims.package.valid": "Действителен",
     "my.esims.package.data": "Данные",
     "my.esims.package.day": "День",
-    "my.esims.package.days": "Дни"
+    "my.esims.package.days": "Дни",
+    "my.esims.no.esims": "Вы еще не приобрели ни одного eSIM."
   },
   "sk": {
     "my.esims.available.esims": "Dostupné eSIM",
@@ -756,7 +788,8 @@
     "my.esims.package.valid": "Platný",
     "my.esims.package.data": "Dáta",
     "my.esims.package.day": "Deň",
-    "my.esims.package.days": "Dni"
+    "my.esims.package.days": "Dni",
+    "my.esims.no.esims": "Zatiaľ ste nekúpili žiadne eSIM."
   },
   "sl": {
     "my.esims.available.esims": "Razpoložljive eSIM",
@@ -779,7 +812,8 @@
     "my.esims.package.valid": "Veljaven",
     "my.esims.package.data": "Podatki",
     "my.esims.package.day": "Dan",
-    "my.esims.package.days": "Dnevi"
+    "my.esims.package.days": "Dnevi",
+    "my.esims.no.esims": "Še niste kupili nobene eSIM."
   },
   "sv": {
     "my.esims.available.esims": "Tillgängliga eSIM",
@@ -802,7 +836,8 @@
     "my.esims.package.valid": "Giltig",
     "my.esims.package.data": "Data",
     "my.esims.package.day": "Dag",
-    "my.esims.package.days": "Dagar"
+    "my.esims.package.days": "Dagar",
+    "my.esims.no.esims": "Du har ännu inte köpt någon eSIM."
   },
   "tr": {
     "my.esims.available.esims": "Mevcut eSIM'ler",
@@ -825,7 +860,8 @@
     "my.esims.package.valid": "Geçerli",
     "my.esims.package.data": "Veri",
     "my.esims.package.day": "Gün",
-    "my.esims.package.days": "Günler"
+    "my.esims.package.days": "Günler",
+    "my.esims.no.esims": "Henüz hiçbir eSIM satın almadınız."
   },
   "uk": {
     "my.esims.available.esims": "Доступні eSIM",
@@ -848,7 +884,8 @@
     "my.esims.package.valid": "Дійсний",
     "my.esims.package.data": "Дані",
     "my.esims.package.day": "День",
-    "my.esims.package.days": "Дні"
+    "my.esims.package.days": "Дні",
+    "my.esims.no.esims": "Ви ще не купили жодного eSIM."
   },
   "zh": {
     "my.esims.available.esims": "可用 eSIM",
@@ -871,7 +908,8 @@
     "my.esims.package.valid": "有效",
     "my.esims.package.data": "数据",
     "my.esims.package.day": "天",
-    "my.esims.package.days": "天"
+    "my.esims.package.days": "天",
+    "my.esims.no.esims": "您尚未购买任何 eSIM。"
   },
   "he": {
     "my.esims.available.esims": "eSIMs זמינים",
@@ -894,7 +932,8 @@
     "my.esims.package.valid": "תוקף",
     "my.esims.package.data": "נתונים",
     "my.esims.package.day": "יום",
-    "my.esims.package.days": "ימים"
+    "my.esims.package.days": "ימים",
+    "my.esims.no.esims": "עדיין לא רכשת eSIM."
   },
   "hi": {
     "my.esims.available.esims": "उपलब्ध eSIMs",
@@ -917,7 +956,8 @@
     "my.esims.package.valid": "वैध",
     "my.esims.package.data": "डेटा",
     "my.esims.package.day": "दिन",
-    "my.esims.package.days": "दिन"
+    "my.esims.package.days": "दिन",
+    "my.esims.no.esims": "आपने अभी तक कोई eSIM नहीं खरीदा है।"
   },
   "kmr": {
     "my.esims.available.esims": "eSIMs yên amade",
@@ -940,7 +980,8 @@
     "my.esims.package.valid": "Pêwîst",
     "my.esims.package.data": "Daneyên",
     "my.esims.package.day": "Roj",
-    "my.esims.package.days": "Roj"
+    "my.esims.package.days": "Roj",
+    "my.esims.no.esims": "Heta niha eSIMek nekirîye."
   },
   "ky": {
     "my.esims.available.esims": "Жакында eSIMдер",
@@ -963,7 +1004,8 @@
     "my.esims.package.valid": "Жарактуу",
     "my.esims.package.data": "Маалымат",
     "my.esims.package.day": "Күн",
-    "my.esims.package.days": "Күндөр"
+    "my.esims.package.days": "Күндөр",
+    "my.esims.no.esims": "Сиз азырынча эч нерсенин eSIMдерин сатып алган жоксуз."
   },
   "ms": {
     "my.esims.available.esims": "eSIM Tersedia",
@@ -986,7 +1028,8 @@
     "my.esims.package.valid": "Sah",
     "my.esims.package.data": "Data",
     "my.esims.package.day": "Hari",
-    "my.esims.package.days": "Hari"
+    "my.esims.package.days": "Hari",
+    "my.esims.no.esims": "Anda belum membeli sebarang eSIM."
   },
   "pt-BR": {
     "my.esims.available.esims": "eSIMs disponíveis",
@@ -1009,7 +1052,8 @@
     "my.esims.package.valid": "Válido",
     "my.esims.package.data": "Dados",
     "my.esims.package.day": "Dia",
-    "my.esims.package.days": "Dias"
+    "my.esims.package.days": "Dias",
+    "my.esims.no.esims": "Você ainda não comprou nenhum eSIM."
   },
   "pt-PT": {
     "my.esims.available.esims": "eSIMs disponíveis",
@@ -1032,7 +1076,8 @@
     "my.esims.package.valid": "Válido",
     "my.esims.package.data": "Dados",
     "my.esims.package.day": "Dia",
-    "my.esims.package.days": "Dias"
+    "my.esims.package.days": "Dias",
+    "my.esims.no.esims": "Ainda não comprou nenhum eSIM."
   },
   "sr-CS": {
     "my.esims.available.esims": "Dostupni eSIM-ovi",
@@ -1055,7 +1100,8 @@
     "my.esims.package.valid": "Važeći",
     "my.esims.package.data": "Podaci",
     "my.esims.package.day": "Dan",
-    "my.esims.package.days": "Dani"
+    "my.esims.package.days": "Dani",
+    "my.esims.no.esims": "Jo uvek niste kupili nijedan eSIM."
   },
   "es-419": {
     "my.esims.available.esims": "eSIMs disponibles",
@@ -1078,7 +1124,8 @@
     "my.esims.package.valid": "Válido",
     "my.esims.package.data": "Datos",
     "my.esims.package.day": "Día",
-    "my.esims.package.days": "Días"
+    "my.esims.package.days": "Días",
+    "my.esims.no.esims": "Aún no has comprado ningún eSIM."
   },
   "sv-SE": {
     "my.esims.available.esims": "Tillgängliga eSIM",
@@ -1101,7 +1148,8 @@
     "my.esims.package.valid": "Giltig",
     "my.esims.package.data": "Data",
     "my.esims.package.day": "Dag",
-    "my.esims.package.days": "Dagar"
+    "my.esims.package.days": "Dagar",
+    "my.esims.no.esims": "Du har ännu inte köpt någon eSIM."
   },
   "tl": {
     "my.esims.available.esims": "Mga Magagamit na eSIM",
@@ -1124,7 +1172,8 @@
     "my.esims.package.valid": "Bisa",
     "my.esims.package.data": "Data",
     "my.esims.package.day": "Araw",
-    "my.esims.package.days": "Araw"
+    "my.esims.package.days": "Araw",
+    "my.esims.no.esims": "Hindi ka pa bumili ng anumang eSIM."
   },
   "th": {
     "my.esims.available.esims": "eSIM ที่มีอยู่",
@@ -1147,7 +1196,8 @@
     "my.esims.package.valid": "ถูกต้อง",
     "my.esims.package.data": "ข้อมูล",
     "my.esims.package.day": "วัน",
-    "my.esims.package.days": "วัน"
+    "my.esims.package.days": "วัน",
+    "my.esims.no.esims": "คุณยังไม่ได้ซื้อ eSIM ใด ๆ"
   },
   "ur-PK": {
     "my.esims.available.esims": "دستیاب eSIMs",
@@ -1170,7 +1220,8 @@
     "my.esims.package.valid": "معتبر",
     "my.esims.package.data": "ڈیٹا",
     "my.esims.package.day": "دن",
-    "my.esims.package.days": "دن"
+    "my.esims.package.days": "دن",
+    "my.esims.no.esims": "آپ نے ابھی تک کوئی eSIM خریدی نہیں ہے۔"
   },
   "uz": {
     "my.esims.available.esims": "Mavjud eSIMlar",
@@ -1193,7 +1244,8 @@
     "my.esims.package.valid": "Amaldagi",
     "my.esims.package.data": "Ma'lumot",
     "my.esims.package.day": "Kun",
-    "my.esims.package.days": "Kunlar"
+    "my.esims.package.days": "Kunlar",
+    "my.esims.no.esims": "Siz hali hech qanday eSIM sotib olmadingiz."
   },
   "vi": {
     "my.esims.available.esims": "eSIM có sẵn",
@@ -1216,7 +1268,8 @@
     "my.esims.package.valid": "Có hiệu lực",
     "my.esims.package.data": "Dữ liệu",
     "my.esims.package.day": "Ngày",
-    "my.esims.package.days": "Ngày"
+    "my.esims.package.days": "Ngày",
+    "my.esims.no.esims": "Bạn chưa mua bất kỳ eSIM nào."
   },
   "vls-BE": {
     "my.esims.available.esims": "Beschikbare eSIMs",
@@ -1239,6 +1292,7 @@
     "my.esims.package.valid": "Geldig",
     "my.esims.package.data": "Data",
     "my.esims.package.day": "Dag",
-    "my.esims.package.days": "Dagen"
+    "my.esims.package.days": "Dagen",
+    "my.esims.no.esims": "Je hebt nog geen eSIM gekocht."
   }
 }
