@@ -70,7 +70,7 @@ class MySimsPageBuilder {
         return '<div class="my-esim-page-wrapper">
                     <div class="left-menu">
                         <div>
-                            <p class="left-menu-title">' . $this->t( 'my.esims.no.esims' ) . '</p>
+                            <p class="left-menu-title">' . $this->t( 'my.esims.available.esims' ) . '</p>
                             <div class="esims-list" id="esims-list">
                                 ' . implode( '', $esim_list ) . '
                             </div>
