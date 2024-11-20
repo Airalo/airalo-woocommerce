@@ -1,13 +1,9 @@
 body {
-    --wp--my--esim--color--primary: var(--wp--preset--color--primary);
-    --wp--my--esim--color--secondary: var(--wp--preset--color--secondary);
-    --wp--my--esim--color--tertiary: var(--wp--preset--color--tertiary);
-    --wp--my--esim--color--contrast: var(--wp--preset--color--contrast);
-    --wp--my--esim--color--base-2: var(--wp--preset--color--base, --wp--preset--color--secondary);
-
-    --wp--my--esim--color--text: var(--wp--my--esim--color--contrast, --wp--preset--color--base);
-    --wp--my--esim--color--backgroud: var(--wp--preset--color--base, transparent);
-    --wp--my--esim--color--border: var(--wp--preset--color--contrast, #ddd);
+    --wp--airalo--my--esim--color--base: #ff5252;
+    --wp--airalo--my--esim--color--contrast: #252525;
+    --wp--airalo--my--esim--color--primary: #ffffff;
+    --wp--airalo--my--esim--color--secondary: #ff2d34;
+    --wp--airalo--my--esim--color--tertiary: #ff7e7e;
 }
 @media only screen and (max-width: 768px) {
     .my-esim-page-wrapper {
@@ -46,12 +42,12 @@ body {
     color: transparent !important;
 }
 .my-esims-left-menu {
-    border: 1px solid var(--wp--my--esim--color--border);
+    border: 1px solid var(--wp--airalo--my--esim--color--contrast);
 }
 .my-esims-left-menu-title {
-    color: var(--wp--my--esim--color--contrast);
-    background-color: var(--wp--my--esim--color--base-2);
-    border-bottom: 1px solid var(--wp--my--esim--color--border);
+    color: var(--wp--airalo--my--esim--color--primary);
+    background-color: var(--wp--airalo--my--esim--color--contrast);
+    border-bottom: 1px solid var(--wp--airalo--my--esim--color--contrast);
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
@@ -67,8 +63,8 @@ body {
 }
 .esim-list-title {
     padding: 16px;
-    color: var(--wp--my--esim--color--text);
-    background-color: var(--wp--my--esim--color--backgroud, var(--wp--preset--color--base-2));
+    color: var(--wp--airalo--my--esim--color--contrast);
+    background-color: var(--wp--airalo--my--esim--color--tertiary);
     font-size: 16px;
     font-style: normal;
     font-weight: 400;
@@ -79,8 +75,8 @@ body {
 }
 .esim-list-title:hover,
 .esim-list-title.active {
-    background-color: var(--wp--my--esim--color--secondary, var(--wp--preset--color--contrast-2));
-    color: var(--wp--my--esim--color--primary, var(--wp--preset--color--base-2));
+    background-color: var(--wp--airalo--my--esim--color--secondary);
+    color: var(--wp--airalo--my--esim--color--primary);
 }
 
 .my-esims-page-content-list {
@@ -96,13 +92,13 @@ body {
 }
 .my-esims-page-list-title {
     padding: 16px;
-    border: 1px solid var(--wp--my--esim--color--border);
+    border: 1px solid var(--wp--airalo--my--esim--color--contrast);
     border-left: 0!important;
     outline-width: 1px;
     cursor: pointer;
     display: block;
-    background-color: var(--wp--my--esim--color--base-2);
-    color: var(--wp--my--esim--color--contrast);
+    color: var(--wp--airalo--my--esim--color--primary);
+    background-color: var(--wp--airalo--my--esim--color--contrast);
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
@@ -132,9 +128,9 @@ body {
     max-height: 0;
     overflow: hidden;
     transition: 0.5s;
-    border-right: 1px solid var(--wp--my--esim--color--border);
-    border-bottom: 1px solid var(--wp--my--esim--color--border);
-    background-color: var(--wp--my--esim--color--base-2);
+    border-right: 1px solid var(--wp--airalo--my--esim--color--contrast);
+    border-bottom: 1px solid var(--wp--airalo--my--esim--color--contrast);
+    background-color: var(--wp--airalo--my--esim--color--base);
 }
 .my-esims-page-list-desc > div {
     margin: 16px;
@@ -148,7 +144,7 @@ body {
     gap: 16px;
     margin: 16px 8px;
     padding: 16px;
-    border: 1px solid var(--wp--my--esim--color--border);
+    border: 1px solid var(--wp--airalo--my--esim--color--contrast);
 }
 
 .qr-code-wrapper,
@@ -189,8 +185,8 @@ body {
     gap: 16px;
     padding: 16px;
     border-radius: 16px;
-    border: 1px solid var(--wp--my--esim--color--border);
-    background-color: var(--wp--my--esim--color--base-2);
+    border: 1px solid var(--wp--airalo--my--esim--color--contrast);
+    background-color: var(--wp--airalo--my--esim--color--base);
 }
 .installation-instruction-card-title {
     display: flex;
@@ -208,10 +204,10 @@ body {
     flex-direction: column;
     align-items: flex-start;
     border-radius: 16px;
-    border: 1px solid var(--wp--my--esim--color--border);
+    border: 1px solid var(--wp--airalo--my--esim--color--contrast);
     justify-self: center;
     align-self: center;
-    background-color: var(--wp--my--esim--color--base-2);
+    background-color: var(--wp--airalo--my--esim--color--base);
 }
 .installation-manual-left-content * {
     word-break: break-all;
@@ -262,7 +258,7 @@ body {
     gap: 24px;
     margin: 16px 8px;
     padding: 16px;
-    border: 1px solid var(--wp--my--esim--color--border);
+    border: 1px solid var(--wp--airalo--my--esim--color--contrast);
 }
 .data-usage-package-title {
     display: flex;
@@ -273,7 +269,7 @@ body {
     color: #6C2BD9 !important;
 }
 .data-usage-package-date-status {
-    background-color: var(--wp--my--esim--color--base-2);
+    background-color: var(--wp--airalo--my--esim--color--secondary);
     color: var(--wp--my--esim--color--primary);
     border: 1px solid var(--wp--my--esim--color--border);
 }
@@ -319,12 +315,12 @@ body {
     gap: 48px;
     margin: 16px 8px;
     padding: 16px;
-    border: 1px solid var(--wp--my--esim--color--contrast);
+    border: 1px solid var(--wp--airalo--my--esim--color--contrast);
 }
 
 .progress-bar {
     width: 100%;
-    background-color: var(--wp--my--esim--color--contrast, #ddd);
+    background-color: var(--wp--airalo--my--esim--color--secondary);
     padding: 0;
     border-radius: 3px;
 }
@@ -332,7 +328,7 @@ body {
 .progress-bar-fill {
     display: block;
     height: 6px;
-    background-color: var(--wp--my--esim--color--primary);
+    background-color: var(--wp--airalo--my--esim--color--primary);
     border-radius: 3px;
     transition: width 500ms ease-in-out;
 }
@@ -340,7 +336,7 @@ body {
 .vertical-divider {
     width: 1px;
     height: 448px;
-    background-color: var(--wp--my--esim--color--border);
+    background-color: var(--wp--airalo--my--esim--color--contrast);
 }
 
 .trail-title-4 {
@@ -348,7 +344,7 @@ body {
     font-style: normal;
     font-weight: 600;
     line-height: 18px;
-    color: var(--wp--my--esim--color--contrast);
+    color: var(--wp--airalo--my--esim--color--primary);
 }
 
 .trail-title-5 {
@@ -356,7 +352,7 @@ body {
     font-style: normal;
     font-weight: 500;
     line-height: 16px;
-    color: var(--wp--my--esim--color--contrast);
+    color: var(--wp--airalo--my--esim--color--primary);
 }
 
 .trail-body-2 {
@@ -364,7 +360,7 @@ body {
     font-style: normal;
     font-weight: 400;
     line-height: 26px;
-    color: var(--wp--my--esim--color--contrast);
+    color: var(--wp--airalo--my--esim--color--primary);
 }
 
 .trail-body-3 {
@@ -372,7 +368,7 @@ body {
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
-    color: var(--wp--my--esim--color--contrast);
+    color: var(--wp--airalo--my--esim--color--primary);
 }
 
 .trail-caption {
@@ -380,7 +376,7 @@ body {
     font-style: normal;
     font-weight: 400;
     line-height: 22px;
-    color: var(--wp--my--esim--color--contrast);
+    color: var(--wp--airalo--my--esim--color--primary);
 }
 
 .trail-badge {
@@ -405,7 +401,7 @@ body {
     padding: 16px;
     cursor: pointer;
     user-select: none !important;
-    color: var(--wp--my--esim--color--contrast);
+    color: var(--wp--airalo--my--esim--color--primary);
 }
 
 .my-esim-page-tabs-radio {
@@ -421,7 +417,7 @@ body {
 
 .my-esim-page-tabs-radio:checked + .my-esim-page-tabs_label {
     font-weight: bold;
-    color: var(--wp--my--esim--color--contrast);
+    color: var(--wp--airalo--my--esim--color--primary);
     border-bottom: 2px solid var(--wp--my--esim--color--border);
 }
 
