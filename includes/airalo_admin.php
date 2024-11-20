@@ -9,6 +9,25 @@ use Airalo\Admin\AiraloOrder;
 use Airalo\Admin\OrderValidator;
 use Airalo\Helpers\Cached;
 
+add_action( 'admin_enqueue_scripts', 'airalo_enqueue_admin_styles' );
+
+function airalo_enqueue_admin_styles() {
+    wp_enqueue_style(
+        'airalo-reset-style',
+        plugin_dir_url( __FILE__ ) . '../assets/css/resetStyle.css',
+        [],
+        AIRALO_PLUGIN_VERSION
+    );
+
+    // Enqueue main plugin styles
+    wp_enqueue_style(
+        'airalo-plugin-style',
+        plugin_dir_url( __FILE__ ) . '../assets/css/pluginStyle.css',
+        [],
+        AIRALO_PLUGIN_VERSION
+    );
+}
+
 add_action( 'admin_menu', 'airalo_menu' );
 
 function airalo_menu () {
@@ -59,9 +78,6 @@ function airalo_settings_page () {
 
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-	<style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/resetStyle.css'; ?></style>
-	<style><?php require plugin_dir_path( __FILE__ ) . '../assets/css/pluginStyle.css'; ?></style>
 
 	<div id="airalo-container">
 		<div class="airaloPluginHeader">

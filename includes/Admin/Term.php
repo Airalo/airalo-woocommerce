@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Term {
 
-	const IMAGE_NAME_PREFIX = 'operator_image_';
+	const IMAGE_NAME_PREFIX = 'airalo_operator_image_';
 	const IMAGE_METADATA_KEY = 'image_id';
 
 	public function fetch_or_create_image_term( $operator ) {
@@ -25,15 +25,23 @@ class Term {
 		// Taxonomies are stored in memory while terms are stored in db
 		// every time sync runs we have to create 1 taxonomy per operator
 		// to be able to fetch the term connected to it
-		$this->create_image_taxonomy( $operator, $taxonomy_name, $term_name );
+		$this->create_image_taxonomy( $operator, $term_name );
 
 		return get_term_by( 'slug', $term_name, $taxonomy_name );
 	}
 
-	private function create_image_taxonomy( $operator, string $name, string $term_name ) {
+	private function create_image_taxonomy( $operator, string $term_name ) {
+		$operator_id = esc_html( $operator->id );
+
 		$labels = [
-			'name' => _x( $name, 'taxonomy general name', 'airalo' ),
-			'singular_name' => _x( $name . '_singular', 'taxonomy singular name', 'airalo' ),
+			'name' => sprintf(
+				_x( 'airalo_operator_image_%s', 'taxonomy general name', 'airalo' ),
+				$operator_id
+			),
+			'singular_name' => sprintf(
+				_x( 'airalo_operator_image_%s_singular', 'taxonomy singular name', 'airalo' ),
+				$operator_id
+ 			),
 		];
 
 		$args = [
@@ -41,10 +49,10 @@ class Term {
 			'show_ui' => true,
 			'show_admin_column' => true,
 			'query_var' => true,
-			'rewrite' => [ 'slug' => $name ],
+			'rewrite' => [ 'slug' => self::IMAGE_NAME_PREFIX . $operator_id ],
 		];
 
-		$taxonomy = register_taxonomy( $name, ['post'], $args );
+		$taxonomy = register_taxonomy( self::IMAGE_NAME_PREFIX . $operator_id, ['post'], $args );
 
 		$this->add_term_to_taxonomy( $taxonomy, $term_name, 'image_id', $operator );
 

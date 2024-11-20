@@ -16,6 +16,13 @@ class MySimsPageBuilder {
         $translations = file_get_contents( __DIR__ . '../../../languages/translations.json' );
         $this->translations = json_decode( $translations, true );
         $this->language_texts = $this->translations[$language];
+
+        $this->enqueue_assets();
+    }
+
+    public function enqueue_assets() {
+        wp_enqueue_style( 'my-esim-page-style', plugin_dir_url( __FILE__ ) . '../../assets/css/myEsimPageStyle.css', [], AIRALO_PLUGIN_VERSION );
+        wp_enqueue_script( 'my-esim-page-script', plugin_dir_url( __FILE__ ) . '../airalo-js/my_esim_page.js', [], AIRALO_PLUGIN_VERSION, true );
     }
 
     /**
@@ -30,14 +37,16 @@ class MySimsPageBuilder {
      * @return string
      */
     public function build_html() {
-        wp_enqueue_script( 'my-esim-page', plugin_dir_url( __FILE__ ) . '../../includes/airalo-js/my_esim_page.js', [], '1.0.0', true );
-
         $all_orders_details = ( new \Airalo\User\MySimsDetails() )->get_all_user_order_details();
 
-        $iccid = $_GET['iccid'] ?? $all_orders_details[0]['iccid'];
+        if ( empty( $all_orders_details ) ) {
+            return '<div><p>' . $this->t( 'my.esims.no.esims' ) . '</p></div>';
+        }
+
+        $iccid = isset( $_GET['iccid'] ) ? sanitize_text_field( $_GET['iccid'] ) : $all_orders_details[0]['iccid'];
 
         $esim_list = [];
-        $current_url_path = strtok( $_SERVER["REQUEST_URI"], '&' );
+        $current_url_path = esc_url_raw( strtok( $_SERVER["REQUEST_URI"], '&' ) );
 
         foreach ( $all_orders_details as $esim ) {
             $sim_name_class = "esim-list-title";
@@ -72,14 +81,14 @@ class MySimsPageBuilder {
                         <ul class="my-esims-page-content-list" id="my-esims-page-content-list">
                             <li>
                                 <input type="checkbox" class="my-esims-page-content-list-checkbox" name="usage-content" id="my-esims-page-list-usage" />
-                                <label for="my-esims-page-list-usage" class="my-esims-page-list-title">' . $this->t('my.esims.usage') . '</label>
+                                <label for="my-esims-page-list-usage" class="my-esims-page-list-title">' . $this->t( 'my.esims.usage' ) . '</label>
                                 <div class="my-esims-page-list-desc">
                                 ' . $this->get_usage_data( $iccid ) . '
                                 </div>
                             </li>
                             <li>
                                 <input type="checkbox" class="my-esims-page-content-list-checkbox" name="installation-content" id="my-esims-page-list-installation" />
-                                <label for="my-esims-page-list-installation" class="my-esims-page-list-title">' . $this->t('my.esims.installation') . '</label>
+                                <label for="my-esims-page-list-installation" class="my-esims-page-list-title">' . $this->t( 'my.esims.installation' ) . '</label>
                                 <div class="my-esims-page-list-desc">
                                     ' . $this->get_qr_and_manual_tabs( $iccid ) . '
                                 </div>
@@ -97,7 +106,7 @@ class MySimsPageBuilder {
         $details_client = new \Airalo\User\MySimsDetails();
 
         $all_orders_details = $details_client->get_all_user_order_details();
-        $current_iccid = $_GET['iccid'] ?? $default_iccid;
+        $current_iccid = isset( $_GET['iccid'] ) ? sanitize_text_field( $_GET['iccid'] ) : $default_iccid;
 
         $data_usage_item = [];
 
@@ -180,16 +189,16 @@ class MySimsPageBuilder {
     private function get_installation_form_content( string $type ) {
         return '<div class="qr-code-right">
                     <div class="qr-code-right-item">
-                        <p class="trail-body-3">' . $this->t('my.esims.select-platform') . '</p>
+                        <p class="trail-body-3">' . $this->t( 'my.esims.select-platform' ) . '</p>
                         <div class="select-wrapper">
                             <select class="select" name="platform" id="' . $type . '-select-platform" onchange="' . $type . 'CheckPlatform(this.value)">
-                                <option value="ios">' . $this->t('my.esims.ios-device') . '</option>
-                                <option value="android">' . $this->t('my.esims.android') . '</option>
+                                <option value="ios">' . $this->t( 'my.esims.ios-device' ) . '</option>
+                                <option value="android">' . $this->t( 'my.esims.android' ) . '</option>
                             </select>
                         </div>
                     </div>
                     <div class="qr-code-right-item none">
-                        <p class="trail-body-3">' . $this->t('my.esims.select-device') . '</p>
+                        <p class="trail-body-3">' . $this->t( 'my.esims.select-device' ) . '</p>
                         <div class="select-wrapper">
                             <select class="select" name="device" id="select-device">
                                 <option value="ios-17">iOS 17</option>
@@ -199,11 +208,11 @@ class MySimsPageBuilder {
                         </div>
                     </div>
                     <div class="qr-code-right-item">
-                        <p class="trail-title-4">' . $this->t('my.esims.installation-instructions') . '</p>
+                        <p class="trail-title-4">' . $this->t( 'my.esims.installation-instructions' ) . '</p>
                         <div class="qr-code-installation-instructions">
                             <div class="installation-instruction-card-title">
                                 <img alt="airalo-instruction-check" width="24" height="24"  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjUiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNSAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IkNoYW5nZSB0byI+CjxwYXRoIGlkPSJjb250ZW50IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTEyLjUgMy43NUM3Ljk0MzY1IDMuNzUgNC4yNSA3LjQ0MzY1IDQuMjUgMTJDNC4yNSAxNi41NTYzIDcuOTQzNjUgMjAuMjUgMTIuNSAyMC4yNUMxNy4wNTYzIDIwLjI1IDIwLjc1IDE2LjU1NjMgMjAuNzUgMTJDMjAuNzUgNy40NDM2NSAxNy4wNTYzIDMuNzUgMTIuNSAzLjc1Wk0yLjc1IDEyQzIuNzUgNi42MTUyMiA3LjExNTIyIDIuMjUgMTIuNSAyLjI1QzE3Ljg4NDggMi4yNSAyMi4yNSA2LjYxNTIyIDIyLjI1IDEyQzIyLjI1IDE3LjM4NDggMTcuODg0OCAyMS43NSAxMi41IDIxLjc1QzcuMTE1MjIgMjEuNzUgMi43NSAxNy4zODQ4IDIuNzUgMTJaTTE1LjkzNTkgOS4xMzk3QzE2LjI3MyA5LjM4MDQ2IDE2LjM1MTEgOS44NDg4NyAxNi4xMTAzIDEwLjE4NTlMMTIuMzYwMyAxNS40MzU5QzEyLjIzMjIgMTUuNjE1MyAxMi4wMzE2IDE1LjcyOTMgMTEuODExOSAxNS43NDc0QzExLjU5MjEgMTUuNzY1NiAxMS4zNzU2IDE1LjY4NjIgMTEuMjE5NyAxNS41MzAzTDguOTY5NjcgMTMuMjgwM0M4LjY3Njc4IDEyLjk4NzQgOC42NzY3OCAxMi41MTI2IDguOTY5NjcgMTIuMjE5N0M5LjI2MjU2IDExLjkyNjggOS43Mzc0NCAxMS45MjY4IDEwLjAzMDMgMTIuMjE5N0wxMS42NTQzIDEzLjg0MzZMMTQuODg5NyA5LjMxNDA3QzE1LjEzMDUgOC45NzcwMSAxNS41OTg5IDguODk4OTQgMTUuOTM1OSA5LjEzOTdaIiBmaWxsPSIjMTExOTI4Ii8+CjwvZz4KPC9zdmc+Cg==">
-                                <p class="trail-body-2">' . $this->t('my.esims.installation.instructions.description') . '</p>
+                                <p class="trail-body-2">' . $this->t( 'my.esims.installation.instructions.description' ) . '</p>
                             </div>
                             <div class="installation-instruction-card-content">
                                 <ul class="installation-instruction-card-list" id="' . $type . '-installation-instruction-steps"></ul>
@@ -218,7 +227,7 @@ class MySimsPageBuilder {
      * @return string
      */
     private function get_qr_and_manual_tabs( string $default_iccid ) {
-        $iccid = $_GET['iccid'] ?? $default_iccid;
+        $iccid = isset( $_GET['iccid'] ) ? sanitize_text_field( $_GET['iccid'] ) : $default_iccid;
         if ( ! $iccid ) {
             return;
         }
@@ -237,23 +246,22 @@ class MySimsPageBuilder {
         $ios_data = $response->data->instructions->ios[0];
         $android_data = $response->data->instructions->android[0];
 
-        $set_script_values = '<script>
-            var iosData = ' . json_encode( $ios_data ) . ';
-            var androidData = ' . json_encode( $android_data ) . ';
-            
-            var iosInstallationQrSteps = ' . json_encode( $ios_data->installation_via_qr_code->steps ) . ';
-            var iosInstallationManualSteps = ' . json_encode( $ios_data->installation_manual->steps ) . ';
-            var androidInstallationQrSteps = ' . json_encode( $android_data->installation_via_qr_code->steps ) . ';
-            var androidInstallationManualSteps = ' . json_encode( $android_data->installation_manual->steps ) . ';
-            
-            var iosQrCodeUrl = ' . json_encode( $ios_data->installation_via_qr_code->qr_code_url ) . ';
-            var androidQrCodeUrl = ' . json_encode( $android_data->installation_via_qr_code->qr_code_url ) . ';
-            
-            var iosManualSMDPAddressAndActivationCode = ' . json_encode( $ios_data->installation_manual->smdp_address_and_activation_code ) . ';
-            var androidManualSMDPAddressAndActivationCode = ' . json_encode( $android_data->installation_manual->smdp_address_and_activation_code ) . ';
-        </script>';
+        $localize_data = [
+            'iosData' => $ios_data,
+            'androidData' => $android_data,
+            'iosInstallationQrSteps' => $ios_data->installation_via_qr_code->steps,
+            'androidInstallationQrSteps' => $android_data->installation_via_qr_code->steps,
+            'iosInstallationManualSteps' => $ios_data->installation_manual->steps,
+            'androidInstallationManualSteps' => $android_data->installation_manual->steps,
+            'iosQrCodeUrl' => $ios_data->installation_via_qr_code->qr_code_url,
+            'androidQrCodeUrl' => $android_data->installation_via_qr_code->qr_code_url,
+            'iosManualSMDPAddressAndActivationCode' => $ios_data->installation_manual->smdp_address_and_activation_code,
+            'androidManualSMDPAddressAndActivationCode' => $android_data->installation_manual->smdp_address_and_activation_code,
+        ];
 
-        return $set_script_values . '
+        wp_localize_script( 'my-esim-page-script', 'myEsimData', $localize_data );
+
+        return '
             <div class="qr-and-manual-wrapper">
                 <div class="my-esim-page-tabs">
                     <input type="radio" class="my-esim-page-tabs-radio" name="installation-type" id="my-esim-page-tab-qr" checked>
@@ -270,12 +278,12 @@ class MySimsPageBuilder {
                         </div>
                     </div>
                     <input type="radio" class="my-esim-page-tabs-radio" name="installation-type" id="my-esim-page-tab-manual">
-                    <label for="my-esim-page-tab-manual" class="my-esim-page-tabs_label">' . $this->t('my.esims.installation.instructions.manual') . '</label>
+                    <label for="my-esim-page-tab-manual" class="my-esim-page-tabs_label">' . $this->t( 'my.esims.installation.instructions.manual' ) . '</label>
                     <div class="my-esim-page-tabs_content">
                         <div class="installation-manual-wrapper">
                             <div class="installation-manual-left-content">
                                 <div class="installation-manual-smdp-activation">
-                                    <p class="trail-title-5">' . $this->t('my.esims.installation.manual.sm.dp.activation') . '</p>
+                                    <p class="trail-title-5">' . $this->t( 'my.esims.installation.manual.sm.dp.activation' ) . '</p>
                                     <p class="trail-body-2" id="manualSMDPAddressAndActivationCode"></p>
                                 </div>
                             </div>
