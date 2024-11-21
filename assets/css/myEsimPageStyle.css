@@ -80,18 +80,19 @@ body {
 }
 
 .my-esims-page-content-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 .my-esims-page-content-list > li {
-    padding: 0;
+    padding: 0 !important;
 }
 .my-esims-page-content-list-checkbox {
     display: none !important;
 }
 .my-esims-page-list-title {
     padding: 16px;
+    margin: 0;
     border: 1px solid var(--wp--airalo--my--esim--color--contrast);
     border-left: 0!important;
     outline-width: 1px;
@@ -219,7 +220,7 @@ body {
 .installation-instruction-card-list {
     margin: 0;
     padding: 0;
-    list-style: none;
+    list-style: none !important;
 }
 .select-wrapper {
     position: relative;
@@ -418,7 +419,7 @@ body {
 .my-esim-page-tabs-radio:checked + .my-esim-page-tabs_label {
     font-weight: bold;
     color: var(--wp--airalo--my--esim--color--primary);
-    border-bottom: 2px solid var(--wp--my--esim--color--border);
+    border-bottom: 2px solid var(--wp--airalo--my--esim--color--contrast);
 }
 
 .my-esim-page-tabs-radio:checked + .my-esim-page-tabs_label + .my-esim-page-tabs_content {
