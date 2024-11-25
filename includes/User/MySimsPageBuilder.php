@@ -67,8 +67,7 @@ class MySimsPageBuilder {
             $esim_list[] = '<a class="esim-list-link link-clear" href="' . $current_url_path . $iccid_slug . '">' . $sim_name_element . '</a>';
         }
 
-        return '<style>' . esc_attr( file_get_contents( __DIR__ . '/../../assets/css/myEsimPageStyle.css' ) ) . '</style>' .
-            '<div class="my-esim-page-wrapper">
+        return '<div class="my-esim-page-wrapper">
                     <div class="my-esims-left-menu">
                         <div>
                             <p class="my-esims-left-menu-title">' . $this->t('my.esims.available.esims') . '</p>
