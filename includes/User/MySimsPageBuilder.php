@@ -68,9 +68,9 @@ class MySimsPageBuilder {
         }
 
         return '<div class="my-esim-page-wrapper">
-                    <div class="left-menu">
+                    <div class="my-esims-left-menu">
                         <div>
-                            <p class="left-menu-title">' . $this->t( 'my.esims.available.esims' ) . '</p>
+                            <p class="my-esims-left-menu-title">' . $this->t('my.esims.available.esims') . '</p>
                             <div class="esims-list" id="esims-list">
                                 ' . implode( '', $esim_list ) . '
                             </div>
@@ -134,16 +134,16 @@ class MySimsPageBuilder {
 
         return '<div class="usage-wrapper-items">
                     <div>
-                        <p class="trail-title-5">' . $this->t('my.esims.coverage') . '</p>
-                        <p class="trail-body-2">' . ( $data_usage_item['sim_name'] ?? null ) . '</p>
+                        <p class="trail-title-5 text-color-title-negative">' . $this->t('my.esims.coverage') . '</p>
+                        <p class="trail-body-2 text-color-body-normal">' . ( $data_usage_item['sim_name'] ?? null ) . '</p>
                     </div>
                     <div>
-                        <p class="trail-title-5">' . $this->t('my.esims.iccid') . '</p>
-                        <p class="trail-body-2">' . ( $data_usage_item['iccid'] ?? null ) . '</p>
+                        <p class="trail-title-5 text-color-title-negative">' . $this->t('my.esims.iccid') . '</p>
+                        <p class="trail-body-2 text-color-body-normal">' . ( $data_usage_item['iccid'] ?? null ) . '</p>
                     </div>
                     <div>
-                        <p class="trail-title-5">' . $this->t('my.esims.package') . '</p>
-                        <p class="trail-body-2">' . ( $data_usage_item['coverage'] ?? null ) . '</p>
+                        <p class="trail-title-5 text-color-title-negative">' . $this->t('my.esims.package') . '</p>
+                        <p class="trail-body-2 text-color-body-normal">' . ( $data_usage_item['coverage'] ?? null ) . '</p>
                     </div>
                 </div>
                 <div class="data-usage-packages-wrapper">
@@ -154,18 +154,18 @@ class MySimsPageBuilder {
                     <div class="data-usage-package-date-left">
                         <p class="trail-badge trail-title-4 data-usage-package-date-status">' . $data_usage_item['status'] . '</p>
                         <div class="data-usage-package-date">
-                            <p class="trail-title-5">' . $this->t('my.esims.date') . '</p>
-                            <p class="trail-body-2">' . $data_usage_item['expired_at'] . '</p>
+                            <p class="trail-title-5 text-color-title-negative">' . $this->t('my.esims.date') . '</p>
+                            <p class="trail-body-2 text-color-body-normal">' . $data_usage_item['expired_at'] . '</p>
                         </div>
                     </div>
                     <div class="data-usage-package-date-right">
                         <div>
-                            <p class="trail-title-5 trail-color-title-highlight">' . $this->t('my.esims.package.valid') . '</p>
-                            <p class="trail-body-2">' . implode( ' ', [$validity_and_data[1], $validity_and_data[2]] ) . '</p>
+                            <p class="trail-title-5 text-color-title-highlight">' . $this->t('my.esims.package.valid') . '</p>
+                            <p class="trail-body-2 text-color-body-normal">' . implode( ' ', [$validity_and_data[1], $validity_and_data[2]] ) . '</p>
                         </div>
                         <div>
-                            <p class="trail-title-5 trail-color-title-highlight">' . $this->t('my.esims.package.data') . '</p>
-                            <p class="trail-body-2">' . implode( ' ', [$validity_and_data[3], $validity_and_data[4]] ) . '</p>
+                            <p class="trail-title-5 text-color-title-highlight">' . $this->t('my.esims.package.data') . '</p>
+                            <p class="trail-body-2 text-color-body-normal">' . implode( ' ', [$validity_and_data[3], $validity_and_data[4]] ) . '</p>
                         </div>
                     </div>
                 </div>
@@ -188,7 +188,7 @@ class MySimsPageBuilder {
     private function get_installation_form_content( string $type ) {
         return '<div class="qr-code-right">
                     <div class="qr-code-right-item">
-                        <p class="trail-body-3">' . $this->t( 'my.esims.select-platform' ) . '</p>
+                        <p class="trail-body-3 text-color-body-normal">' . $this->t( 'my.esims.select-platform' ) . '</p>
                         <div class="select-wrapper">
                             <select class="select" name="platform" id="' . $type . '-select-platform" onchange="' . $type . 'CheckPlatform(this.value)">
                                 <option value="ios">' . $this->t( 'my.esims.ios-device' ) . '</option>
@@ -197,7 +197,7 @@ class MySimsPageBuilder {
                         </div>
                     </div>
                     <div class="qr-code-right-item none">
-                        <p class="trail-body-3">' . $this->t( 'my.esims.select-device' ) . '</p>
+                        <p class="trail-body-3 text-color-body-normal">' . $this->t( 'my.esims.select-device' ) . '</p>
                         <div class="select-wrapper">
                             <select class="select" name="device" id="select-device">
                                 <option value="ios-17">iOS 17</option>
@@ -207,7 +207,7 @@ class MySimsPageBuilder {
                         </div>
                     </div>
                     <div class="qr-code-right-item">
-                        <p class="trail-title-4">' . $this->t( 'my.esims.installation-instructions' ) . '</p>
+                        <p class="trail-title-4 text-color-title-normal">' . $this->t( 'my.esims.installation-instructions' ) . '</p>
                         <div class="qr-code-installation-instructions">
                             <div class="installation-instruction-card-title">
                                 <img alt="airalo-instruction-check" width="24" height="24"  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjUiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNSAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IkNoYW5nZSB0byI+CjxwYXRoIGlkPSJjb250ZW50IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTEyLjUgMy43NUM3Ljk0MzY1IDMuNzUgNC4yNSA3LjQ0MzY1IDQuMjUgMTJDNC4yNSAxNi41NTYzIDcuOTQzNjUgMjAuMjUgMTIuNSAyMC4yNUMxNy4wNTYzIDIwLjI1IDIwLjc1IDE2LjU1NjMgMjAuNzUgMTJDMjAuNzUgNy40NDM2NSAxNy4wNTYzIDMuNzUgMTIuNSAzLjc1Wk0yLjc1IDEyQzIuNzUgNi42MTUyMiA3LjExNTIyIDIuMjUgMTIuNSAyLjI1QzE3Ljg4NDggMi4yNSAyMi4yNSA2LjYxNTIyIDIyLjI1IDEyQzIyLjI1IDE3LjM4NDggMTcuODg0OCAyMS43NSAxMi41IDIxLjc1QzcuMTE1MjIgMjEuNzUgMi43NSAxNy4zODQ4IDIuNzUgMTJaTTE1LjkzNTkgOS4xMzk3QzE2LjI3MyA5LjM4MDQ2IDE2LjM1MTEgOS44NDg4NyAxNi4xMTAzIDEwLjE4NTlMMTIuMzYwMyAxNS40MzU5QzEyLjIzMjIgMTUuNjE1MyAxMi4wMzE2IDE1LjcyOTMgMTEuODExOSAxNS43NDc0QzExLjU5MjEgMTUuNzY1NiAxMS4zNzU2IDE1LjY4NjIgMTEuMjE5NyAxNS41MzAzTDguOTY5NjcgMTMuMjgwM0M4LjY3Njc4IDEyLjk4NzQgOC42NzY3OCAxMi41MTI2IDguOTY5NjcgMTIuMjE5N0M5LjI2MjU2IDExLjkyNjggOS43Mzc0NCAxMS45MjY4IDEwLjAzMDMgMTIuMjE5N0wxMS42NTQzIDEzLjg0MzZMMTQuODg5NyA5LjMxNDA3QzE1LjEzMDUgOC45NzcwMSAxNS41OTg5IDguODk4OTQgMTUuOTM1OSA5LjEzOTdaIiBmaWxsPSIjMTExOTI4Ii8+CjwvZz4KPC9zdmc+Cg==">
