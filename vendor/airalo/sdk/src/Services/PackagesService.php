@@ -61,7 +61,7 @@ class PackagesService
                 ])->get($pageUrl ?? $url);
 
                 if (!$response) {
-                    return null;
+                    return $result;
                 }
 
                 $response = json_decode($response, true);
@@ -159,6 +159,8 @@ class PackagesService
                             'info' => $operator['info'],
                         ],
                         'countries' => $countries,
+                        'image' => $operator['image']['url'] ?? null,
+                        'other_info' => $operator['other_info'],
                     ];
                 }
             }
