@@ -4,7 +4,6 @@ namespace Airalo\Admin;
 
 use Airalo\Services\Airalo\AiraloClient;
 use Airalo\Admin\Settings\Option;
-use Airalo\Airalo;
 use Airalo\Helpers\Cached;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,6 +14,8 @@ class AiraloOrder {
 
 	private $airalo_client;
 	private $translations;
+
+	private $description = 'Bulk order placed via Airalo Wordpress Plugin';
 
 	public function __construct() {
 		$this->airalo_client = ( new AiraloClient( new Option() ) )->getClient();
@@ -32,9 +33,14 @@ class AiraloOrder {
 	 * @return void
 	 */
 	public function handle( $wc_order ) {
+		$use_esim_cloud_share = ( new \Airalo\Admin\Settings\Option() )->fetch_option( \Airalo\Admin\Settings\Option::USE_ESIM_CLOUD_SHARE );
+
+		$payload = $this->get_order_payload( $wc_order );
+
 		try {
-			$result = $this->airalo_client
-				->orderBulk( $this->get_order_payload( $wc_order ), 'Bulk order placed via Airalo Plugin' );
+			$result = ( $use_esim_cloud_share == \Airalo\Admin\Settings\Option::ENABLED )
+				? $this->airalo_client->orderBulkWithEmailSimShare( $payload, $this->get_esim_share_data( $wc_order ), $this->description )
+				: $this->airalo_client->orderBulk( $payload, $this->description );
 
 			if ( !$result ) {
 				$wc_order->update_status( 'on-hold', 'Empty Airalo response, please contact support' );
@@ -120,22 +126,34 @@ class AiraloOrder {
 			foreach ($sims as $sim) {
 				$days_key = 'my.esims.package.' . ( $response->data->validity == 1 ? 'day' : 'days' );
 
-				$wc_order->add_meta_data( $sim->iccid, implode(PHP_EOL, [
-					'Coverage: ' . $package_data['location'],
-					'Package ID: ' . $package_data['package_id'],
-					'Validity: ' . $response->data->validity . ' ' . $this->translations[$days_key],
-					'Data: ' . $response->data->data,
-					'Minutes: ' . ( $response->data->voice ? $response->data->voice : 'N/A' ),
-					'SMS: ' . ( $response->data->text ? $response->data->text : 'N/A' ),
-					'QR code link: ' . $sim->qrcode_url ?? 'N/A',
-					'Manual installations: ' . '`' . $response->data->manual_installation . '`' ?? 'N/A',
-					'Apple direct installation link: ' . $sim->direct_apple_installation_url ?? 'N/A',
-				]));
+				$wc_order->add_meta_data( $sim->iccid, json_encode([
+					'coverage' => $package_data['location'],
+					'package_id' => $package_data['package_id'],
+					'validity' => $response->data->validity . ' ' . $this->translations[$days_key],
+					'data' => $response->data->data,
+					'minutes' => ( $response->data->voice ? $response->data->voice : 'N/A' ),
+					'sms' => ( $response->data->text ? $response->data->text : 'N/A' ),
+					'qr_code_link' => $sim->qrcode_url ?? 'N/A',
+					'apple_direct_installation_link' => $sim->direct_apple_installation_url ?? 'N/A',
+					'esim_sharing_passcode' => ( $sim->sharing->access_code ?? 'N/A' ),
+					'esim_sharing_link' => ( $sim->sharing->link ?? 'N/A' ),
+				], JSON_PRETTY_PRINT ) );
 
 				$wc_order->save();
 			}
 		} catch ( \Exception $ex ) {
 			error_log( $ex->getMessage() );
 		}
+	}
+
+	/**
+	 * @param mixed $order
+	 * @return array
+	 */
+	private function get_esim_share_data( $order ) {
+		return [
+			'to_email' => $order->get_billing_email(),
+			'sharing_option' => ['link', 'pdf'],
+		];
 	}
 }

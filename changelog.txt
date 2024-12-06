@@ -14,3 +14,6 @@
 
 2024-10-02 - version 1.0.6
 * Fix myESIM page
+
+2024-12-05 - version 1.0.7
+* Support for sSIM cloud share

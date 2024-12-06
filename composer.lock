@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "airalo/sdk",
-            "version": "1.1.3",
+            "version": "1.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Airalo/airalo-php-sdk.git",
-                "reference": "579889b7562dfde757353dc251c8d9d642eb3913"
+                "reference": "a35545e336ef08678cf60707eb69f63550c8abe6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Airalo/airalo-php-sdk/zipball/579889b7562dfde757353dc251c8d9d642eb3913",
-                "reference": "579889b7562dfde757353dc251c8d9d642eb3913",
+                "url": "https://api.github.com/repos/Airalo/airalo-php-sdk/zipball/a35545e336ef08678cf60707eb69f63550c8abe6",
+                "reference": "a35545e336ef08678cf60707eb69f63550c8abe6",
                 "shasum": ""
             },
             "require": {
@@ -38,9 +38,9 @@
             "description": "Airalo's Partner API PHP SDK",
             "support": {
                 "issues": "https://github.com/Airalo/airalo-php-sdk/issues",
-                "source": "https://github.com/Airalo/airalo-php-sdk/tree/1.1.3"
+                "source": "https://github.com/Airalo/airalo-php-sdk/tree/1.1.6"
             },
-            "time": "2024-10-02T08:01:27+00:00"
+            "time": "2024-11-29T14:43:07+00:00"
         }
     ],
     "packages-dev": [],

@@ -54,6 +54,7 @@ function airalo_settings_page () {
 	$auto_publish_after_update = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::AUTO_PUBLISH_AFTER_UPDATE );
 	$use_sandbox = $options->fetch_option_for_settings_page(\Airalo\Admin\Settings\Option::USE_SANDBOX);
 	$airalo_sim_name = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::USE_AIRALO_SIM_NAME );
+	$airalo_esim_cloud_share = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::USE_ESIM_CLOUD_SHARE );
 
 	$sync_images = $options->fetch_option( \Airalo\Admin\Settings\Option::SYNC_IMAGES );
 	if ( 'off' !== $sync_images ) {
@@ -185,6 +186,16 @@ function airalo_settings_page () {
 									</span>
 								</label>
 							</div>
+							<div>
+								<label for="airalo_esim_cloud_share">
+									Use eSIM Cloud Share
+									<span class="switch">
+									<input type="checkbox" name="airalo_esim_cloud_share" <?php echo esc_html( $airalo_esim_cloud_share ); ?> id="airalo_esim_cloud_share"/>
+									<span class="slider round"></span>
+									</span>
+								</label>
+							</div>
+
 
 					</div>
 
@@ -294,6 +305,7 @@ function airalo_save_settings(): void {
 	$language = isset( $_POST['airalo_language'] ) ? sanitize_text_field( $_POST['airalo_language'] ) : 'en';
 	$sync_images = isset( $_POST['airalo_sync_images'] ) ? sanitize_text_field( $_POST['airalo_sync_images'] ) : 'off';
 	$airalo_sim_name = isset( $_POST['airalo_sim_name'] ) ? sanitize_text_field( $_POST['airalo_sim_name'] ): 'off';
+	$airalo_esim_cloud_share = isset( $_POST['airalo_esim_cloud_share'] ) ? sanitize_text_field( $_POST['airalo_esim_cloud_share'] ): 'off';
 
 	$options = new \Airalo\Admin\Settings\Option();
 
@@ -308,6 +320,7 @@ function airalo_save_settings(): void {
 	$options->insert_option( \Airalo\Admin\Settings\Option::LANGUAGE, $language );
 	$options->insert_option( \Airalo\Admin\Settings\Option::SYNC_IMAGES, $sync_images );
 	$options->insert_option( \Airalo\Admin\Settings\Option::USE_AIRALO_SIM_NAME, $airalo_sim_name );
+	$options->insert_option( \Airalo\Admin\Settings\Option::USE_ESIM_CLOUD_SHARE, $airalo_esim_cloud_share );
 }
 
 function airalo_save_credentials( $clientId, $clientSecret, $isSandbox = false ): void {

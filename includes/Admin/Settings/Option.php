@@ -26,6 +26,8 @@ class Option {
 
 	const USE_AIRALO_SIM_NAME = 'use_airalo_sim_name';
 
+	const USE_ESIM_CLOUD_SHARE = 'airalo_use_esim_cloud_share';
+
 	public function insert_option( string $name, $value ): void {
 		update_option( $name, $value );
 	}
