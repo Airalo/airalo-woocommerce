@@ -126,18 +126,18 @@ class AiraloOrder {
 			foreach ($sims as $sim) {
 				$days_key = 'my.esims.package.' . ( $response->data->validity == 1 ? 'day' : 'days' );
 
-				$wc_order->add_meta_data( $sim->iccid, json_encode([
-					'coverage' => $package_data['location'],
-					'package_id' => $package_data['package_id'],
-					'validity' => $response->data->validity . ' ' . $this->translations[$days_key],
-					'data' => $response->data->data,
-					'minutes' => ( $response->data->voice ? $response->data->voice : 'N/A' ),
-					'sms' => ( $response->data->text ? $response->data->text : 'N/A' ),
-					'qr_code_link' => $sim->qrcode_url ?? 'N/A',
-					'apple_direct_installation_link' => $sim->direct_apple_installation_url ?? 'N/A',
-					'esim_sharing_passcode' => ( $sim->sharing->access_code ?? 'N/A' ),
-					'esim_sharing_link' => ( $sim->sharing->link ?? 'N/A' ),
-				], JSON_PRETTY_PRINT ) );
+				$wc_order->add_meta_data( $sim->iccid, implode(PHP_EOL, [
+					'Coverage: ' . $package_data['location'],
+					'Package ID: ' . $package_data['package_id'],
+					'Validity: ' . $response->data->validity . ' ' . $this->translations[$days_key],
+					'Data: ' . $response->data->data,
+					'Minutes: ' . ( $response->data->voice ? $response->data->voice : 'N/A' ),
+					'SMS: ' . ( $response->data->text ? $response->data->text : 'N/A' ),
+					'QR code link: ' . $sim->qrcode_url ?? 'N/A',
+					'Apple direct installation link: ' . $sim->direct_apple_installation_url ?? 'N/A',
+					'eSIM sharing passcode: ' . ( $sim->sharing->access_code ?? 'N/A' ),
+					'eSIM sharing link: ' . ( $sim->sharing->link ?? 'N/A' ),
+				] ) );
 
 				$wc_order->save();
 			}
