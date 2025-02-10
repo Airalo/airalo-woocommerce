@@ -29,7 +29,7 @@ class Product {
 		return $this->product;
 	}
 
-	public function update_or_create( $package, $operator, $item, $setting_create, $setting_update, $image_id, $environment, $setting_name, &$airalo_products ): void {
+	public function update_or_create( $package, $operator, $item, $setting_create, $setting_update, $image_id, $environment, $setting_name, $update_product_title, $update_product_description, &$airalo_products ): void {
 		$sku = self::SKU_PREFIX . $package->id;
 		$product = $this->get_product_by_sku( $sku );
 		$product = $product ?? new \WC_Product();
@@ -66,10 +66,13 @@ class Product {
 			$product->set_image_id( $image_id );
 		}
 
-		$this->set_product_name( $product, $package, $item, $operator, $setting_name, $environment );
+        if ( $is_create || $update_product_title ) {
+            $this->set_product_name( $product, $package, $item, $operator, $setting_name, $environment );
+        }
 
-		$product->set_description( $info ?? '' );
-
+        if ( $is_create || $update_product_description ) {
+            $product->set_description( $info ?? '' );
+        }
 
 		$this->set_product_status( $product, $status, $is_create, $is_update, $setting_create, $setting_update );
 

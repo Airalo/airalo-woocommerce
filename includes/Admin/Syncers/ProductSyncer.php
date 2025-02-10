@@ -31,6 +31,8 @@ class ProductSyncer {
 		$setting_update = $options->fetch_option( Option::AUTO_PUBLISH_AFTER_UPDATE );
 		$sync_images = $options->fetch_option( Option::SYNC_IMAGES );
 		$setting_name = $options->fetch_option( Option::USE_AIRALO_SIM_NAME );
+		$update_product_title = $options->fetch_option( Option::UPDATE_PRODUCT_TITLE ) !== Option::DISABLED;
+		$update_product_description = $options->fetch_option( Option::UPDATE_PRODUCT_DESCRIPTION ) !== Option::DISABLED;
 
 		try {
 			$airalo_products = $this->fetch_airalo_products();
@@ -61,7 +63,7 @@ class ProductSyncer {
 					foreach ( $operator->packages as $package ) {
 
 						$product = new Product();
-						$product->update_or_create( $package, $operator, $item, $setting_create, $setting_update, $image_id, $environment, $setting_name, $airalo_products );
+                        $product->update_or_create( $package, $operator, $item, $setting_create, $setting_update, $image_id, $environment, $setting_name, $update_product_title, $update_product_description, $airalo_products );
 
 					}
 
