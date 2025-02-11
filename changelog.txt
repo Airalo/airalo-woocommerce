@@ -17,3 +17,6 @@
 
 2024-12-05 - version 1.0.7
 * Support for sSIM cloud share
+
+2025-02-11 - version 1.0.8
+* Update product title and description settings implemented

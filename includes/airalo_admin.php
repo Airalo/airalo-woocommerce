@@ -55,13 +55,9 @@ function airalo_settings_page () {
 	$use_sandbox = $options->fetch_option_for_settings_page(\Airalo\Admin\Settings\Option::USE_SANDBOX);
 	$airalo_sim_name = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::USE_AIRALO_SIM_NAME );
 	$airalo_esim_cloud_share = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::USE_ESIM_CLOUD_SHARE );
-
-	$sync_images = $options->fetch_option( \Airalo\Admin\Settings\Option::SYNC_IMAGES );
-	if ( 'off' !== $sync_images ) {
-		$sync_images = 'checked';
-	} else {
-		$sync_images = '';
-	}
+    $airalo_update_product_title = $options->fetch_option( \Airalo\Admin\Settings\Option::UPDATE_PRODUCT_TITLE ) !== 'off' ? 'checked' : '';
+    $airalo_update_product_description = $options->fetch_option( \Airalo\Admin\Settings\Option::UPDATE_PRODUCT_DESCRIPTION ) !== 'off' ? 'checked' : '';
+    $sync_images = $options->fetch_option( \Airalo\Admin\Settings\Option::SYNC_IMAGES ) !== 'off' ? 'checked' : '';
 
 	$last_sync = $options->fetch_option(\Airalo\Admin\Settings\Option::LAST_SYNC);
 	$last_successful_sync = $options->fetch_option(\Airalo\Admin\Settings\Option::LAST_SUCCESSFUL_SYNC);
@@ -195,10 +191,25 @@ function airalo_settings_page () {
 									</span>
 								</label>
 							</div>
-
-
+                            <div>
+                                <label for="airalo_update_product_title">
+                                    Update product title
+                                    <span class="switch">
+                                        <input type="checkbox" name="airalo_update_product_title" <?php echo esc_html( $airalo_update_product_title ); ?> id="airalo_update_product_title"/>
+                                        <span class="slider round"></span>
+                                        </span>
+                                </label>
+                            </div>
+                            <div>
+                                <label for="airalo_update_product_description">
+                                    Update product description
+                                    <span class="switch">
+                                        <input type="checkbox" name="airalo_update_product_description" <?php echo esc_html( $airalo_update_product_description ); ?> id="airalo_update_product_description"/>
+                                        <span class="slider round"></span>
+                                        </span>
+                                </label>
+                            </div>
 					</div>
-
 				</section>
 
 				<section>
@@ -306,6 +317,8 @@ function airalo_save_settings(): void {
 	$sync_images = isset( $_POST['airalo_sync_images'] ) ? sanitize_text_field( $_POST['airalo_sync_images'] ) : 'off';
 	$airalo_sim_name = isset( $_POST['airalo_sim_name'] ) ? sanitize_text_field( $_POST['airalo_sim_name'] ): 'off';
 	$airalo_esim_cloud_share = isset( $_POST['airalo_esim_cloud_share'] ) ? sanitize_text_field( $_POST['airalo_esim_cloud_share'] ): 'off';
+	$airalo_update_product_title = isset( $_POST['airalo_update_product_title'] ) ? sanitize_text_field( $_POST['airalo_update_product_title'] ): 'off';
+	$airalo_update_product_description = isset( $_POST['airalo_update_product_description'] ) ? sanitize_text_field( $_POST['airalo_update_product_description'] ): 'off';
 
 	$options = new \Airalo\Admin\Settings\Option();
 
@@ -321,6 +334,8 @@ function airalo_save_settings(): void {
 	$options->insert_option( \Airalo\Admin\Settings\Option::SYNC_IMAGES, $sync_images );
 	$options->insert_option( \Airalo\Admin\Settings\Option::USE_AIRALO_SIM_NAME, $airalo_sim_name );
 	$options->insert_option( \Airalo\Admin\Settings\Option::USE_ESIM_CLOUD_SHARE, $airalo_esim_cloud_share );
+	$options->insert_option( \Airalo\Admin\Settings\Option::UPDATE_PRODUCT_TITLE, $airalo_update_product_title );
+	$options->insert_option( \Airalo\Admin\Settings\Option::UPDATE_PRODUCT_DESCRIPTION, $airalo_update_product_description );
 }
 
 function airalo_save_credentials( $clientId, $clientSecret, $isSandbox = false ): void {

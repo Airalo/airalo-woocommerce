@@ -28,6 +28,9 @@ class Option {
 
 	const USE_ESIM_CLOUD_SHARE = 'airalo_use_esim_cloud_share';
 
+	const UPDATE_PRODUCT_TITLE = 'airalo_update_product_title';
+	const UPDATE_PRODUCT_DESCRIPTION = 'airalo_update_product_description';
+
 	public function insert_option( string $name, $value ): void {
 		update_option( $name, $value );
 	}
