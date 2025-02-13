@@ -32,7 +32,7 @@ class AiraloOrder {
 	 * @return void
 	 */
 	public function handle( $wc_order ) {
-		if ( $this->is_orer_processed( $wc_order ) ) {
+		if ( $this->is_order_processed( $wc_order ) ) {
 			return;
 		}
 
@@ -170,7 +170,7 @@ class AiraloOrder {
 	 * @param mixed $order
 	 * @return boolean
 	 */
-	private function is_orer_processed( $order ) {
+	private function is_order_processed( $order ) {
 		$meta = $order->get_meta_data();
 
 		if ( ! $meta ) {
