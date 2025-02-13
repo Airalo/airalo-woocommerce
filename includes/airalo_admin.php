@@ -385,13 +385,6 @@ add_action( 'woocommerce_thankyou', 'airalo_submit_order', 10, 1 );
 function airalo_submit_order( $order ) {
 	$order = wc_get_order( $order );
 
-	if ( Cached::get( function() {
-		// do nothing, just check if cache for this order exists
-	}, $order->get_id() )
-	) {
-		return;
-	}
-
 	$items = $order->get_items();
 	$order_items = new \Airalo\Admin\OrderItem( $items );
 	$airalo_order_items = $order_items->get_airalo_order_items();

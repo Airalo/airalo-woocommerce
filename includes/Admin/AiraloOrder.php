@@ -4,7 +4,6 @@ namespace Airalo\Admin;
 
 use Airalo\Services\Airalo\AiraloClient;
 use Airalo\Admin\Settings\Option;
-use Airalo\Helpers\Cached;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -33,6 +32,10 @@ class AiraloOrder {
 	 * @return void
 	 */
 	public function handle( $wc_order ) {
+		if ( $this->is_orer_processed( $wc_order ) ) {
+			return;
+		}
+
 		$use_esim_cloud_share = ( new \Airalo\Admin\Settings\Option() )->fetch_option( \Airalo\Admin\Settings\Option::USE_ESIM_CLOUD_SHARE );
 
 		$payload = $this->get_order_payload( $wc_order );
@@ -63,10 +66,6 @@ class AiraloOrder {
 			if ( count( $failed_packages ) ) {
 				$wc_order->update_status( 'on-hold', 'There are Airalo package order failures. Response: ' . (string) $result );
 			}
-
-			Cached::get( function() {
-				return true; // this order is done
-			}, $wc_order->get_id() );
 		} catch ( \Exception $ex ) {
 			error_log( $ex->getMessage() );
 
@@ -155,5 +154,36 @@ class AiraloOrder {
 			'to_email' => $order->get_billing_email(),
 			'sharing_option' => ['link', 'pdf'],
 		];
+	}
+
+	/**
+	 * @param mixed $val
+	 * @return boolean
+	 */
+	private function is_iccid( $val ) {
+        return is_numeric( $val )
+            && strlen( $val ) >= 18
+            && strlen( $val ) <= 22;
+    }
+
+	/**
+	 * @param mixed $order
+	 * @return boolean
+	 */
+	private function is_orer_processed( $order ) {
+		$meta = $order->get_meta_data();
+
+		if ( ! $meta ) {
+			return false;
+		}
+
+		foreach ( $meta as $item ) {
+			if ( $this->is_iccid( $item->key ) ) {
+				// Order already processed
+				return true;
+			}
+		}
+
+		return false;
 	}
 }
