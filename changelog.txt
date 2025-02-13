@@ -20,3 +20,6 @@
 
 2025-02-11 - version 1.0.8
 * Update product title and description settings implemented
+
+2025-02-13 - version 1.0.9
+* Fix issue with potential duplication of orders on Thank You Page refresh
