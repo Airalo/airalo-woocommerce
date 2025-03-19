@@ -41,9 +41,11 @@ class AiraloOrder {
 		$payload = $this->get_order_payload( $wc_order );
 
 		try {
+            $description = '#' . $wc_order->get_id() . ' - ' . $this->description;
+
 			$result = ( $use_esim_cloud_share == \Airalo\Admin\Settings\Option::ENABLED )
-				? $this->airalo_client->orderBulkWithEmailSimShare( $payload, $this->get_esim_share_data( $wc_order ), $this->description )
-				: $this->airalo_client->orderBulk( $payload, $this->description );
+				? $this->airalo_client->orderBulkWithEmailSimShare( $payload, $this->get_esim_share_data( $wc_order ), $description )
+				: $this->airalo_client->orderBulk( $payload, $description );
 
 			if ( !$result ) {
 				$wc_order->update_status( 'on-hold', 'Empty Airalo response, please contact support' );
