@@ -23,3 +23,6 @@
 
 2025-02-13 - version 1.0.9
 * Fix issue with potential duplication of orders on Thank You Page refresh
+
+2025-03-20 - version 1.0.10
+* Activation policy attribute added to product & order id added in the order description

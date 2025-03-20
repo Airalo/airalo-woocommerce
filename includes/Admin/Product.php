@@ -130,6 +130,7 @@ class Product {
 			'is_airalo' => 1,
 			'country' => implode( ', ', $countries ),
 			'country_codes' => implode( ', ', $countries_iso ),
+            'activation_policy' => $operator->activation_policy ?? null,
 		];
 
 		$attributes = ( new Attribute() )->create_attributes( $operator_attributes );
