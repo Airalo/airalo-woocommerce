@@ -26,3 +26,6 @@
 
 2025-03-20 - version 1.0.10
 * Activation policy attribute added to product & order id added in the order description
+
+2025-03-31 - version 1.0.11
+* Temporarily cache submitted orders to preven resubmission in custom gateways
