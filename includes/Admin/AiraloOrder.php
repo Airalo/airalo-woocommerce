@@ -4,6 +4,7 @@ namespace Airalo\Admin;
 
 use Airalo\Services\Airalo\AiraloClient;
 use Airalo\Admin\Settings\Option;
+use Airalo\Helpers\Cached;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -52,6 +53,14 @@ class AiraloOrder {
 
 				return;
 			}
+
+			Cached::get(
+				function () {
+					return true;
+				},
+				$wc_order->get_id(),
+				3600
+			);
 
 			$failed_packages = [];
 
@@ -177,6 +186,12 @@ class AiraloOrder {
 
 		if ( ! $meta ) {
 			return false;
+		}
+
+		if ( Cached::get( function () {
+			// do nothing, just check if cache for this order exists
+		}, $order->get_id() ) ) {
+			return true;
 		}
 
 		foreach ( $meta as $item ) {
