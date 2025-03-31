@@ -4,6 +4,7 @@ namespace Airalo\Admin;
 
 use Airalo\Services\Airalo\AiraloClient;
 use Airalo\Admin\Settings\Option;
+use Airalo\Helpers\Cached;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
