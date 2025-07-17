@@ -18,10 +18,12 @@ class ProductSyncer {
 
 	public function handle() {
 		set_time_limit( self::AIRALO_MAX_EXECUTION );
+
+		add_filter( 'woocommerce_background_image_regeneration', '__return_false' );
+
 		$options = new Option();
 
-		if ( 'true' == $options->fetch_option( Option::ENVIRONMENT_SWITCHED ) ) {
-			// remove airalo products from the user's page when environment is switched
+		if ( 'on' == $options->fetch_option( Option::FLUSH_PRODUCTS ) ) {
 			$this->remove_all_airalo_products( $options );
 		}
 
@@ -52,27 +54,26 @@ class ProductSyncer {
 				$error = 'No data fetched. Please check your credentials.';
 			}
 
-			foreach ( $data as $item ) {
+			$image_ids_by_operator = [];
 
+			foreach ( $data as $item ) {
 				foreach ( $item->operators as $operator ) {
 
 					$image_id = null;
 					if ( Option::ENABLED == $sync_images ) {
-						$term = new Term();
-						$term = $term->fetch_or_create_image_term( $operator );
-						$image_id = get_term_meta( $term->term_id, Term::IMAGE_METADATA_KEY, true );
+						if ( !isset( $image_ids_by_operator[ $operator->id ] ) ) {
+							$term = new Term();
+							$term = $term->fetch_or_create_image_term( $operator );
+							$image_ids_by_operator[ $operator->id ] = get_term_meta( $term->term_id, Term::IMAGE_METADATA_KEY, true );
+						}
+						$image_id = $image_ids_by_operator[ $operator->id ];
 					}
 
 					foreach ( $operator->packages as $package ) {
-
 						$product = new Product();
-
-                        $product->update_or_create( $settings, $package, $operator, $item, $image_id, $environment, $airalo_products );
-
+						$product->update_or_create( $settings, $package, $operator, $item, $image_id, $environment, $airalo_products );
 					}
-
 				}
-
 			}
 
 			$this->check_stock( $airalo_products );
@@ -83,18 +84,13 @@ class ProductSyncer {
 			$error = " failed due to: `$error_message` on `$environment` environment";
 
 			error_log( $ex->getMessage() );
+		} finally {
+			add_filter( 'woocommerce_background_image_regeneration', '__return_true' );
 		}
 
 		$options->insert_option( Option::SYNC_ERROR, $error );
 	}
 
-	/**
-	 * We do not return out of stock packages so this function
-	 * Checks if the sku was marked as processed and sets the product out of stock.
-	 *
-	 * @param $airalo_products
-	 * @return void
-	 */
 	private function check_stock( $airalo_products ) {
 		foreach ( $airalo_products as $airalo_product ) {
 			$product = $airalo_product['product'];
@@ -119,6 +115,8 @@ class ProductSyncer {
 				$product = wc_get_product( get_the_ID() );
 				$products_by_sku[$product->get_sku()] = ['product' => $product];
 			}
+
+			wp_reset_postdata();
 		}
 
 		return $products_by_sku;
@@ -151,40 +149,21 @@ class ProductSyncer {
 
 				$taxonomy_name = Term::IMAGE_NAME_PREFIX . $product->get_attribute( 'operator_id' );
 
-				$labels = [
-				    'name'=> sprintf(
-				        _x( '%s', 'taxonomy general name', 'airalo' ),
-				        esc_html( $taxonomy_name )
-                    ),
-                    'singular_name' => sprintf(
-                        _x( '%s_singular', 'taxonomy singular name', 'airalo' ),
-                        esc_html( $taxonomy_name )
-                    ),
-                ];
-
-				$args = [
-					'labels' => $labels,
-					'show_ui' => true,
-					'show_admin_column' => true,
-					'query_var' => true,
-					'rewrite' => [ 'slug' => $taxonomy_name ],
-				];
-
-				register_taxonomy( $taxonomy_name, ['post'], $args );
-
 				$term_name = $taxonomy_name . '_id';
 				$term = get_term_by( 'slug', $term_name, $taxonomy_name );
 
-				$image_id = get_term_meta( $term->term_id, Term::IMAGE_METADATA_KEY, true );
-
-				wp_delete_term( $term->term_id, $taxonomy_name );
+				if ( $term && ! is_wp_error( $term ) ) {
+					$image_id = get_term_meta( $term->term_id, Term::IMAGE_METADATA_KEY, true );
+					wp_delete_term( $term->term_id, $taxonomy_name );
+					if ( $image_id ) {
+						wp_delete_post( $image_id, true );
+					}
+				}
 
 				wp_delete_post( $product_id, true );
-				wp_delete_post( $image_id, true );
 			}
+
 			wp_reset_postdata();
 		}
-
-		$option->insert_option( Option::ENVIRONMENT_SWITCHED, 'false' );
 	}
 }
