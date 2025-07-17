@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class ProductSyncer {
 
-	private const AIRALO_MAX_EXECUTION = 600;
+	private const AIRALO_MAX_EXECUTION = 3600;
 
 	public function handle() {
 		set_time_limit( self::AIRALO_MAX_EXECUTION );

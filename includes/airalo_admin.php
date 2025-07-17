@@ -43,16 +43,16 @@ function airalo_menu () {
 function airalo_settings_page () {
 	$credentials = new \Airalo\Admin\Settings\Credential();
 	$client_id = $credentials->get_credential( \Airalo\Admin\Settings\Credential::CLIENT_ID );
-	$sandbox_client_id = $credentials->get_credential( \Airalo\Admin\Settings\Credential::CLIENT_ID_SANDBOX );
+	//$sandbox_client_id = $credentials->get_credential( \Airalo\Admin\Settings\Credential::CLIENT_ID_SANDBOX );
 
 	$options = new \Airalo\Admin\Settings\Option();
 
 	$client_secret_encrypted = $options->fetch_option(\Airalo\Admin\Settings\Credential::CLIENT_SECRET);
-	$client_sandbox_secret_encrypted = $options->fetch_option(\Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX);
+	//$client_sandbox_secret_encrypted = $options->fetch_option(\Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX);
 
 	$auto_publish = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::AUTO_PUBLISH );
 	$auto_publish_after_update = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::AUTO_PUBLISH_AFTER_UPDATE );
-	$use_sandbox = $options->fetch_option_for_settings_page(\Airalo\Admin\Settings\Option::USE_SANDBOX);
+	//$use_sandbox = $options->fetch_option_for_settings_page(\Airalo\Admin\Settings\Option::USE_SANDBOX);
 	$airalo_sim_name = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::USE_AIRALO_SIM_NAME );
 	$airalo_esim_cloud_share = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::USE_ESIM_CLOUD_SHARE );
     $airalo_update_product_title = $options->fetch_option( \Airalo\Admin\Settings\Option::UPDATE_PRODUCT_TITLE ) !== 'off' ? 'checked' : '';
@@ -137,7 +137,7 @@ function airalo_settings_page () {
 									</select>
 								</label>
 							</div>
-							<div>
+							<!-- <div>
 								<label for="airalo_use_sandbox">
 									Use Sandbox
 									<span class="switch">
@@ -145,7 +145,7 @@ function airalo_settings_page () {
 									<span class="slider round"></span>
 									</span>
 								</label>
-							</div>
+							</div> -->
 							<div>
 								<label for="airalo_sync_images">
 									Sync Images
@@ -214,21 +214,25 @@ function airalo_settings_page () {
 
 				<section>
 					<div class="airaloCard credentialsCard">
-						<p class="cardTitle">Production Credentials</p>
+						<p class="cardTitle">API Credentials</p>
 							<div>
-								<label for="airalo_client_id_sandbox">Client Id</label>
+								<label for="airalo_client_id">Client Id</label>
 								<input type="text" name="airalo_client_id" placeholder="Enter ID" value="<?php echo esc_html( $client_id ); ?>"/>
 							</div>
 
-
 							<div>
-								<label for="airalo_client_secret_sandbox">Client Secret</label>
+								<label for="airalo_client_secret">Client Secret</label>
 								<input type="password" name="airalo_client_secret" placeholder="Enter Secret"  value="<?php echo esc_html( $client_secret_encrypted ); ?>" />
+							</div>
+
+							<br>
+							<div class="airaloButtonContainer">
+								<input type="submit" name="save_airalo_settings" value="Save Settings" class="airaloButton"/>
 							</div>
 					</div>
 
-					<div class="airaloCard credentialsCard">
-						<p class="cardTitle">Sandbox Credentials</p>
+					<!-- <div class="airaloCard credentialsCard"> -->
+						<!-- <p class="cardTitle">Sandbox Credentials</p>
 
 							<div>
 								<label for="airalo_client_id_sandbox">Client Id</label>
@@ -238,12 +242,8 @@ function airalo_settings_page () {
 							<div>
 								<label for="airalo_client_secret_sandbox">Client Secret</label>
 								<input type="password" name="airalo_client_secret_sandbox" placeholder="Enter Secret"  value="<?php echo esc_html( $client_sandbox_secret_encrypted ); ?>" />
-							</div>
-
-						<div class="airaloButtonContainer">
-							<input type="submit" name="save_airalo_settings" value="Save Settings" class="airaloButton"/>
-						</div>
-					</div>
+							</div> -->
+					<!-- </div> -->
 				</section>
 			</form>
 		</div>
@@ -296,23 +296,23 @@ function airalo_register_settings () {
 
 		airalo_save_credentials(  $client_id, $client_secret );
 
-		$sandbox_client_id = isset( $_POST['airalo_client_id_sandbox'] ) ? sanitize_text_field( $_POST['airalo_client_id_sandbox'] ): null;
-		$sandbox_client_secret = isset( $_POST['airalo_client_secret_sandbox'] ) ? sanitize_text_field( $_POST['airalo_client_secret_sandbox'] ): null;
+		//$sandbox_client_id = isset( $_POST['airalo_client_id_sandbox'] ) ? sanitize_text_field( $_POST['airalo_client_id_sandbox'] ): null;
+		//$sandbox_client_secret = isset( $_POST['airalo_client_secret_sandbox'] ) ? sanitize_text_field( $_POST['airalo_client_secret_sandbox'] ): null;
 
-		$encrypted_sandbox_secret = $options->fetch_option( \Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX );
+		//$encrypted_sandbox_secret = $options->fetch_option( \Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX );
 
-		if ( $sandbox_client_secret == $encrypted_sandbox_secret && null != $encrypted_sandbox_secret ) {
-			$sandbox_client_secret = null;
-		}
+		// if ( $sandbox_client_secret == $encrypted_sandbox_secret && null != $encrypted_sandbox_secret ) {
+		// 	$sandbox_client_secret = null;
+		// }
 
-		airalo_save_credentials( $sandbox_client_id, $sandbox_client_secret, true );
+		//airalo_save_credentials( $sandbox_client_id, $sandbox_client_secret, true );
 	}
 }
 
 function airalo_save_settings(): void {
 	$auto_publish = isset( $_POST['airalo_auto_publish'] ) ? sanitize_text_field( $_POST['airalo_auto_publish'] ) : 'off';
 	$auto_publish_after_update = isset( $_POST['airalo_auto_publish_update'] ) ? sanitize_text_field( $_POST['airalo_auto_publish_update'] ) : 'off';
-	$use_sandbox = isset( $_POST['airalo_use_sandbox'] ) ? sanitize_text_field( $_POST['airalo_use_sandbox'] ) : 'off';
+	//$use_sandbox = isset( $_POST['airalo_use_sandbox'] ) ? sanitize_text_field( $_POST['airalo_use_sandbox'] ) : 'off';
 	$language = isset( $_POST['airalo_language'] ) ? sanitize_text_field( $_POST['airalo_language'] ) : 'en';
 	$sync_images = isset( $_POST['airalo_sync_images'] ) ? sanitize_text_field( $_POST['airalo_sync_images'] ) : 'off';
 	$airalo_sim_name = isset( $_POST['airalo_sim_name'] ) ? sanitize_text_field( $_POST['airalo_sim_name'] ): 'off';
@@ -322,14 +322,14 @@ function airalo_save_settings(): void {
 
 	$options = new \Airalo\Admin\Settings\Option();
 
-	$use_sandbox_old = $options->fetch_option( \Airalo\Admin\Settings\Option::USE_SANDBOX );
-	if ( $use_sandbox_old != $use_sandbox ) {
-		$options->insert_option( \Airalo\Admin\Settings\Option::ENVIRONMENT_SWITCHED, 'true' );
-	}
+	// $use_sandbox_old = $options->fetch_option( \Airalo\Admin\Settings\Option::USE_SANDBOX );
+	// if ( $use_sandbox_old != $use_sandbox ) {
+	// 	$options->insert_option( \Airalo\Admin\Settings\Option::ENVIRONMENT_SWITCHED, 'true' );
+	// }
 
 	$options->insert_option( \Airalo\Admin\Settings\Option::AUTO_PUBLISH, $auto_publish );
 	$options->insert_option( \Airalo\Admin\Settings\Option::AUTO_PUBLISH_AFTER_UPDATE, $auto_publish_after_update );
-	$options->insert_option( \Airalo\Admin\Settings\Option::USE_SANDBOX, $use_sandbox );
+	//$options->insert_option( \Airalo\Admin\Settings\Option::USE_SANDBOX, $use_sandbox );
 	$options->insert_option( \Airalo\Admin\Settings\Option::LANGUAGE, $language );
 	$options->insert_option( \Airalo\Admin\Settings\Option::SYNC_IMAGES, $sync_images );
 	$options->insert_option( \Airalo\Admin\Settings\Option::USE_AIRALO_SIM_NAME, $airalo_sim_name );
@@ -342,10 +342,10 @@ function airalo_save_credentials( $clientId, $clientSecret, $isSandbox = false )
 	$clientIdCredential = \Airalo\Admin\Settings\Credential::CLIENT_ID;
 	$clientSecretCredential = \Airalo\Admin\Settings\Credential::CLIENT_SECRET;
 
-	if ( $isSandbox ) {
-		$clientIdCredential = \Airalo\Admin\Settings\Credential::CLIENT_ID_SANDBOX;
-		$clientSecretCredential = \Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX;
-	}
+	// if ( $isSandbox ) {
+	// 	$clientIdCredential = \Airalo\Admin\Settings\Credential::CLIENT_ID_SANDBOX;
+	// 	$clientSecretCredential = \Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX;
+	// }
 
 	$credentials = new \Airalo\Admin\Settings\Credential();
 
