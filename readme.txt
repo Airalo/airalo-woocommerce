@@ -2,7 +2,7 @@
 Contributors: amaaloufairalo, isikiyski, mhraza123, fatihtzn
 Tags: esim, woocommerce
 Requires at least: 6.5.3
-Tested up to: 6.6.2
+Tested up to: 6.8.2
 Stable tag: 1.2.0
 Requires PHP: 7.4
 License: GPLv2 or later
