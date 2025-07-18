@@ -3,13 +3,13 @@
 /**
  * Plugin Name: Airalo
  * Description: The Airalo plugin allows you to seamlessly sync our products with your store.
- * Version: 1.0.11
+ * Version: 1.2.0
  * Author: Airalo
  * Author URI: https://airalo.com
  * Text Domain: airalo
  * Domain Path:
  * Requires at least: 6.5.3
- * Tested up to: 6.6.2
+ * Tested up to: 6.8.2
  * Requires PHP: 7.4
  * Requires Plugins: woocommerce
  *
@@ -22,7 +22,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-const AIRALO_PLUGIN_VERSION = '1.0.11';
+const AIRALO_PLUGIN_VERSION = '1.2.0';
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once plugin_dir_path( __FILE__ ) . '/includes/airalo_admin.php';

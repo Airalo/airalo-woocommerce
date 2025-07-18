@@ -40,6 +40,7 @@ class AiraloClient {
 	}
 
 	public function is_sandbox(): bool {
-		return 'sandbox' == $this->environment;
+		return false;
+		//return 'sandbox' == $this->environment;
 	}
 }

@@ -19,6 +19,8 @@ class Option {
 
 	const ENVIRONMENT_SWITCHED = 'airalo_environment_switched';
 
+	const FLUSH_PRODUCTS = 'airalo_flush_products';
+
 	const ENABLED = 'on';
 	const DISABLED = 'off';
 

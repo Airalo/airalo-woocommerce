@@ -62,7 +62,9 @@ class Product {
 			$is_update = true;
 		}
 
-		if ( $image_id ) {
+		$sync_images_enabled = Option::ENABLED === ( new Option() )->fetch_option( Option::SYNC_IMAGES );
+
+		if ( $sync_images_enabled && $image_id ) {
 			$product->set_image_id( $image_id );
 		}
 

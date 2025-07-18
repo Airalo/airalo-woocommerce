@@ -43,20 +43,21 @@ function airalo_menu () {
 function airalo_settings_page () {
 	$credentials = new \Airalo\Admin\Settings\Credential();
 	$client_id = $credentials->get_credential( \Airalo\Admin\Settings\Credential::CLIENT_ID );
-	$sandbox_client_id = $credentials->get_credential( \Airalo\Admin\Settings\Credential::CLIENT_ID_SANDBOX );
+	//$sandbox_client_id = $credentials->get_credential( \Airalo\Admin\Settings\Credential::CLIENT_ID_SANDBOX );
 
 	$options = new \Airalo\Admin\Settings\Option();
 
 	$client_secret_encrypted = $options->fetch_option(\Airalo\Admin\Settings\Credential::CLIENT_SECRET);
-	$client_sandbox_secret_encrypted = $options->fetch_option(\Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX);
+	//$client_sandbox_secret_encrypted = $options->fetch_option(\Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX);
 
 	$auto_publish = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::AUTO_PUBLISH );
 	$auto_publish_after_update = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::AUTO_PUBLISH_AFTER_UPDATE );
-	$use_sandbox = $options->fetch_option_for_settings_page(\Airalo\Admin\Settings\Option::USE_SANDBOX);
+	//$use_sandbox = $options->fetch_option_for_settings_page(\Airalo\Admin\Settings\Option::USE_SANDBOX);
 	$airalo_sim_name = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::USE_AIRALO_SIM_NAME );
 	$airalo_esim_cloud_share = $options->fetch_option_for_settings_page( \Airalo\Admin\Settings\Option::USE_ESIM_CLOUD_SHARE );
     $airalo_update_product_title = $options->fetch_option( \Airalo\Admin\Settings\Option::UPDATE_PRODUCT_TITLE ) !== 'off' ? 'checked' : '';
     $airalo_update_product_description = $options->fetch_option( \Airalo\Admin\Settings\Option::UPDATE_PRODUCT_DESCRIPTION ) !== 'off' ? 'checked' : '';
+	$airalo_flush_products = $options->fetch_option( \Airalo\Admin\Settings\Option::FLUSH_PRODUCTS ) !== 'off' ? 'checked' : '';
     $sync_images = $options->fetch_option( \Airalo\Admin\Settings\Option::SYNC_IMAGES ) !== 'off' ? 'checked' : '';
 
 	$last_sync = $options->fetch_option(\Airalo\Admin\Settings\Option::LAST_SYNC);
@@ -137,18 +138,18 @@ function airalo_settings_page () {
 									</select>
 								</label>
 							</div>
-							<div>
+							<!-- <div>
 								<label for="airalo_use_sandbox">
 									Use Sandbox
 									<span class="switch">
-									<input type="checkbox" name="airalo_use_sandbox" <?php echo esc_html( $use_sandbox ); ?> id="airalo_use_sandbox"/>
+									<input type="checkbox" name="airalo_use_sandbox" <?php //echo esc_html( $use_sandbox ); ?> id="airalo_use_sandbox"/>
 									<span class="slider round"></span>
 									</span>
 								</label>
-							</div>
+							</div> -->
 							<div>
 								<label for="airalo_sync_images">
-									Sync Images
+									Use and auto-sync Airalo eSIM images
 									<span class="switch">
 										<input type="checkbox" name="airalo_sync_images" <?php echo esc_html(  $sync_images ); ?> id="airalo_sync_images"/>
 										<span class="slider round"></span>
@@ -157,7 +158,7 @@ function airalo_settings_page () {
 							</div>
 						<div>
 							<label for="airalo_sim_name">
-								Use Airalo Sim Name
+								Use and auto-sync Airalo eSIM names
 								<span class="switch">
 										<input type="checkbox" name="airalo_sim_name" <?php echo esc_html( $airalo_sim_name ); ?> id="airalo_sim_name"/>
 										<span class="slider round"></span>
@@ -166,7 +167,7 @@ function airalo_settings_page () {
 						</div>
 							<div>
 								<label for="airalo_auto_publish">
-									Auto Publish Product
+									Auto-publish new eSIMs
 									<span class="switch">
 									<input type="checkbox" name="airalo_auto_publish" <?php echo esc_html( $auto_publish ); ?> id="airalo_auto_publish"/>
 									<span class="slider round"></span>
@@ -175,7 +176,7 @@ function airalo_settings_page () {
 							</div>
 							<div>
 								<label for="airalo_auto_publish_update">
-									Auto Publish After Price Update
+									Auto-publish eSIMs when price updates 
 									<span class="switch">
 									<input type="checkbox" name="airalo_auto_publish_update" <?php echo esc_html( $auto_publish_after_update ); ?> id="airalo_auto_publish_update"/>
 									<span class="slider round"></span>
@@ -184,7 +185,7 @@ function airalo_settings_page () {
 							</div>
 							<div>
 								<label for="airalo_esim_cloud_share">
-									Use eSIM Cloud Share
+									Auto-send eSIM Cloud email to users
 									<span class="switch">
 									<input type="checkbox" name="airalo_esim_cloud_share" <?php echo esc_html( $airalo_esim_cloud_share ); ?> id="airalo_esim_cloud_share"/>
 									<span class="slider round"></span>
@@ -193,7 +194,7 @@ function airalo_settings_page () {
 							</div>
                             <div>
                                 <label for="airalo_update_product_title">
-                                    Update product title
+									Auto-sync product title overwriting edits
                                     <span class="switch">
                                         <input type="checkbox" name="airalo_update_product_title" <?php echo esc_html( $airalo_update_product_title ); ?> id="airalo_update_product_title"/>
                                         <span class="slider round"></span>
@@ -202,48 +203,57 @@ function airalo_settings_page () {
                             </div>
                             <div>
                                 <label for="airalo_update_product_description">
-                                    Update product description
+									Auto-sync product description overwriting edits
                                     <span class="switch">
                                         <input type="checkbox" name="airalo_update_product_description" <?php echo esc_html( $airalo_update_product_description ); ?> id="airalo_update_product_description"/>
                                         <span class="slider round"></span>
                                         </span>
                                 </label>
                             </div>
+							<!-- <div>
+                                <label for="airalo_flush_products">
+									Flush all eSIMs products (fresh but slower sync)
+                                    <span class="switch">
+                                        <input type="checkbox" name="airalo_flush_products" <?php //echo esc_html( $airalo_flush_products ); ?> id="airalo_flush_products"/>
+                                        <span class="slider round"></span>
+                                        </span>
+                                </label>
+                            </div> -->
 					</div>
 				</section>
 
 				<section>
 					<div class="airaloCard credentialsCard">
-						<p class="cardTitle">Production Credentials</p>
+						<p class="cardTitle">API Credentials</p>
 							<div>
-								<label for="airalo_client_id_sandbox">Client Id</label>
+								<label for="airalo_client_id">Client Id</label>
 								<input type="text" name="airalo_client_id" placeholder="Enter ID" value="<?php echo esc_html( $client_id ); ?>"/>
 							</div>
 
-
 							<div>
-								<label for="airalo_client_secret_sandbox">Client Secret</label>
+								<label for="airalo_client_secret">Client Secret</label>
 								<input type="password" name="airalo_client_secret" placeholder="Enter Secret"  value="<?php echo esc_html( $client_secret_encrypted ); ?>" />
+							</div>
+
+							<br>
+							<div class="airaloButtonContainer">
+								<input type="submit" name="save_airalo_settings" value="Save Settings" class="airaloButton"/>
 							</div>
 					</div>
 
-					<div class="airaloCard credentialsCard">
-						<p class="cardTitle">Sandbox Credentials</p>
+					<!-- <div class="airaloCard credentialsCard"> -->
+						<!-- <p class="cardTitle">Sandbox Credentials</p>
 
 							<div>
 								<label for="airalo_client_id_sandbox">Client Id</label>
-								<input type="text" name="airalo_client_id_sandbox" placeholder="Enter ID" value="<?php echo esc_html( $sandbox_client_id ); ?>"/>
+								<input type="text" name="airalo_client_id_sandbox" placeholder="Enter ID" value="<?php //echo esc_html( $sandbox_client_id ); ?>"/>
 							</div>
 
 							<div>
 								<label for="airalo_client_secret_sandbox">Client Secret</label>
-								<input type="password" name="airalo_client_secret_sandbox" placeholder="Enter Secret"  value="<?php echo esc_html( $client_sandbox_secret_encrypted ); ?>" />
-							</div>
-
-						<div class="airaloButtonContainer">
-							<input type="submit" name="save_airalo_settings" value="Save Settings" class="airaloButton"/>
-						</div>
-					</div>
+								<input type="password" name="airalo_client_secret_sandbox" placeholder="Enter Secret"  value="<?php //echo esc_html( $client_sandbox_secret_encrypted ); ?>" />
+							</div> -->
+					<!-- </div> -->
 				</section>
 			</form>
 		</div>
@@ -296,36 +306,38 @@ function airalo_register_settings () {
 
 		airalo_save_credentials(  $client_id, $client_secret );
 
-		$sandbox_client_id = isset( $_POST['airalo_client_id_sandbox'] ) ? sanitize_text_field( $_POST['airalo_client_id_sandbox'] ): null;
-		$sandbox_client_secret = isset( $_POST['airalo_client_secret_sandbox'] ) ? sanitize_text_field( $_POST['airalo_client_secret_sandbox'] ): null;
+		//$sandbox_client_id = isset( $_POST['airalo_client_id_sandbox'] ) ? sanitize_text_field( $_POST['airalo_client_id_sandbox'] ): null;
+		//$sandbox_client_secret = isset( $_POST['airalo_client_secret_sandbox'] ) ? sanitize_text_field( $_POST['airalo_client_secret_sandbox'] ): null;
 
-		$encrypted_sandbox_secret = $options->fetch_option( \Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX );
+		//$encrypted_sandbox_secret = $options->fetch_option( \Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX );
 
-		if ( $sandbox_client_secret == $encrypted_sandbox_secret && null != $encrypted_sandbox_secret ) {
-			$sandbox_client_secret = null;
-		}
+		// if ( $sandbox_client_secret == $encrypted_sandbox_secret && null != $encrypted_sandbox_secret ) {
+		// 	$sandbox_client_secret = null;
+		// }
 
-		airalo_save_credentials( $sandbox_client_id, $sandbox_client_secret, true );
+		//airalo_save_credentials( $sandbox_client_id, $sandbox_client_secret, true );
 	}
 }
 
 function airalo_save_settings(): void {
 	$auto_publish = isset( $_POST['airalo_auto_publish'] ) ? sanitize_text_field( $_POST['airalo_auto_publish'] ) : 'off';
 	$auto_publish_after_update = isset( $_POST['airalo_auto_publish_update'] ) ? sanitize_text_field( $_POST['airalo_auto_publish_update'] ) : 'off';
-	$use_sandbox = isset( $_POST['airalo_use_sandbox'] ) ? sanitize_text_field( $_POST['airalo_use_sandbox'] ) : 'off';
+	// @IMPORTANT: enforce sandbox is stored as disabled in DB, some partners may have it enabled and if we hide option it will remain stuck
+	$use_sandbox = 'off';
 	$language = isset( $_POST['airalo_language'] ) ? sanitize_text_field( $_POST['airalo_language'] ) : 'en';
 	$sync_images = isset( $_POST['airalo_sync_images'] ) ? sanitize_text_field( $_POST['airalo_sync_images'] ) : 'off';
 	$airalo_sim_name = isset( $_POST['airalo_sim_name'] ) ? sanitize_text_field( $_POST['airalo_sim_name'] ): 'off';
 	$airalo_esim_cloud_share = isset( $_POST['airalo_esim_cloud_share'] ) ? sanitize_text_field( $_POST['airalo_esim_cloud_share'] ): 'off';
 	$airalo_update_product_title = isset( $_POST['airalo_update_product_title'] ) ? sanitize_text_field( $_POST['airalo_update_product_title'] ): 'off';
 	$airalo_update_product_description = isset( $_POST['airalo_update_product_description'] ) ? sanitize_text_field( $_POST['airalo_update_product_description'] ): 'off';
+	$airalo_flush_products = isset( $_POST['airalo_flush_products'] ) ? sanitize_text_field( $_POST['airalo_flush_products'] ) : 'off';
 
 	$options = new \Airalo\Admin\Settings\Option();
 
-	$use_sandbox_old = $options->fetch_option( \Airalo\Admin\Settings\Option::USE_SANDBOX );
-	if ( $use_sandbox_old != $use_sandbox ) {
-		$options->insert_option( \Airalo\Admin\Settings\Option::ENVIRONMENT_SWITCHED, 'true' );
-	}
+	// $use_sandbox_old = $options->fetch_option( \Airalo\Admin\Settings\Option::USE_SANDBOX );
+	// if ( $use_sandbox_old != $use_sandbox ) {
+	// 	$options->insert_option( \Airalo\Admin\Settings\Option::ENVIRONMENT_SWITCHED, 'true' );
+	// }
 
 	$options->insert_option( \Airalo\Admin\Settings\Option::AUTO_PUBLISH, $auto_publish );
 	$options->insert_option( \Airalo\Admin\Settings\Option::AUTO_PUBLISH_AFTER_UPDATE, $auto_publish_after_update );
@@ -336,16 +348,17 @@ function airalo_save_settings(): void {
 	$options->insert_option( \Airalo\Admin\Settings\Option::USE_ESIM_CLOUD_SHARE, $airalo_esim_cloud_share );
 	$options->insert_option( \Airalo\Admin\Settings\Option::UPDATE_PRODUCT_TITLE, $airalo_update_product_title );
 	$options->insert_option( \Airalo\Admin\Settings\Option::UPDATE_PRODUCT_DESCRIPTION, $airalo_update_product_description );
+	$options->insert_option( \Airalo\Admin\Settings\Option::FLUSH_PRODUCTS, $airalo_flush_products );
 }
 
 function airalo_save_credentials( $clientId, $clientSecret, $isSandbox = false ): void {
 	$clientIdCredential = \Airalo\Admin\Settings\Credential::CLIENT_ID;
 	$clientSecretCredential = \Airalo\Admin\Settings\Credential::CLIENT_SECRET;
 
-	if ( $isSandbox ) {
-		$clientIdCredential = \Airalo\Admin\Settings\Credential::CLIENT_ID_SANDBOX;
-		$clientSecretCredential = \Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX;
-	}
+	// if ( $isSandbox ) {
+	// 	$clientIdCredential = \Airalo\Admin\Settings\Credential::CLIENT_ID_SANDBOX;
+	// 	$clientSecretCredential = \Airalo\Admin\Settings\Credential::CLIENT_SECRET_SANDBOX;
+	// }
 
 	$credentials = new \Airalo\Admin\Settings\Credential();
 
