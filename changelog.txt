@@ -35,3 +35,6 @@
 
 2025-07-17 - version 1.2.1
 * Cleanup activities
+
+2025-12-02 - version 1.2.2
+* Wordpress version compatibility update to 6.9
