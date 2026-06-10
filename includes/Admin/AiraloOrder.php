@@ -26,7 +26,7 @@ class AiraloOrder {
 		$language = ( new \Airalo\Admin\Settings\Option() )->fetch_option( \Airalo\Admin\Settings\Option::LANGUAGE );
         $translations = file_get_contents( __DIR__ . '../../../languages/translations.json' );
         $translations = json_decode( $translations, true );
-        $this->translations = $translations[$language] ?? [];
+        $this->translations = ( is_array( $translations ) && isset( $translations[$language] ) ) ? $translations[$language] : [];
 	}
 
 	/**

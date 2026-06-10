@@ -92,7 +92,7 @@ class OrderValidator {
 
 		$sku = (string) $product->get_sku();
 
-		return '' !== $sku && strpos( $sku, Product::SKU_PREFIX ) !== false;
+        return '' !== $sku && str_starts_with($sku, Product::SKU_PREFIX);
 	}
 
 	/**
