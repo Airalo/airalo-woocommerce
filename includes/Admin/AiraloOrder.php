@@ -18,12 +18,15 @@ class AiraloOrder {
 	private $description = 'Bulk order placed via Airalo Wordpress Plugin';
 
 	public function __construct() {
-		$this->airalo_client = ( new AiraloClient( new Option() ) )->getClient();
+        // SDK client is initialized lazily inside handle() so that any
+        // initialization failures (e.g. missing credentials) can be caught
+        // by handle()'s own try/catch and the order can be moved to on-hold.
+        $this->airalo_client = null;
 
 		$language = ( new \Airalo\Admin\Settings\Option() )->fetch_option( \Airalo\Admin\Settings\Option::LANGUAGE );
         $translations = file_get_contents( __DIR__ . '../../../languages/translations.json' );
         $translations = json_decode( $translations, true );
-        $this->translations = $translations[$language];
+        $this->translations = $translations[$language] ?? [];
 	}
 
 	/**
@@ -42,6 +45,10 @@ class AiraloOrder {
 		$payload = $this->get_order_payload( $wc_order );
 
 		try {
+			if ( null === $this->airalo_client ) {
+				$this->airalo_client = ( new AiraloClient( new Option() ) )->getClient();
+			}
+
             $description = '#' . $wc_order->get_id() . ' - ' . $this->description;
 
 			$result = ( $use_esim_cloud_share == \Airalo\Admin\Settings\Option::ENABLED )
@@ -77,10 +84,14 @@ class AiraloOrder {
 			if ( count( $failed_packages ) ) {
 				$wc_order->update_status( 'on-hold', 'There are Airalo package order failures. Response: ' . (string) $result );
 			}
-		} catch ( \Exception $ex ) {
-			error_log( $ex->getMessage() );
+		} catch ( \Throwable $ex ) {
+			error_log( '[Airalo] Order submission failed: ' . $ex->getMessage() );
 
-			$wc_order->update_status( 'on-hold', 'There are Airalo package order failures. Error: ' . $ex->getMessage() );
+			try {
+				$wc_order->update_status( 'on-hold', 'There are Airalo package order failures. Error: ' . $ex->getMessage() );
+			} catch ( \Throwable $inner ) {
+				error_log( '[Airalo] Failed to update order status: ' . $inner->getMessage() );
+			}
 		}
 	}
 
@@ -151,8 +162,8 @@ class AiraloOrder {
 
 				$wc_order->save();
 			}
-		} catch ( \Exception $ex ) {
-			error_log( $ex->getMessage() );
+		} catch ( \Throwable $ex ) {
+			error_log( '[Airalo] Failed to add order meta: ' . $ex->getMessage() );
 		}
 	}
 
