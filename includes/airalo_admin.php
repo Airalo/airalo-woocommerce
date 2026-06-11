@@ -7,7 +7,9 @@ require_once plugin_dir_path( __FILE__ ) . '../vendor/autoload.php';
 
 use Airalo\Admin\AiraloOrder;
 use Airalo\Admin\OrderValidator;
+use Airalo\Admin\Settings\Option;
 use Airalo\Helpers\Cached;
+use Airalo\Services\Airalo\AiraloClient;
 
 add_action( 'admin_enqueue_scripts', 'airalo_enqueue_admin_styles' );
 
@@ -299,12 +301,28 @@ function airalo_register_settings () {
 		$client_id = isset ( $_POST['airalo_client_id'] ) ? sanitize_text_field( $_POST['airalo_client_id'] ) : null;
 		$client_secret = isset ( $_POST['airalo_client_secret'] ) ? sanitize_text_field( $_POST['airalo_client_secret'] ) : null;
 		$encrypted_secret = $options->fetch_option( \Airalo\Admin\Settings\Credential::CLIENT_SECRET );
+		$stored_client_id = ( new \Airalo\Admin\Settings\Credential() )->get_credential( \Airalo\Admin\Settings\Credential::CLIENT_ID );
 
+		// The secret field is pre-filled with the stored encrypted blob; if the
+		// admin did not edit it the submission echoes that blob back. Treat it
+		// as "unchanged" so we don't try to use the encrypted value as a secret.
 		if ( $client_secret == $encrypted_secret && null != $encrypted_secret ) {
 			$client_secret = null;
 		}
 
-		airalo_save_credentials(  $client_id, $client_secret );
+		// Skip verification entirely when neither credential field was changed
+		// (admin saved the page without touching credentials). Without this,
+		// every settings save would re-verify stored credentials and surface
+		// an error if those happen to be invalid, even though the admin made
+		// no change to them.
+		$id_unchanged     = ( null === $client_id ) || ( $client_id === $stored_client_id );
+		$secret_unchanged = ( null === $client_secret );
+
+		if ( $id_unchanged && $secret_unchanged ) {
+			return;
+		}
+
+		airalo_verify_and_save_credentials( $client_id, $client_secret );
 
 		//$sandbox_client_id = isset( $_POST['airalo_client_id_sandbox'] ) ? sanitize_text_field( $_POST['airalo_client_id_sandbox'] ): null;
 		//$sandbox_client_secret = isset( $_POST['airalo_client_secret_sandbox'] ) ? sanitize_text_field( $_POST['airalo_client_secret_sandbox'] ): null;
@@ -371,6 +389,88 @@ function airalo_save_credentials( $clientId, $clientSecret, $isSandbox = false )
 	}
 }
 
+/**
+ * Verifies submitted Airalo API credentials by attempting to obtain an
+ * access token, and only persists them when verification succeeds.
+ *
+ * The submitted client_secret may be null when the admin left the field
+ * unchanged; in that case the previously stored secret is used for the
+ * verification call so a partial update (e.g. only client_id) still works.
+ *
+ * Result is stored in a transient and rendered as a one-shot admin notice
+ * by airalo_credentials_verification_notice().
+ *
+ * @param string|null $clientId
+ * @param string|null $clientSecret
+ * @return void
+ */
+function airalo_verify_and_save_credentials( $clientId, $clientSecret ): void {
+	// Nothing submitted at all -> nothing to do, do not show a notice.
+	if ( ! $clientId && ! $clientSecret ) {
+		return;
+	}
+
+	$credentials = new \Airalo\Admin\Settings\Credential();
+	$option      = new \Airalo\Admin\Settings\Option();
+
+	$effective_id     = $clientId ?: $credentials->get_credential( \Airalo\Admin\Settings\Credential::CLIENT_ID );
+	$effective_secret = $clientSecret ?: $credentials->get_credential( \Airalo\Admin\Settings\Credential::CLIENT_SECRET );
+
+	// Without both pieces we cannot verify; refuse to save and warn.
+	if ( ! $effective_id || ! $effective_secret ) {
+		set_transient( 'airalo_credentials_verification_result', [
+			'ok'      => false,
+			'message' => 'Airalo credentials were not saved: both Client ID and Client Secret are required.',
+		], 60 );
+
+		return;
+	}
+
+	$language = $option->fetch_option( \Airalo\Admin\Settings\Option::LANGUAGE ) ?: 'en';
+	$result   = AiraloClient::verify( (string) $effective_id, (string) $effective_secret, $option->get_environment(), (string) $language );
+
+	if ( ! $result['ok'] ) {
+		error_log( '[Airalo] Credential verification failed: ' . $result['error'] );
+
+		set_transient( 'airalo_credentials_verification_result', [
+			'ok'      => false,
+			'message' => 'Airalo credentials were not saved. Please provide a valid Client ID and Client Secret.',
+		], 60 );
+
+		return;
+	}
+
+	// Verified -> persist.
+	airalo_save_credentials( $clientId, $clientSecret );
+
+	set_transient( 'airalo_credentials_verification_result', [
+		'ok'      => true,
+		'message' => 'Airalo credentials verified and saved successfully.',
+	], 60 );
+}
+
+add_action( 'admin_notices', 'airalo_credentials_verification_notice' );
+
+function airalo_credentials_verification_notice() {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	$result = get_transient( 'airalo_credentials_verification_result' );
+
+	if ( ! $result || ! is_array( $result ) ) {
+		return;
+	}
+
+	delete_transient( 'airalo_credentials_verification_result' );
+
+	$class = ! empty( $result['ok'] ) ? 'notice-success' : 'notice-error';
+
+	echo '<div class="notice ' . esc_attr( $class ) . ' is-dismissible"><p><strong>Airalo:</strong> '
+		. esc_html( (string) ( $result['message'] ?? '' ) )
+		. '</p></div>';
+}
+
 function airalo_main_section_db() {
 	echo '<p>Settings</p>';
 }
@@ -389,45 +489,96 @@ function airalo_sync_products_function() {
 
 add_filter( 'woocommerce_add_to_cart_validation', 'airalo_validate_cart_item_quantity', 10, 3 );
 
-function airalo_validate_cart_item_quantity( $passed, $ignore_param, $quantity ) {
-	return ( new OrderValidator() )->handle( $passed, $quantity );
+function airalo_validate_cart_item_quantity( $passed, $product_id, $quantity ) {
+	return ( new OrderValidator() )->handle( $passed, $product_id, $quantity );
 }
 
 add_action( 'woocommerce_thankyou', 'airalo_submit_order', 10, 1 );
 
 function airalo_submit_order( $order ) {
-	$order = wc_get_order( $order );
+	try {
+		$order = wc_get_order( $order );
 
-	$items = $order->get_items();
-	$order_items = new \Airalo\Admin\OrderItem( $items );
-	$airalo_order_items = $order_items->get_airalo_order_items();
+		if ( ! $order ) {
+			return;
+		}
 
-	// skip if no airalo order items
-	if ( empty( $airalo_order_items ) ) {
-		return;
+		$items              = $order->get_items();
+		$order_items        = new \Airalo\Admin\OrderItem( $items );
+		$airalo_order_items = $order_items->get_airalo_order_items();
+
+		// skip if no airalo order items
+		if ( empty( $airalo_order_items ) ) {
+			return;
+		}
+
+		( new AiraloOrder() )->handle( $order );
+	} catch ( \Throwable $ex ) {
+		if ( $order instanceof \WC_Order ) {
+			try {
+				$order->update_status( 'on-hold', 'Error while submitting order to Airalo. Error: ' . $ex->getMessage() );
+			} catch ( \Throwable $inner ) {
+				error_log( '[Airalo] Failed to update order status in thankyou handler: ' . $inner->getMessage() );
+			}
+		}
+
+		error_log( '[Airalo] woocommerce_thankyou handler failed: ' . $ex->getMessage() );
 	}
-
-	( new AiraloOrder() )->handle( $order );
 }
 
 add_action( 'woocommerce_order_status_completed', 'airalo_admin_order_on_status' );
 add_action( 'woocommerce_order_status_processing', 'airalo_admin_order_on_status' );
 
 function airalo_admin_order_on_status( $order_id ) {
-	$order = wc_get_order( $order_id );
+	try {
+		$order = wc_get_order( $order_id );
 
-	$created_via = $order->get_created_via();
+		if ( ! $order ) {
+			return;
+		}
 
-	if ( $created_via != 'admin' ) {
+		$created_via = $order->get_created_via();
+
+		if ( $created_via != 'admin' ) {
+			return;
+		}
+
+		if ( Cached::get( function () {
+			// do nothing, just check if cache for this order exists
+		}, $order->get_id() )
+		) {
+			return;
+		}
+
+		( new AiraloOrder() )->handle( $order );
+	} catch ( \Throwable $ex ) {
+		error_log( '[Airalo] order status handler failed: ' . $ex->getMessage() );
+	}
+}
+
+/**
+ * Show an admin notice when Airalo API credentials are missing so the
+ * misconfiguration is surfaced before it impacts checkout.
+ */
+add_action( 'admin_notices', 'airalo_missing_credentials_notice' );
+
+function airalo_missing_credentials_notice() {
+	if ( ! current_user_can( 'manage_options' ) ) {
 		return;
 	}
 
-	if ( Cached::get( function () {
-		// do nothing, just check if cache for this order exists
-	}, $order->get_id() )
-	) {
+	try {
+		$client = new AiraloClient( new Option() );
+
+		if ( $client->has_credentials() ) {
+			return;
+		}
+	} catch ( \Throwable $ex ) {
+		error_log( '[Airalo] Failed to check credentials for admin notice: ' . $ex->getMessage() );
 		return;
 	}
 
-	( new AiraloOrder() )->handle( $order );
+	echo '<div class="notice notice-error"><p><strong>Airalo:</strong> '
+		. esc_html__( 'API credentials (Client ID and/or Client Secret) are not configured. Airalo orders will not be processed until they are set in the plugin settings.', 'airalo' )
+		. '</p></div>';
 }

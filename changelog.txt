@@ -38,3 +38,6 @@
 
 2025-12-02 - version 1.2.2
 * Wordpress version compatibility update to 6.9
+
+2026-06-10 - version 1.2.3
+* Add warning message if plugin client/secret keys are not set
