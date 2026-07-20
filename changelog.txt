@@ -41,3 +41,6 @@
 
 2026-06-10 - version 1.2.3
 * Add warning message if plugin client/secret keys are not set
+
+2026-07-14 - version 1.2.4
+* Only provision eSIMs after payment is confirmed to prevent delivery on unpaid orders from asynchronous/redirect gateways

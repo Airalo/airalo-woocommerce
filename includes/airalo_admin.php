@@ -512,6 +512,14 @@ function airalo_submit_order( $order ) {
 			return;
 		}
 
+		// Only provision once payment is confirmed. Asynchronous/redirect
+		// gateways (Trustly, Bizum, direct bank transfer, ...) reach the
+		// thank-you page while the order is still pending/on-hold; those are
+		// provisioned later via the order-status hooks once payment completes.
+		if ( ! $order->is_paid() ) {
+			return;
+		}
+
 		( new AiraloOrder() )->handle( $order );
 	} catch ( \Throwable $ex ) {
 		if ( $order instanceof \WC_Order ) {
@@ -537,12 +545,10 @@ function airalo_admin_order_on_status( $order_id ) {
 			return;
 		}
 
-		$created_via = $order->get_created_via();
-
-		if ( $created_via != 'admin' ) {
-			return;
-		}
-
+		// Provision on payment-confirmed status transitions for all orders (both admin-created and frontend).
+		// This is the path that covers asynchronous/redirect gateways, which are not yet paid when the
+		// thank-you page fires.
+		// Double-provisioning is prevented by the cache guard below and AiraloOrder::handle()'s idempotency check.
 		if ( Cached::get( function () {
 			// do nothing, just check if cache for this order exists
 		}, $order->get_id() )
