@@ -44,3 +44,7 @@
 
 2026-07-14 - version 1.2.4
 * Only provision eSIMs after payment is confirmed to prevent delivery on unpaid orders from asynchronous/redirect gateways
+
+2026-08-18 - version 1.2.5
+* Add warning message if required PHP extensions are not installed
+* Wordpress version compatibility update to 7.1

@@ -588,3 +588,40 @@ function airalo_missing_credentials_notice() {
 		. esc_html__( 'API credentials (Client ID and/or Client Secret) are not configured. Airalo orders will not be processed until they are set in the plugin settings.', 'airalo' )
 		. '</p></div>';
 }
+
+/**
+ * Show an admin notice when a PHP extension the plugin depends on is missing.
+ *
+ * These are hard requirements: without them credential storage (openssl),
+ * API authentication (sodium), or every API call (curl) fails, and checkout
+ * provisioning breaks with an opaque "invalid credentials" style error.
+ * Surfacing the missing extension here makes the root cause obvious instead
+ * of hiding it behind a generic failure.
+ */
+add_action( 'admin_notices', 'airalo_missing_php_extensions_notice' );
+
+function airalo_missing_php_extensions_notice() {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	$required = [ 'curl', 'openssl', 'sodium', 'json' ];
+
+	$missing = [];
+
+	foreach ( $required as $extension ) {
+		if ( ! extension_loaded( $extension ) ) {
+			$missing[] = $extension;
+		}
+	}
+
+	if ( empty( $missing ) ) {
+		return;
+	}
+
+	echo '<div class="notice notice-error"><p><strong>Airalo:</strong> '
+		. esc_html__( 'The following required PHP extensions are not enabled:', 'airalo' )
+		. ' <strong>' . esc_html( implode( ', ', $missing ) ) . '</strong>. '
+		. esc_html__( 'The plugin cannot work without those extensions. Please ask your host to enable them.', 'airalo' )
+		. '</p></div>';
+}
