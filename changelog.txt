@@ -47,3 +47,4 @@
 
 2026-08-18 - version 1.2.5
 * Add warning message if required PHP extensions are not installed
+* Wordpress version compatibility update to 7.1
